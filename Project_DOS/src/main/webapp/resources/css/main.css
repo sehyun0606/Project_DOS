@@ -1,0 +1,91 @@
+/* Integrated Styles for Profile Page */
+
+/* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Top Section */
+.top {
+    width: 100%;
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.top h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Side Section */
+.side {
+    width: 20%;
+    background-color: #6c757d;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+.side a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+.side a:hover {
+    text-decoration: underline;
+}
+
+/* Content Section */
+.content {
+    width: 60%;
+    background-color: #fff;
+    color: #212529;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.content h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.content p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+} 
