@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>공지사항 관리</title>
    	<link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +15,7 @@
         }
 
         .container2 {
-            width: 90%;
+            width: 70%;
             margin: 0 auto;
             margin-top: 30px;
             text-align: center;
@@ -134,75 +136,107 @@
         .pagination a:hover {
             background-color: #f4f4f4;
         }
+        #side-menu{
+        	width: 200px;
+        }
+        .main{
+        	display: flex;
+        }
     </style>
 </head>
 <body>
     <!-- Top 메뉴 포함 -->
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
-
-    <div class="container2">
-        <h1>공지사항 관리</h1>
-
-        <!-- 검색 바 -->
-        <div class="search-bar">
-            <select name="searchType">
-                <option value="name">name</option>
-                <option value="date">date</option>
-            </select>
-            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요" style="width : 50%;">
-            <button type="button">검색</button>
-        </div>
-		<!-- 공지사항 작성 버튼 -->
-	    <button class="create-button" onclick="location.href='NoticeForm'">작성하기</button>
-        <!-- 공지사항 테이블 -->
-        <table>
-            <thead>
-                <tr>
-                    <th>제목</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                    <th>관리</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>공지사항 제목 1</td>
-                    <td>2024.12.22</td>
-                    <td>22</td>
-                    <td class="action-buttons">
-                        <button class="edit">수정하기</button>
-                        <button class="delete">삭제하기</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>공지사항 제목 2</td>
-                    <td>2024.12.22</td>
-                    <td>11</td>
-                    <td class="action-buttons">
-                        <button class="edit">수정하기</button>
-                        <button class="delete">삭제하기</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>공지사항 제목 3</td>
-                    <td>2024.12.22</td>
-                    <td>45</td>
-                    <td class="action-buttons">
-                        <button class="edit">수정하기</button>
-                        <button class="delete">삭제하기</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-       
-
-        <!-- 페이지네이션 -->
-        <div class="pagination">
-            <a href="#1">1</a>
-            <a href="#2">2</a>
-            <a href="#3">3</a>
-        </div>
-    </div>
+	<div class="main">
+		<div id="side-menu">
+			<jsp:include page="/WEB-INF/views/inc/admin_service_side.jsp"></jsp:include>
+		</div>
+		
+	    <div class="container2">
+	        <h1>공지사항 관리</h1>
+	
+	        <!-- 검색 바 -->
+	        <div class="search-bar">
+	            <select name="searchType">
+	                <option value="name">name</option>
+	                <option value="date">date</option>
+	            </select>
+	            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요" style="width : 50%;">
+	            <button type="button">검색</button>
+	        </div>
+			<!-- 공지사항 작성 버튼 -->
+		    <button class="create-button" onclick="location.href='NoticeForm'">작성하기</button>
+	        <!-- 공지사항 테이블 -->
+	        <table>
+	            <thead>
+	                <tr>
+	                	<th width="100px">번호</th>
+	                    <th>제목</th>
+	                    <th width="150px">작성일</th>
+	                    <th width="100px">조회수</th>
+	                    <th width="200px">관리</th>
+	                </tr>
+	            </thead>
+	            
+	            <c:choose>
+	            	<c:when test="${empty noticeList}">
+	            		<tr><td colspan="5">개시물이 존재하지 않습니다.</td></tr>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<c:forEach var="notice" items="${noticeList}" varStatus="status">
+	            			<tr>
+	            				<td>${noticeList.board_idx}</td>
+			                    <td class="board_title">${noticeList.board_title}</td>
+			                    <td>${noticeList.board_date}</td>
+			                    <td>
+			                    	<fmt:formatDate value="${noticeList.notice_date}" pattern="yy-mm-dd"/>
+			                    </td>
+			                    <td class="action-buttons">
+			                        <button class="edit">수정하기</button>
+			                        <button class="delete">삭제하기</button>
+			                    </td>
+			                </tr>
+	            		
+	            		</c:forEach>
+	            	
+	            	</c:otherwise>
+	            </c:choose>
+	            
+	                
+	               
+	                
+	        </table>
+	
+	       
+	
+	        <div class="pagination">
+	        	<input type="button" value="이전"
+	        		onclick="location.href='AdminNotice?pageNum=${pageInfo.pageNum - 1}'"
+	        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
+		        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+		        	<c:choose>
+		        		<c:when test="${i eq pageInfo.pageNum}">
+		        			<strong>${i}</strong>
+		        		</c:when>
+		        		<c:otherwise>
+		        			<a href="AdminNotice?pageNum=${i}">${i}</a>
+		        		</c:otherwise>
+		        	</c:choose>
+		        </c:forEach>
+		        <input type="button" value="다음"
+		        onclick="location.href='AdminNotice?pageNum=${pageInfo.pageNum+1}'"
+		        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>>
+	        </div>
+	    </div>
+	
+	</div>
+	<script type="text/javascript">
+		${".board_title"}.on("click",function(event){
+			let board_num = $(event.target).siblings(".board_num").text();
+			location.href = "BoardDetail?board_num=" + board_num + "&pageNum=${pageInfo.pageNum}";
+		})
+		
+	</script>
+	
 </body>
 </html>
