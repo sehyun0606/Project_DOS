@@ -15,6 +15,6 @@ public class NoticeVO {
 	private String board_title;
 	private String board_content;
 	private String board_file;
-	private int readcount;
+	private int board_readcount;
 	private Timestamp board_date;
 }

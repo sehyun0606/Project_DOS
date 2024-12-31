@@ -93,23 +93,23 @@
     <div class="container2">
         <h1>공지사항 작성</h1>
 
-        <form action="/notice/save" method="post" enctype="multipart/form-data">
+        <form action="NoticeForm" method="post">
             <!-- 제목 입력 -->
             <div class="form-group">
                 <label for="title">제목 작성</label>
-                <input type="text" id="title" name="title" placeholder="공지사항 제목을 입력하세요" required>
+                <input type="text" id="title" name="board_title" placeholder="공지사항 제목을 입력하세요" required>
             </div>
 
             <!-- 내용 입력 -->
             <div class="form-group">
                 <label for="content">공지사항 내용 작성</label>
-                <textarea id="content" name="content" placeholder="공지사항 내용을 입력하세요" required></textarea>
+                <textarea id="content" name="board_content" placeholder="공지사항 내용을 입력하세요" required></textarea>
             </div>
 
             <!-- 첨부 파일 -->
             <div class="form-group">
                 <label for="attachments">첨부 파일</label>
-                <input type="file" id="attachments" name="attachments" multiple>
+                <input type="file" id="attachments" name="board_file">
             </div>
 
             <!-- 버튼 -->

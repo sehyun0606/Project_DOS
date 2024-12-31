@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,12 +186,11 @@
 	            	<c:otherwise>
 	            		<c:forEach var="notice" items="${noticeList}" varStatus="status">
 	            			<tr>
-	            				<td>${noticeList.board_idx}</td>
-			                    <td class="board_title">${noticeList.board_title}</td>
-			                    <td>${noticeList.board_date}</td>
-			                    <td>
-			                    	<fmt:formatDate value="${noticeList.notice_date}" pattern="yy-mm-dd"/>
-			                    </td>
+	            				<td>${notice.board_num}</td>
+			                    <td class="board_title">${notice.board_title}</td>
+			                    <td><fmt:formatDate value="${notice.board_date}" pattern="yy-MM-dd"/>
+								</td>
+			                    <td>${notice.board_readcount} </td>
 			                    <td class="action-buttons">
 			                        <button class="edit">수정하기</button>
 			                        <button class="delete">삭제하기</button>
@@ -233,7 +233,7 @@
 	<script type="text/javascript">
 		${".board_title"}.on("click",function(event){
 			let board_num = $(event.target).siblings(".board_num").text();
-			location.href = "BoardDetail?board_num=" + board_num + "&pageNum=${pageInfo.pageNum}";
+			location.href = "AdminNoticeDetail?board_num=" + board_num + "&pageNum=${pageInfo.pageNum}";
 		})
 		
 	</script>
