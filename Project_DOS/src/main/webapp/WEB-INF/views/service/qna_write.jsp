@@ -135,9 +135,10 @@
             </div>
         </div>
 		<textarea class="text1" id="text1" placeholder="내용을 입력해주세요."></textarea>
- 
+ 	</div>
+ 	
     <div class="fixed-btn-container">
-       	<button class="btn-list">등록</button>
+       	<button class="btn-list"onclick="location.href='/views/service/qna_write'">>등록</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
