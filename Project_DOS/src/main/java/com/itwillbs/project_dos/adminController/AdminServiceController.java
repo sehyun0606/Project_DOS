@@ -128,10 +128,15 @@ public class AdminServiceController {
 			return "result/result";
 		}
 		
-		
-		
 		return "admin/admin_service/admin_notice_serch";
 	}
+	
+	@GetMapping("AdminQuestion")
+	public String adminQuestion() {
+		
+		return "admin/admin_service/admin_question";
+	}
+	
 }
 
 
