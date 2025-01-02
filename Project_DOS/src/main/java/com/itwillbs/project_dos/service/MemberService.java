@@ -15,4 +15,8 @@ public class MemberService {
 		return mapper.insertMember(member);
 	}
 
+	public MemberVO getMember(String member_id) {
+		return mapper.selectMember(member_id);
+	}
+
 }

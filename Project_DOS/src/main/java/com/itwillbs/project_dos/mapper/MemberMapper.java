@@ -9,4 +9,6 @@ public interface MemberMapper {
 
 	int insertMember(MemberVO member);
 
+	MemberVO selectMember(String member_id);
+
 }

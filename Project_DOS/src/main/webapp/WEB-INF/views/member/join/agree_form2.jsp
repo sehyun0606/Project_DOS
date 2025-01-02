@@ -221,20 +221,18 @@ DOS 홈페이지 회원은 "본인 회원"만을 원칙으로 합니다.
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script>
-    function checkAgreement() {
-        // 체크박스 상태 확인
-        const agreePersonalInfo = document.getElementById('agree').checked;
+        function checkAgreement() {
+            const agree = document.getElementById('agree');
+            const disagree = document.getElementById('disagree');
 
-        // 하나라도 체크되지 않은 경우 경고창 표시
-        if (!agree) {
-            alert("모든 약관에 동의해야 합니다.");
-        } else {
-            // 모든 체크박스에 동의한 경우, 다음 단계로 진행 (예: 폼 제출)
-            alert("약관에 동의하셨습니다.");
-            window.location.href="SelectAgree";
-            // 여기서 폼 제출이나 다음 단계로 진행하는 코드를 추가할 수 있습니다.
+            if (agree.checked) {
+                // 동의했을 때의 처리 (예: 다음 페이지로 이동)
+                alert("다음 단계로 이동합니다.");
+                window.location.href="SelectAgree";
+            } else {
+                alert("동의를 하셔야 회원가입이 가능합니다.");
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>

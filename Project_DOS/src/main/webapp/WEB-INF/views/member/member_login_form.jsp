@@ -51,11 +51,11 @@
 		    <form action="LoginAction" method="post">
 		        <div class="mb-3">
 		            <label for="login" class="form-label">Login</label>
-		            <input type="text" id="login" name="login" class="form-control" placeholder="아이디 입력" required>
+		            <input type="text" id="login" name="member_id" class="form-control" placeholder="아이디 입력" required>
 		        </div>
 		        <div class="mb-3">
 		            <label for="password" class="form-label">Password</label>
-		            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력" required>
+		            <input type="password" id="password" name="member_passwd" class="form-control" placeholder="비밀번호 입력" required>
 		        </div>
 		        <div class="form-check mb-3">
 		            	<input type="checkbox" id="remember" name="remember" class="form-check-input">

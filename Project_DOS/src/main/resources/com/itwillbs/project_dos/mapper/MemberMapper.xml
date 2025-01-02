@@ -26,6 +26,11 @@
 		)
 	</insert>
 
+	<select id="selectMember" resultType="member">
+		SELECT *
+		FROM member
+		WHERE member_id = #{member_id}
+	</select>
 
 
 
