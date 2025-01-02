@@ -15,7 +15,7 @@ import com.itwillbs.project_dos.vo.MemberVO;
 @Controller
 public class MemberController {
 	@Autowired
-	MemberService service;
+	private MemberService service;
 	
 	@GetMapping("MemberLogin")
 	public String MemberLoginForm() {

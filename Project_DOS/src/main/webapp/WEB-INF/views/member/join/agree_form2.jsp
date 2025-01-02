@@ -213,7 +213,7 @@ DOS 홈페이지 회원은 "본인 회원"만을 원칙으로 합니다.
 
         <div class="mt-4">
             <button type="button" class="btn btn-custom" onclick="checkAgreement()">다음으로</button>
-            <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="history.back()">뒤로가기</button>
         </div>
     </form>
 </div>

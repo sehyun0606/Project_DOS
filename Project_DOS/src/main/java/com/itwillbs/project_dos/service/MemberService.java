@@ -9,7 +9,7 @@ import com.itwillbs.project_dos.vo.MemberVO;
 @Service
 public class MemberService {
 	@Autowired
-	MemberMapper mapper;
+	private MemberMapper mapper;
 
 	public int insertMember(MemberVO member) {
 		return mapper.insertMember(member);
