@@ -5,6 +5,7 @@
   <configuration>
   	<typeAliases>
   		<typeAlias type="com.itwillbs.project_dos.vo.NoticeVO" alias="notice"/>
+  		<typeAlias type="com.itwillbs.project_dos.vo.QuestionVO" alias="question"/>
   	</typeAliases>
   
   </configuration>

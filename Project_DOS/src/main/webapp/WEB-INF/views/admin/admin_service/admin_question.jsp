@@ -191,6 +191,7 @@
 	            		<c:forEach var="question" items="${questionList}" varStatus="status">
 	            			<tr>
 			                    <td class="board_title">[${question.qna_type}]${question.qna_title}</td>
+			                    <td>${question.member_id} </td>
 			                    <td><fmt:formatDate value="${question.qna_date}" pattern="yyyy-MM-dd"/>
 								</td>
 			                    <td>${question.qna_readcount} </td>
@@ -229,7 +230,8 @@
 	            		<c:forEach var="question" items="${questionList}" varStatus="status">
 	            			<tr>
 			                    <td class="board_title">[${question.qna_type}]${question.qna_title}</td>
-			                    <td><fmt:formatDate value="${question.qna_date}}" pattern="yyyy-MM-dd"/>
+			                    <td>${question.member_id} </td>
+			                    <td><fmt:formatDate value="${question.qna_date}" pattern="yyyy-MM-dd"/>
 								</td>
 			                    <td>${question.qna_readcount} </td>
 			                    <td class="action-buttons">
