@@ -28,6 +28,4 @@ public interface AdminServiceMapper {
 
 	List<NoticeVO> searchNoticeByDate(String searchQuery);
 	
-	
-	
 }
