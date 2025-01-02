@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminNoticePageInfo {
+public class AdminPageInfo {
 	private int listCount;
 	private int pageListLimit;
 	private int maxPage;

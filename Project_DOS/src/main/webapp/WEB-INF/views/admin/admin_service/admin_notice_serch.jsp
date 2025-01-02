@@ -165,10 +165,8 @@
 	            </select>
 	            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요" style="width : 50%;">
 	            <button type="submit">검색</button>
-	            
+	            <button type="button" onclick="location.href='AdminNotice'">전체목록보기</button>
 	        </form>
-			<!-- 공지사항 작성 버튼 -->
-		    <button class="create-button" onclick="location.href='NoticeForm'">작성하기</button>
 	        <!-- 공지사항 테이블 -->
 	        <table>
 	            <thead>
@@ -210,25 +208,7 @@
 	
 	       
 	
-	        <div class="pagination">
-	        	<input type="button" value="이전"
-	        		onclick="location.href='AdminNotice?pageNum=${pageInfo.pageNum - 1}'"
-	        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
-		        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-		        	<c:choose>
-		        		<c:when test="${i eq pageInfo.pageNum}">
-		        			<strong>${i}</strong>
-		        		</c:when>
-		        		<c:otherwise>
-		        			<a href="AdminNotice?pageNum=${i}">${i}</a>
-		        		</c:otherwise>
-		        	</c:choose>
-		        </c:forEach>
-		        <input type="button" value="다음"
-		        onclick="location.href='AdminNotice?pageNum=${pageInfo.pageNum+1}'"
-		        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>>
-	        </div>
-	    </div>
+	        
 	
 	</div>
 	<script type="text/javascript">
