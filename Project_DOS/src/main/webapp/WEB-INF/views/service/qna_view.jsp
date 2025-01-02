@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ include file="../inc/side.jsp" %>
+<%-- <%@ include file="../inc/side.jsp" %> --%>
 <%@ include file="../inc/top.jsp" %>
 
 <!DOCTYPE html>
@@ -9,8 +9,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>문의사항게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
+	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
     /* 고정 버튼 영역 */
@@ -201,7 +202,6 @@
         <div class="board-content-wrapper">
             <div class="board-content">
                 <p>
-                    예약 문의를 취소하고 싶은데 어떻게 하면되나요 ? 
                 </p>
             </div>
         </div>
@@ -211,9 +211,6 @@
         <div class="board-content-wrapper" >
             <div class="board-content">
                 <p>
-                    <strong>안녕하세요 최고의 레스토랑 DOS입니다.</strong><br>
-                    메뉴바의 예약하기.<br>
-                    마이 페이지 상세보기에서 예약 취소를 할 수 있습니다.
                 </p>
            
 
@@ -225,9 +222,9 @@
         <button type="button" class="btn btn-custom">이전글</button>
         <button type="button" class="btn btn-custom">목록</button>
         <button type="button" class="btn btn-custom">다음글</button>
-<%--     <c:if test="${sessionScope.userRole == 'ADMIN'}"> --%>
+    <c:if test="${sessionScope.userRole == 'ADMIN'}">
         <button type="button" class="btn btn-custom">수정하기</button>
-<%--     </c:if> --%>
+    </c:if>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

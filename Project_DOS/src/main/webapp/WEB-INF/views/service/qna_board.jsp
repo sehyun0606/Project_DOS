@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ include file="../inc/side.jsp" %>
 <%@ include file="../inc/top.jsp" %>
+<%-- <%@ include file="../inc/side.jsp" %> --%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 모바일에서 화면 크기에 맞게 표시하도록 설정 -->
     <title>문의사항게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -90,16 +91,16 @@
         }
 
 	    .fixed-buttons {
-		    position: absolute;  /* fixed 대신 absolute로 변경 */
-		    right: 200px;  /* 기존 좌표값 유지 */
-		    bottom: 400px;  /* 기존 좌표값 유지 */
+		    position: static;  /* fixed 대신 absolute로 변경 */
 		    z-index: 10;
 		}
 
 
         .fixed-buttons button {
             width: 150px;
-            margin-bottom: 10px;
+            margin-left: 1500px;
+            margin-right: 100px;
+            margin-bottom: 50px;
         }
 
         /* 글쓰기 버튼 스타일 */
@@ -140,16 +141,16 @@
             <div class="col-md-3">
                 <button type="button" class="btn btn-custom btn-block" onclick="">검색</button>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-custom btn-block" onclick="">자주 묻는 질문</button>
-            </div>
+			<div class="col-md-3">
+			    <button type="button" class="btn btn-custom btn-block" onclick="location.href='/project_dos/Faq';">자주 묻는 질문</button>
+			</div>
         </div>
 
         <!-- 테이블 -->
         <div class="table-container">
             <table class="table table-hover table-striped text-center">
                 <thead>
-                    <tr>
+                	<tr style="font-weight: bold; background-color: #f1f1f1;">
                         <th>번호</th>
                         <th>제목</th>
                         <th>작성자</th>
@@ -158,7 +159,7 @@
                     </tr>
                 </thead>
                 <tbody>
-					<tr style="" color: #007bff; background-color: #f1f1f1;">
+                	<tr>
 				    <td>1</td>
 					    <td>&lt;에약문의&gt; 고객님들이 자주 문의하시는 질문 모음</td>
 					    <td>관리자</td>
@@ -260,10 +261,19 @@
             </ul>
         </nav>
     </div>
-
-    <!-- 글쓰기 버튼 (우측 하단 고정) -->
+	<script>
+    function qna_write() {
+    	let isLoggedIn = false;
+        if (isLoggedIn) {
+            location.href = '/project_dos/Qna_write';
+        } else {
+            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+            location.href = '/project_dos/MemberLogin'; // 로그인 페이지 맵핑
+        }
+    }
+	</script>
     <div class="fixed-buttons">
-        <button type="button" class="btn btn-write" onclick="location.href='/login'">글쓰기</button>
+        <button type="button" class="btn btn-write" onclick="qna_write()">글쓰기</button>
     </div>
 
     <!-- Bootstrap JS 및 jQuery (CDN) -->
@@ -272,3 +282,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
