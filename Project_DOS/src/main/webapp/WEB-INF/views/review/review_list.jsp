@@ -18,20 +18,20 @@
             align-items: center;
             justify-content: center;
         }
-        .review-list-header {
+        .review-list-header { /*리뷰 목록 헤더 */
             display: flex;
             justify-content: space-between;
             width: 100%;
             margin-bottom: 20px;
         }
-        .review-list {
+        .review-list {  /* 리뷰 카드 감싸는 네모 */
             display: flex;
             flex-direction: column;
             gap: 10px;
             justify-content: flex-start;
             align-items: center;
         }
-        .review-card {
+        .review-card {   /* 각 각의 리뷰 네모 카드*/
             display: flex;
             flex-direction: row;
             width: 800px;
@@ -42,19 +42,19 @@
             border-radius: 8px;
             position: relative;
         }
-        .review-image {
+        .review-image {  /* 프로필 이미지 */
             width: 80px;
             height: 80px;
             object-fit: cover;
             border-radius: 50%;
             margin-right: 15px;
         }
-        .review-content {
+        .review-content {   /* 리뷰 내용 전체 감싸는 컨테이너 ?*/
             display: flex;
             flex-direction: column;
             width: 100%;
         }
-        .review-header {
+        .review-header {   /* 작성자 이름과 별점 ? */
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -63,12 +63,12 @@
             font-size: 1.1em;
             font-weight: bold;
         }
-        .review-rating {
+        .review-rating {   /* 별점 */
             color: #ff9f00;
             display: flex;
             align-items: center;
         }
-        .like-button {
+        .like-button {   /* 좋아요*/
             color: #000;
             cursor: pointer;
             margin-left: 10px;
@@ -76,24 +76,24 @@
             display: flex;
             align-items: center;
         }
-        .like-button.liked i {
+        .like-button.liked i { 
             color: #fff;
             background-color: #000;
             border-radius: 50%;
             padding: 5px;
             border: 2px solid #000;
         }
-        .like-count {
+        .like-count {   /* 좋아요 개수*/
             margin-left: 5px;
             font-size: 1em;
             color: #000;
         }
-        .review-text {
+        .review-text {   /* 리뷰 내용 글자 크기 , 색상 */
             color: #555;
             font-size: 0.9em;
             margin-top: 10px;
         }
-        .review-footer {
+        .review-footer {   /* 리뷰 날짜, 신고버튼 정렬 */
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -104,7 +104,7 @@
         .review-footer .review-date {
             margin-right: 5px;
         }
-        .pagination {
+        .pagination {   /* 페이지 번호 칸 정렬 */
             justify-content: center;
         }
         .review-list-header {
@@ -137,11 +137,11 @@
             border-radius: 8px; /* 둥근 모서리 */
             font-weight: bold; /* 글씨 굵게 */
         }
-        #reportModal .modal-title {
+        #reportModal .modal-title {   /* 신고 모달 제목 폰트 */
             font-size: 2rem;
             font-weight: bold;
         }
-        #reportModal textarea {
+        #reportModal textarea {   /* 신고 사유 텍스트 입력창 높이, 크기 */
             height: 300px; /* 기존의 두 배 크기 */
             resize: none; /* 크기 조절 비활성화 */
         }
@@ -163,25 +163,27 @@
 
     <div class="review-list">
         <!-- 반복문을 통해 여러 리뷰 표시 -->
+        <c:forEach var="review" items="${reviews}">
         <div class="review-card">
-            <img src="profile.jpg" class="review-image" alt="Profile Image">
+            <img src="${review.image}" class="review-image" alt="Profile Image">
             <div class="review-content">
                 <div class="review-header">
-                    <div class="review-name">작성자 이름</div>
+                    <div class="review-name">${review.name}</div>
                     <div class="review-rating">
-                        ★★★★☆
+                         ${review.rating}
                         <span class="like-button" onclick="toggleLike(this)">
                             <i class="bi bi-hand-thumbs-up"></i>
-                            <span class="like-count">+0</span> <!-- 좋아요 갯수 표시 -->
+                            <span class="like-count">+${review.likes}</span> <!-- 좋아요 갯수 표시 -->
                         </span>
                     </div>
                 </div>
-                <div class="review-text">리뷰 내용이 여기에 표시됩니다...</div>
+                <div class="review-text">${review.text}</div>
                 <div class="review-footer">
-                    <div class="review-date">2024-12-23</div>
+                    <div class="review-date">${review.date}</div>
                     <span class="report-button" onclick="reportReview()">신고</span>
                 </div>
             </div>
+            </c:forEach>
         </div>
 
         <!-- 두 번째 리뷰 -->
@@ -252,19 +254,32 @@
         
         <!-- 다섯 번째 리뷰 -->
 
+
  <!-- Pagination -->
-        <div class="pagination">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+<!--         <div class="pagination"> -->
+<!--             <nav aria-label="Page navigation"> -->
+<!--                 <ul class="pagination"> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">«</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">1</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">»</a></li> -->
+<!--                 </ul> -->
+<!--             </nav> -->
+<!--         </div> -->
+<!--     </div> -->
+
+<div class="pagination">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <c:forEach var="page" begin="1" end="${reviewPagesTotal}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=${reviewPage}">${reviewPage}</a>
+                </li>
+            </c:forEach>
+        </ul>
+    </nav>
+</div>
 
 <!-- 신고 모달 -->
 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">

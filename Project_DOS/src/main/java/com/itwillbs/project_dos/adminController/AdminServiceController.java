@@ -1,6 +1,7 @@
 package com.itwillbs.project_dos.adminController;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,73 @@ public class AdminServiceController {
 			model.addAttribute("msg","등록 실패");
 			return "result/result";
 		}
+	}
+	
+	@GetMapping("AdminNoticeEdit")
+	public String noticeEdit(int board_num, Model model) {
+		NoticeVO notice = adminService.getAdminNotice(board_num);
+		if(notice == null) {
+			model.addAttribute("msg", "존재하지 않는 게시물입니다");
+			return "result/fail";
+		}
+		model.addAttribute("notice",notice);
+		return "admin/admin_service/notice_edit";
+	}
+	
+	@PostMapping("AdminNoticeEdit")
+	public String editNotice(int board_num,NoticeVO notice, Model model) {
+		
+		notice.setBoard_num(board_num);
+		
+		int updateCount = adminService.editNotice(notice);
+		
+		if(updateCount > 0) {
+			return "redirect:/AdminNotice";
+		}else {
+			model.addAttribute("msg", "공지사항 수정 실패!");
+			return "result/result";
+		}
 		
 	}
+	@GetMapping("AdminNoticeDelete")
+	public String noticeDelete(int board_num, Model model) {
+		
+		int deleteCount = adminService.deleteNotice(board_num);
+		if(deleteCount > 0) {
+			return "redirect:/AdminNotice";
+		}else {
+			model.addAttribute("msg", "삭제 실패..");
+			return "result/result";
+		}
+	}
+	
+	@GetMapping("AdminNoticeSerch")
+	public String adminNoticeSerch(@RequestParam Map<String, String> map, Model model) {
+		
+		if(map.get("searchType").equals("name")) {
+			List<NoticeVO> noticeList = adminService.searchNoticeListByName(map.get("searchQuery"));
+			model.addAttribute("noticeList", noticeList);
+		}else if(map.get("searchType").equals("date")) {
+			List<NoticeVO> noticeList = adminService.searchNoticeListByDate(map.get("searchQuery"));
+			model.addAttribute("noticeList", noticeList);
+		}else {
+			model.addAttribute("msg","잘못된 접근!!");
+			return "result/result";
+		}
+		
+		return "admin/admin_service/admin_notice_serch";
+	}
+	
+	@GetMapping("AdminQuestion")
+	public String adminQuestion() {
+		
+		return "admin/admin_service/admin_question";
+	}
+	
 }
+
+
+
+
+
+

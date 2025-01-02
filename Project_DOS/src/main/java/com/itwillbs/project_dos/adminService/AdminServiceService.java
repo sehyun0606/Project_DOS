@@ -24,5 +24,26 @@ public class AdminServiceService {
 	public List<NoticeVO> getNoticeList(int startRow, int listLimit) {
 		return serviceMapper.selectAdminNoticeList(startRow,listLimit);
 	}
+
+	public NoticeVO getAdminNotice(int board_num) {
+		return serviceMapper.selectAdminNotice(board_num);
+	}
+
+	public int editNotice( NoticeVO notice) {
+		return serviceMapper.updateAdminNotice(notice);
+	}
+
+	public int deleteNotice(int board_num) {
+		return serviceMapper.deleteAdminNotice(board_num);
+	}
+
+	public List<NoticeVO> searchNoticeListByName(String searchQuery) {
+		return serviceMapper.searchNoticeByTitle(searchQuery);
+	}
+
+	public List<NoticeVO> searchNoticeListByDate(String searchQuery) {
+		return serviceMapper.searchNoticeByDate(searchQuery);
+	}
+	
 	
 }

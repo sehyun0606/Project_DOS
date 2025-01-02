@@ -18,4 +18,14 @@ public interface AdminServiceMapper {
 			@Param("startRow")int startRow,
 			@Param("listLimit")int listLimit);
 
+	NoticeVO selectAdminNotice(int board_num);
+
+	int updateAdminNotice(NoticeVO notice);
+
+	int deleteAdminNotice(int board_num);
+
+	List<NoticeVO> searchNoticeByTitle(String searchQuery);
+
+	List<NoticeVO> searchNoticeByDate(String searchQuery);
+	
 }

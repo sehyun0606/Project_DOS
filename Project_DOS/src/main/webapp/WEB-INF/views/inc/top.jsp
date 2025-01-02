@@ -43,6 +43,8 @@
                         <li><a class="dropdown-item" href="MealKit">밀키트</a></li>
                     </ul>
                 </li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="Question">문의사항</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="Notice">공지사항</a></li>
             </ul>
             <div id="top_menu">
 				

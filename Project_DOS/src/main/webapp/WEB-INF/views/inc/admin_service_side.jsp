@@ -7,11 +7,11 @@
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" href="AdminMerch">
+                            <a class="nav-link" href="AdminNotice">
                                 <div class="sb-nav-link-icon"></div>
                                 공지사항
                             </a>
-                            <a class="nav-link" href="AdminMealkit">
+                            <a class="nav-link" href="AdminQuestion">
                                 <div class="sb-nav-link-icon"></div>
                                 문의사항
                             </a>
