@@ -35,4 +35,8 @@ public interface AdminServiceMapper {
 
 	List<QuestionVO> selectNotAnsweredQuestionList();
 
+	QuestionVO selectAdminQuestion(int qna_num);
+
+	int updateAdminQuestion(@Param("request_content")String request_content, @Param("qna_num")int qna_num);
+
 }
