@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_dos.adminMapper.AdminServiceMapper;
 import com.itwillbs.project_dos.vo.NoticeVO;
+import com.itwillbs.project_dos.vo.QuestionVO;
 
 @Service
 public class AdminServiceService {
@@ -43,6 +44,18 @@ public class AdminServiceService {
 
 	public List<NoticeVO> searchNoticeListByDate(String searchQuery) {
 		return serviceMapper.searchNoticeByDate(searchQuery);
+	}
+
+	public int getAdminQuestionListCount() {
+		return serviceMapper.selectAdminQuestionListCount();
+	}
+
+	public List<QuestionVO> getQuestionList(int startRow, int listLimit) {
+		return serviceMapper.selectAdminQuestionList(startRow,listLimit);
+	}
+
+	public List<QuestionVO> getNotAnsweredQuestionList() {
+		return serviceMapper.selectNotAnsweredQuestionList();
 	}
 	
 }
