@@ -1,0 +1,238 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex; /* 플렉스박스 적용 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    height: 100vh; /* 화면 높이 전체 사용 */
+    transform: scale(0.8); /* 화면 80%로 축소 */
+    transform-origin: center; /* 중앙 기준으로 축소 */
+}
+
+
+.reserve-button-container {
+    text-align: center; /* 버튼을 가운데 정렬 */
+    margin-top: 30px; /* 카드들 간의 간격을 추가 */
+  }
+  
+  .reserve-button {
+    background-color: green; /* 버튼 배경색 */
+    color: white; /* 텍스트 색 */
+    font-size: 24px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer; /* 마우스를 올리면 클릭 가능한 느낌을 줌 */
+    width: 200px; /* 버튼 크기 설정 */
+  }
+  
+  .reserve-button:hover {
+    background-color: #bbb; /* 마우스를 올리면 배경색 변경 */
+  }
+  
+  .reserve-button:active {
+    background-color: #888; /* 클릭 시 배경색 변경 */
+  }
+
+  .container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .human img {
+   
+    object-fit: cover; /* 비율 유지하며 꽉 채우기 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease-in-out;
+    margin-right: 20px; /* 제목과의 간격 설정 (2cm = 약 20px) */
+  }
+  
+  
+
+  /* 제목 스타일 */
+ .reservation-title {
+    font-size: 24px; /* 제목 글자 크기 */
+    font-weight: bold; /* 글자 굵기 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 10px; /* 아래 여백 */
+}
+  
+  .reservation-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  /* 인원 선택 버튼 스타일 */
+  .person-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* 여러 줄로 나타날 수 있도록 설정 */
+  }
+  
+  .person-box {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .person-radio {
+    margin-right: 5px; /* 라디오 버튼과 텍스트 사이의 간격 */
+  }
+  
+  
+  .person-box:hover {
+    background-color: #ccc;
+  }
+  
+  
+  
+  /* 평점과 리뷰 정보 스타일 */
+  .rating-info {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+  }
+  
+  .star {
+    color: gold;
+    margin-right: 5px;
+  }
+  
+  .rating {
+    font-weight: bold;
+  }
+  
+  .review {
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  
+  
+  
+  
+  /* 날짜 선택 스타일 */
+  .date-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+  
+  .date-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+  }
+  /* 평점과 리뷰 정보 스타일 */
+  .rating-info {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .star {
+    color: gold;
+    margin-right: 5px;
+  }
+  
+  .rating {
+    font-weight: bold;
+  }
+  
+  .review {
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  /* 가운데 정렬된 텍스트 */
+  .extra-text {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+  }
+  
+  
+ /* 시간 선택 스타일 */
+.time-selection {
+    margin-bottom: 30px;
+}
+
+.time-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.time-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time-btn {
+    width: 70px;
+    height: 45px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.time-btn:hover {
+    background-color: #ccc;
+}
+
+/* 클릭 시 선택된 버튼 스타일 */
+.time-btn:focus {
+    background-color: dimgrey; /* 선택 시 배경색 변경 */
+    color: white; /* 선택 시 글자색 변경 */
+    outline: none; /* 포커스 테두리 제거 */
+    border: 1px solid black; /* 선택 시 테두리 강조 */
+}
+
+  /* "다음" 버튼 스타일 */
+  .next-button-container {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .next-btn {
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 200px;
+  }
+  
+  .next-btn:hover {
+    background-color: #bbb;
+  }
