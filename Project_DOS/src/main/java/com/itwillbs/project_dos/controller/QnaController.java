@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.itwillbs.project_dos.vo.QuestionVO;
+
 @Controller
 public class QnaController {
 		@Autowired
@@ -19,7 +21,13 @@ public class QnaController {
 		}
 	
 		@GetMapping("/Qna_write")
-		public String qnawrite() {
+		public String qnawrite(QuestionVO qna) {
+//			int insertCount = service.qnaBoard(qna);
+//			
+//			if(insertCount > 0) {
+//				return 
+//			}
+			
 			return "service/qna_write";
 		}
 	}

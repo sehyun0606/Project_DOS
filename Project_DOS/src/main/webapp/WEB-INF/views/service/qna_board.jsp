@@ -263,7 +263,7 @@
     </div>
 	<script>
     function qna_write() {
-    	let isLoggedIn = false;
+    	let isLoggedIn = true;
         if (isLoggedIn) {
             location.href = '/project_dos/Qna_write';
         } else {
