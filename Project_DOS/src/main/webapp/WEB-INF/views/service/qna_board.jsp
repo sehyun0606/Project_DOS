@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ include file="../inc/side.jsp" %>
 <%@ include file="../inc/top.jsp" %>
+<%-- <%@ include file="../inc/side.jsp" %> --%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 모바일에서 화면 크기에 맞게 표시하도록 설정 -->
     <title>문의사항게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -140,9 +141,9 @@
             <div class="col-md-3">
                 <button type="button" class="btn btn-custom btn-block" onclick="">검색</button>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-custom btn-block" onclick="">자주 묻는 질문</button>
-            </div>
+			<div class="col-md-3">
+			    <button type="button" class="btn btn-custom btn-block" onclick="location.href='/project_dos/Faq';">자주 묻는 질문</button>
+			</div>
         </div>
 
         <!-- 테이블 -->
@@ -262,12 +263,12 @@
     </div>
 	<script>
     function qna_write() {
+    	let isLoggedIn = false;
         if (isLoggedIn) {
-            location.href = 'QnaWrite';
+            location.href = '/project_dos/Qna_write';
         } else {
-            
             alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-            location.href = 'Login'; // 로그인 페이지 맵핑
+            location.href = '/project_dos/MemberLogin'; // 로그인 페이지 맵핑
         }
     }
 	</script>

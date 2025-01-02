@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ include file="../inc/side.jsp" %>
+<%-- <%@ include file="../inc/side.jsp" %> --%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,7 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 모바일에서 화면 크기에 맞게 표시하도록 설정 -->
     <title>공지사항게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>

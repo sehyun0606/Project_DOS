@@ -45,4 +45,5 @@ public class AdminServiceService {
 		return serviceMapper.searchNoticeByDate(searchQuery);
 	}
 	
+	
 }

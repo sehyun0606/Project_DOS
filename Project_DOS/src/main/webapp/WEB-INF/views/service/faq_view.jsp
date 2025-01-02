@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ include file="../inc/side.jsp" %>
 <%@ include file="../inc/top.jsp" %>
+<%-- <%@ include file="../inc/side.jsp" %> --%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,23 +9,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FAQ게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
-    /* 고정 버튼 영역 */
-    .fixed-buttons {
-        position: absolute; /* 부모 컨테이너 기준으로 위치 고정 */
-        bottom: 20px; /* 하단에서의 거리 */
-        transform: translateX(-50%); /* 가운데 정렬 보정 */
-        z-index: 10; /* 다른 요소 위에 배치 */
-    }
 
-    /* 고정 버튼 스타일 */
-    .fixed-buttons button {
-        width: 150px; /* 버튼 너비 */
-        margin-bottom: 10px; /* 버튼 간 간격 */
-    }
 
     /* 전체 컨테이너 */
     .container2 {
@@ -100,15 +89,28 @@
         line-height: 1.6; /* 줄 간격 */
         color: #333; /* 글자 색상 */
     }
+	
+	    /* 고정 버튼 영역 */
+	.fixed-buttons {
+	    position: fixed;   /* 고정된 위치 */
+	    bottom: 20px;      /* 하단에서 거리 조정 */
+	    right: 900px;       /* 우측에서 거리 조정 */
+	    z-index: 10;       /* 다른 요소 위에 배치 */
+	    width: auto;       /* 컨테이너의 폭 자동 설정 */
+	    display: flex;    /* 버튼들이 나란히 배치되도록 */
+	    justify-content: space-between; /* 버튼들 간 간격 */
+	}
 
-    /* 고정 버튼 컨테이너 */
-    .fixed-buttons {
-        position: absolute; /* 화면 기준 고정 위치 */
-        bottom: 330px; /* 하단 거리 */
-        left: 50%; /* 가로 중앙 정렬 */
-        transform: translateX(-50%); /* 중앙 정렬 보정 */
-        z-index: 10; /* 다른 요소 위에 배치 */
+
+
+    /* 고정 버튼 스타일 */
+    .fixed-buttons button {
+        width: 150px; /* 버튼 너비 */
+        margin-bottom: 10px; /* 버튼 간 간격 */
     }
+	
+    /* 고정 버튼 컨테이너 */
+
 
     /* 공통 버튼 스타일 */
     .btn-list, .btn-custom {
@@ -176,7 +178,7 @@
     </div>
 
     <div class="fixed-buttons">
-        <button type="button" class="btn btn-custom">목록</button>
+        <button type="button" class="btn btn-custom" onclick = "history.back()">목록</button>
 	<c:if test="${sessionScope.userRole == 'ADMIN'}">
         <button type="button" class="btn btn-custom">수정하기</button>
     </c:if>
