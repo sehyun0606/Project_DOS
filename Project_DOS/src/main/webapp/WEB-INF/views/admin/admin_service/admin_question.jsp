@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>공지사항 관리</title>
+    <title>문의사항 관리</title>
    	<link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
     <style>
@@ -159,7 +159,7 @@
 	        <h1>문의사항 관리</h1>
 	
 	        <!-- 검색 바 -->
-	        <form class="search-bar" action="AdminQuestionSerch" method="get">
+	        <form class="search-bar" action="AdminQuestionSearch" method="get">
 	            <select name="searchType">
 	                <option value="name">name</option>
 	                <option value="id">id</option>
@@ -293,8 +293,8 @@
 		$(".delete").on("click",function(event){
 			let message = confirm("삭제하시겠습니까?");
 			if(message){
-				let board_num = $(event.target).siblings(".board_num").text();
-				location.href = "AdminQuestionDelete?qna_num=" + board_num;
+				let qna_num = $(event.target).siblings(".qna_num").text();
+				location.href = "AdminQuestionDelete?qna_num=" + qna_num;
 			}
 		})
 	</script>

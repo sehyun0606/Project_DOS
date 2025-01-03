@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.project_dos.adminService.AdminServiceService;
 import com.itwillbs.project_dos.vo.AdminPageInfo;
+import com.itwillbs.project_dos.vo.FAQVO;
 import com.itwillbs.project_dos.vo.NoticeVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 
@@ -121,8 +122,8 @@ public class AdminServiceController {
 	}
 	
 	//공지사항 필터링 및 검색 로직
-	@GetMapping("AdminNoticeSerch")
-	public String adminNoticeSerch(@RequestParam Map<String, String> map, Model model) {
+	@GetMapping("AdminNoticeSearch")
+	public String adminNoticeSearch(@RequestParam Map<String, String> map, Model model) {
 		
 		if(map.get("searchType").equals("name")) {
 			List<NoticeVO> noticeList = adminService.searchNoticeListByName("%"+map.get("searchQuery")+"%");
@@ -135,7 +136,7 @@ public class AdminServiceController {
 			return "result/result";
 		}
 		
-		return "admin/admin_service/admin_notice_serch";
+		return "admin/admin_service/admin_notice_search";
 	}
 	
 	//문의사항 페이징 및 목록 조회 로직
@@ -240,6 +241,72 @@ public class AdminServiceController {
 			model.addAttribute("targetURL", "AdminQuestion");
 			return "result/result";
 		}
+	}
+	//문의사항 삭제 기능
+	@GetMapping("AdminQuestionDelete")
+	public String adminQuestionDelete(int qna_num, Model model) {
+		
+		int deleteCount = adminService.deleteQuestion(qna_num);
+		
+		if(deleteCount > 0) {
+			return "redirect:/AdminQuestion";
+		}else {
+			model.addAttribute("msg", "삭제 실패..");
+			return "result/result";
+		}
+		
+	}
+	
+	
+	//문의사항 검색 기능
+	@GetMapping("AdminQuestionSearch")
+	public String adminQuestionSerch(@RequestParam Map<String, String> map, Model model) {
+		
+		String searchQuery = "%"+map.get("searchQuery")+"%";
+		List<QuestionVO> questionList = null;
+		if(map.get("searchType").equals("name")) {
+			questionList = adminService.searchQuestionListByName(searchQuery);
+		}else if(map.get("searchType").equals("date")) {
+			questionList = adminService.searchQuestionListByDate(searchQuery);
+		}else if(map.get("searchType").equals("id")){
+			questionList = adminService.searchQuestionListByID(searchQuery);
+		}else if(map.get("searchType").equals("category")) {
+			questionList = adminService.searchQuestionListByCategory(searchQuery);
+		}
+		else {
+			model.addAttribute("msg","잘못된 접근!!");
+			return "result/result";
+		}
+		model.addAttribute("questionList", questionList);
+		
+		return "admin/admin_service/admin_question_search";
+	}
+	
+	@GetMapping("AdminFAQ")
+	public String adminFAQForm( Model model) {
+		
+		FAQVO faq = adminService.getFAQ();
+		
+		model.addAttribute("FaqList", faq);
+		
+		
+		return "admin/admin_service/admin_faq";
+	}
+	
+	@PostMapping("AdminFAQ")
+	public String adminFAQ(FAQVO faqVO, Model model) {
+		
+		int updateCount = adminService.updateFAQ(faqVO);
+		
+		if(updateCount > 0) {
+			model.addAttribute("msg", "faq 수정 성공!");
+			model.addAttribute("targetURL", "AdminNotice");
+			return "result/result";
+		}else {
+			model.addAttribute("msg", "faq 수정 실패..");
+			return "result/result";
+		}
+		
 	}
 	
 }
