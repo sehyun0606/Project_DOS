@@ -13,9 +13,9 @@
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value=""></property>
-		<property name="username" value=""></property>
-		<property name="password" value=""></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://${db.host}/${db.db_name}"></property>
+		<property name="username" value="${db.username}"></property>
+		<property name="password" value="${db.passwd}"></property>
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
