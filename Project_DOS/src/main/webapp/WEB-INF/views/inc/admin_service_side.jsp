@@ -15,6 +15,10 @@
                                 <div class="sb-nav-link-icon"></div>
                                 문의사항
                             </a>
+                            <a class="nav-link" href="AdminFAQ">
+                                <div class="sb-nav-link-icon"></div>
+                               	FAQ 관리
+                            </a>
                         </div>
                    </div>
                 </nav>

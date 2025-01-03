@@ -57,6 +57,15 @@ public class AdminServiceService {
 	public List<QuestionVO> getNotAnsweredQuestionList() {
 		return serviceMapper.selectNotAnsweredQuestionList();
 	}
+
+
+	public QuestionVO getAdminQuestion(int qna_num) {
+		return serviceMapper.selectAdminQuestion(qna_num);
+	}
+
+	public int requestQuestion(String request_content, int qna_num) {
+		return serviceMapper.updateAdminQuestion(request_content, qna_num);
+	}
 	
 	
 }
