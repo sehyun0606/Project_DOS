@@ -54,12 +54,12 @@
  	<select id="searchNoticeByTitle" resultType="notice">
  		SELECT *
  		FROM notice_board
- 		WHERE board_title = #{searchQuery}
+ 		WHERE board_title LIKE #{searchQuery}
  	</select>
  	<select id="searchNoticeByDate" resultType="notice">
  		SELECT *
  		FROM notice_board
- 		WHERE date(board_date) = #{searchQuery}
+ 		WHERE DATE_FORMAT(board_date, '%Y-%m-%d') LIKE #{searchQuery}
  	</select>
  	
  	<select id="selectAdminQuestionListCount" resultType="int">
@@ -82,8 +82,54 @@
  		ORDER BY
  			qna_num DESC
  	</select>
+ 	<select id="selectAdminQuestion" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE qna_num = #{qna_num}
+ 	</select>
  	
+ 	<update id="updateAdminQuestion">
+ 		UPDATE question_board
+ 		SET request_status = 'Y',
+ 			request_content = #{request_content},
+ 			request_date = NOW()
+ 		WHERE qna_num = #{qna_num}
+ 	</update>
+ 	<delete id="deleteAdminQuestion">
+ 		DELETE
+ 		FROM question_board
+ 		WHERE qna_num = #{qna_num}
+ 	</delete>
  	
+ 	<select id="selectAdminQuestionByName" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE qna_title LIKE #{searchQuery}
+ 	</select>
+ 	<select id="selectAdminQuestionByDate" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE DATE_FORMAT(qna_date, '%Y-%m-%d') LIKE #{searchQuery}
+ 	</select>
+ 	<select id="selectAdminQuestionByID" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE member_id LIKE #{searchQuery}
+ 	</select>
+ 	<select id="selectAdminQuestionByCategory" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE qna_type LIKE #{searchQuery}
+ 	</select>
+ 	<select id="selectAdminFAQ" resultType="com.itwillbs.project_dos.vo.FAQVO">
+ 		SELECT *
+ 		FROM faq
+ 	</select>
+ 	<update id="updateFAQ">
+ 		UPDATE faq
+ 		SET faq_title = #{faq_title},
+ 			faq_content = #{faq_content}
+ 	</update>
  </mapper>
  
  

@@ -149,7 +149,7 @@
 <body>
     <!-- Top 메뉴 포함 -->
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
-	<div class="main">
+    <div class="main">
 		<div id="side-menu">
 			<jsp:include page="/WEB-INF/views/inc/admin_service_side.jsp"></jsp:include>
 		</div>
@@ -158,7 +158,7 @@
 	        <h1>공지사항 관리</h1>
 	
 	        <!-- 검색 바 -->
-	        <form class="search-bar" action="AdminNoticeSerch" method="get">
+	        <form class="search-bar" action="AdminNoticeSearch" method="get">
 	            <select name="searchType">
 	                <option value="name">name</option>
 	                <option value="date">date</option>
@@ -209,7 +209,7 @@
 	       
 	
 	        
-	
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(".edit").on("click",function(event){

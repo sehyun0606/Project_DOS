@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.itwillbs.project_dos.vo.FAQVO;
 import com.itwillbs.project_dos.vo.NoticeVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 
@@ -34,5 +35,23 @@ public interface AdminServiceMapper {
 	List<QuestionVO> selectAdminQuestionList(@Param("startRow")int startRow, @Param("listLimit")int listLimit);
 
 	List<QuestionVO> selectNotAnsweredQuestionList();
+
+	QuestionVO selectAdminQuestion(int qna_num);
+
+	int updateAdminQuestion(@Param("request_content")String request_content, @Param("qna_num")int qna_num);
+
+	int deleteAdminQuestion(int qna_num);
+
+	List<QuestionVO> selectAdminQuestionByName(String searchQuery);
+
+	List<QuestionVO> selectAdminQuestionByDate(String searchQuery);
+
+	List<QuestionVO> selectAdminQuestionByID(String searchQuery);
+
+	List<QuestionVO> selectAdminQuestionByCategory(String searchQuery);
+
+	FAQVO selectAdminFAQ();
+
+	int updateFAQ(FAQVO faqVO);
 
 }

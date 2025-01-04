@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>공지사항 관리</title>
+    <title>문의사항 관리</title>
    	<link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
     <style>
@@ -20,6 +20,7 @@
             margin: 0 auto;
             margin-top: 30px;
             text-align: center;
+           	margin-bottom: 30px;
         }
 
         h1 {
@@ -158,7 +159,7 @@
 	        <h1>문의사항 관리</h1>
 	
 	        <!-- 검색 바 -->
-	        <form class="search-bar" action="AdminQuestionSerch" method="get">
+	        <form class="search-bar" action="AdminQuestionSearch" method="get">
 	            <select name="searchType">
 	                <option value="name">name</option>
 	                <option value="id">id</option>
@@ -184,11 +185,11 @@
 	            </thead>
 	            
 	            <c:choose>
-	            	<c:when test="${empty questionList}">
-	            		<tr><td colspan="5">개시물이 존재하지 않습니다.</td></tr>
+	            	<c:when test="${empty NotAnsweredQuestionList}">
+	            		<tr><td colspan="5">모든 문의사항이 답변완료되었습니다</td></tr>
 	            	</c:when>
 	            	<c:otherwise>
-	            		<c:forEach var="question" items="${questionList}" varStatus="status">
+	            		<c:forEach var="question" items="${NotAnsweredQuestionList}" varStatus="status">
 	            			<tr>
 			                    <td class="board_title">[${question.qna_type}]${question.qna_title}</td>
 			                    <td>${question.member_id} </td>
@@ -196,8 +197,8 @@
 								</td>
 			                    <td>${question.qna_readcount} </td>
 			                    <td class="action-buttons">
-			                    	<p class="board_num" style="display : none;">${question.qna_num}</p>
-				                    <button class="edit">답변하기</button>
+			                    	<p class="qna_num" style="display : none;">${question.qna_num}</p>
+				                    <button class="request">답변하기</button>
 			                        <button class="delete">삭제하기</button>
 			                    </td>
 			                </tr>
@@ -240,7 +241,7 @@
 				                        <button class="edit">수정하기</button>
 			                    	</c:if>
 			                    	<c:if test="${question.request_status == 'N'}">
-				                        <button class="edit">답변하기</button>
+				                        <button class="request">답변하기</button>
 			                    	</c:if>
 			                    	
 			                        <button class="delete">삭제하기</button>
@@ -282,14 +283,18 @@
 	</div>
 	<script type="text/javascript">
 		$(".edit").on("click",function(event){
-			let board_num = $(event.target).siblings(".qna_num").text();
-			location.href = "AdminQuestionEdit?board_num=" + board_num + "&pageNum=${pageInfo.pageNum}";
+			let qna_num = $(event.target).siblings(".qna_num").text();
+			location.href = "AdminQuestionEdit?qna_num=" + qna_num + "&pageNum=${pageInfo.pageNum}";
+		})
+		$(".request").on("click",function(event){
+			let qna_num = $(event.target).siblings(".qna_num").text();
+			location.href = "AdminQuestionRequest?qna_num=" + qna_num + "&pageNum=${pageInfo.pageNum}";
 		})
 		$(".delete").on("click",function(event){
 			let message = confirm("삭제하시겠습니까?");
 			if(message){
-				let board_num = $(event.target).siblings(".board_num").text();
-				location.href = "AdminQuestionDelete?board_num=" + board_num;
+				let qna_num = $(event.target).siblings(".qna_num").text();
+				location.href = "AdminQuestionDelete?qna_num=" + qna_num;
 			}
 		})
 	</script>
