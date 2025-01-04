@@ -7,6 +7,7 @@
   		<typeAlias type="com.itwillbs.project_dos.vo.NoticeVO" alias="notice"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.QuestionVO" alias="question"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.MemberVO" alias="member"/>
+  		<typeAlias type="com.itwillbs.project_dos.vo.ReviewVO" alias="Review"/>
   	</typeAliases>
   
   </configuration>
