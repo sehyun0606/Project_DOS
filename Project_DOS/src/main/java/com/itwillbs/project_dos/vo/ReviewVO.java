@@ -18,7 +18,7 @@ review_file3 varchar(200)
 member_id varchar(50) 
 review_like int 
 review_rating int 
-review_status int 
+answer_status varchar(1)
 answer_content varchar(2000) 
 answer_date datetime
  */
@@ -39,7 +39,7 @@ public class ReviewVO {
 	    private String member_id;
 	    private int review_like;
 	    private int review_rating;
-	    private int review_status;
+	    private String answer_status;
 	    private String answer_content;
 	    private Date answer_date;
 	    
