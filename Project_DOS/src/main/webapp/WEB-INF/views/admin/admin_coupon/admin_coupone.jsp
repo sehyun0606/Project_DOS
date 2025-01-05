@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -98,6 +100,7 @@
             opacity: 0.8;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <!-- Top 메뉴 포함 -->
@@ -107,14 +110,14 @@
         <!-- 쿠폰 발급 -->
         <div class="section">
             <h2>쿠폰 발급</h2>
-            <form action="/coupon/create" method="post">
+            <form action="CouponCreate" method="post">
                 <div class="form-group">
                     <label for="couponName">쿠폰 이름</label>
-                    <input type="text" id="couponName" name="couponName" placeholder="쿠폰 이름 입력" required>
+                    <input type="text" id="couponName" name="coupon_name" placeholder="쿠폰 이름 입력" required>
                 </div>
                 <div class="form-group">
                     <label for="discountValue">할인 가격</label>
-                    <input type="text" id="discountValue" name="discountValue" placeholder="할인 가격 입력 (예: 30%)" required>
+                    <input type="text" id="discountValue" name="discount_rate" placeholder="할인 가격 입력 (예: 30)" required>
                 </div>
                 <button type="submit" class="submit-btn">등록하기</button>
             </form>
@@ -133,31 +136,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 예제 데이터 -->
-                    <tr>
-                        <td>30% 할인 쿠폰</td>
-                        <td>2024-12-25</td>
-                        <td>30%</td>
-                        <td><button class="delete-btn" onclick="deleteCoupon(1)">삭제</button></td>
-                    </tr>
-                    <tr>
-                        <td>10% 할인 쿠폰</td>
-                        <td>2024-12-20</td>
-                        <td>10%</td>
-                        <td><button class="delete-btn" onclick="deleteCoupon(2)">삭제</button></td>
-                    </tr>
+	                <c:choose>
+		            	<c:when test="${empty couponList}">
+		            		<tr><td colspan="5">쿠폰이 존재하지 않습니다.</td></tr>
+		            	</c:when>
+		            	<c:otherwise>
+		            		<c:forEach var="coupon" items="${couponList}" varStatus="status">
+		            			<tr>
+				                    <td class="board_title">${coupon.coupon_name}</td>
+				                    <td><fmt:formatDate value="${coupon.coupon_date}" pattern="yyyy-MM-dd"/>
+									</td>
+				                    <td>${coupon.discount_rate}% </td>
+				                    <td class="action-buttons">
+				                    	<p class="coupon_name" style="display : none;">${coupon.coupon_name}</p>
+				                        <button class="delete">삭제하기</button>
+				                    </td>
+				                </tr>
+		            		
+		            		</c:forEach>
+		            	
+		            	</c:otherwise>
+		            </c:choose>
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        function deleteCoupon(couponId) {
-            if (confirm("정말 삭제하시겠습니까?")) {
-                // 쿠폰 삭제 요청 전송
-                location.href = "/coupon/delete?id=" + couponId;
-            }
-        }
+	    $(".delete").on("click",function(event){
+			let message = confirm("삭제하시겠습니까?");
+			if(message){
+				let coupon_name = $(event.target).siblings(".coupon_name").text();
+				location.href = "AdminCouponDelete?coupon_name=" + coupon_name;
+			}
+		})
     </script>
 </body>
 </html>
