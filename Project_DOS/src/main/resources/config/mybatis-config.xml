@@ -10,5 +10,5 @@
   		<typeAlias type="com.itwillbs.project_dos.vo.ReviewVO" alias="Review"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.MenuVO" alias="Menu"/>
   	</typeAliases>
-  //
+  
   </configuration>
