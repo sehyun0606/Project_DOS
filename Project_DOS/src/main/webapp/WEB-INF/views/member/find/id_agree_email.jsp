@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이메일 인증</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+    
     <style>
         .card {
             width: 400px; /* 카드의 너비 설정 */
@@ -38,18 +41,18 @@
 	<article>
     	<h1 class="text-center">이메일 인증</h1>
 		<div class="card">
-		    <form>
+		    <form action="FindIdSuccess">
 		        <div class="mb-3">
 		            <label for="email" class="form-label">Email</label>
 		            <div class="input-group">
-		                <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" required>
-		                <button class="btn btn-outline-secondary" type="button">인증 번호 보내기</button>
+		                <input type="email" class="form-control" id="email" name="member_email" placeholder="이메일을 입력하세요" >
+		                <button class="btn btn-outline-secondary" type="button" id="sendMail" >인증 번호 보내기</button>
 		            </div>
 		        </div>
 		        <div class="mb-3">
-		            <label for="email" class="form-label">인증번호</label>
+		            <label for="text" class="form-label">인증번호</label>
 		            <div class="input-group">
-		                <input type="email" class="form-control" id="emailpasswd" placeholder="인증번호를 입력하세요" required>
+		                <input type="text" class="form-control" id="emailpasswd" placeholder="인증번호를 입력하세요" >
 		                <button class="btn btn-outline-secondary" type="button">인증</button>
 		            </div>
 		        </div>
@@ -58,7 +61,7 @@
 		<!--             <input type="text" class="form-control" id="password" placeholder="AB23B31" required> -->
 		<!--             <div class="form-text">인증 확인 되었습니다.</div> -->
 		<!--         </div> -->
-		        <button type="submit" class="btn btn-dark btn-custom" onclick="location.href='FindId'">다음으로</button>
+		        <button type="submit" class="btn btn-dark btn-custom" >다음으로</button>
 		    </form>
 		</div>
 		</article>
@@ -67,6 +70,19 @@
 		<footer>
 			<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 		</footer>
+		
+<script type="text/javascript">
+	$("#sendMail").click(function(){
+		let email = $("#email").val();
+		if (email === "") {
+            alert("이메일을 입력하세요.");
+            return;
+        } else {
+        	location.href="sendAuthMail?email=" + email;
+        	console.log(email);
+        }
+	});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>

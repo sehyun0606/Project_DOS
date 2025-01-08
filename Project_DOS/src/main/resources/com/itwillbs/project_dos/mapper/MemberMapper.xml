@@ -32,11 +32,47 @@
 		WHERE member_id = #{member_id}
 	</select>
 
+	<select id="findIdMember" resultType="member">
+		SELECT member_id
+		FROM member
+		WHERE member_name = #{member_name} AND member_phone = #{member_phone}
+	</select>
 
+	<select id="findPasswdMember" resultType="member">
+		SELECT *
+		FROM member
+		WHERE member_id = #{member_id} AND member_name = #{member_name} AND member_phone = #{member_phone}
+	</select>
 
+	<select id="selectMailAuthInfo" resultType="mailAuthInfo">
+		SELECT *
+		FROM mailAuthInfo
+		WHERE email = #{email}
+	</select>
 
+	<!-- 신규 인증 정보(email, auth_code) 등록 - INSERT -->
+	<insert id="insertMailAuthInfo">
+		INSERT
+		INTO mailAuthInfo
+		VALUES (
+			#{email}
+			, #{auth_code}
+		)
+	</insert>
 
+	<!-- 기존 인증 정보 수정 - UPDATE -->
+	<!-- email 이 일치하는 레코드의 auth_code 컬럼값(인증코드) 변경 -->
+	<update id="updateMailAuthInfo">
+		UPDATE mailAuthInfo
+		SET auth_code = #{auth_code}
+		WHERE email = #{email}
+	</update>
  
+ 	<select id="selectMemberEmail" resultType="member">
+		SELECT member_email
+		FROM member
+		WHERE member_email = #{email}
+	</select>
 
 
 

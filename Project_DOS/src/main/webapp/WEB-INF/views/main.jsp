@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles_main.css">
     <style type="text/css">	
     	.img-link{
@@ -23,7 +24,7 @@
             padding: 20px; /* 패딩 추가 */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
             text-align: center; /* 텍스트 중앙 정렬 */
-            margin-bottom: 20px; /* 카드 간격 */
+            margin-bottom: 20px; /*카드 간격 */
         }
         h1 {
             text-align: center;
