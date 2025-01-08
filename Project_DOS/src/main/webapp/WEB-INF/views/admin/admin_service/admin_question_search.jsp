@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>공지사항 관리</title>
+    <title>문의사항 관리</title>
    	<link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
     <style>
@@ -149,87 +149,75 @@
 <body>
     <!-- Top 메뉴 포함 -->
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
-	<div class="main">
-		<div id="side-menu">
-			<jsp:include page="/WEB-INF/views/inc/admin_service_side.jsp"></jsp:include>
-		</div>
+		<div class="main">
+			<div id="side-menu">
+				<jsp:include page="/WEB-INF/views/inc/admin_service_side.jsp"></jsp:include>
+			</div>
+		    <div class="container2">
+		        <h1>문의사항 관리</h1>
 		
-	    <div class="container2">
-	        <h1>공지사항 관리</h1>
-	
-	        <!-- 검색 바 -->
-	        <form class="search-bar" action="AdminNoticeSearch" method="get">
-	            <select name="searchType">
-	                <option value="name">name</option>
-	                <option value="date">date</option>
-	            </select>
-	            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요" style="width : 50%;">
-	            <button type="submit">검색</button>
-	            
-	        </form>
-			<!-- 공지사항 작성 버튼 -->
-		    <button class="create-button" onclick="location.href='NoticeForm'">작성하기</button>
-	        <!-- 공지사항 테이블 -->
-	        <table>
-	            <thead>
-	                <tr>
-	                    <th>제목</th>
-	                    <th width="150px">작성일</th>
-	                    <th width="100px">조회수</th>
-	                    <th width="200px">관리</th>
-	                </tr>
-	            </thead>
-	            
-	            <c:choose>
-	            	<c:when test="${empty noticeList}">
-	            		<tr><td colspan="5">개시물이 존재하지 않습니다.</td></tr>
-	            	</c:when>
-	            	<c:otherwise>
-	            		<c:forEach var="notice" items="${noticeList}" varStatus="status">
-	            			<tr>
-			                    <td class="board_title">${notice.board_title}</td>
-			                    <td><fmt:formatDate value="${notice.board_date}" pattern="yyyy-MM-dd"/>
-								</td>
-			                    <td>${notice.board_readcount} </td>
-			                    <td class="action-buttons">
-			                    	<p class="board_num" style="display : none;">${notice.board_num}</p>
-			                        <button class="edit">수정하기</button>
-			                        <button class="delete">삭제하기</button>
-			                    </td>
-			                </tr>
-	            		
-	            		</c:forEach>
-	            	
-	            	</c:otherwise>
-	            </c:choose>
-	            
-	                
-	               
-	                
-	        </table>
-	
-	       
-	
-	        <div class="pagination">
-	        	<input type="button" value="이전"
-	        		onclick="location.href='AdminNotice?pageNum=${pageInfo.pageNum - 1}'"
-	        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
-		        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-		        	<c:choose>
-		        		<c:when test="${i eq pageInfo.pageNum}">
-		        			<strong>${i}</strong>
-		        		</c:when>
-		        		<c:otherwise>
-		        			<a href="AdminNotice?pageNum=${i}">${i}</a>
-		        		</c:otherwise>
-		        	</c:choose>
-		        </c:forEach>
-		        <input type="button" value="다음"
-		        onclick="location.href='AdminNotice?pageNum=${pageInfo.pageNum+1}'"
-		        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>>
-	        </div>
-	    </div>
-	
+		        <!-- 검색 바 -->
+		        <form class="search-bar" action="AdminQuestionSearch" method="get">
+		            <select name="searchType">
+		                <option value="name">name</option>
+		                <option value="id">id</option>
+		                <option value="category">category</option>
+		                <option value="date">date</option>
+		            </select>
+		            <input type="text" name="searchQuery" placeholder="검색어를 입력하세요" style="width : 50%;">
+		            <button type="submit">검색</button>
+		            <button type="button" onclick="location.href='AdminNotice'">전체목록보기</button>
+		        </form>
+		        <!-- 공지사항 테이블 -->
+		        <table>
+		            <thead>
+		                <tr>
+		                    <th>제목</th>
+		                    <th width="100px">작성자</th>
+		                    <th width="150px">작성일</th>
+		                    <th width="100px">조회수</th>
+		                    <th width="200px">관리</th>
+		                </tr>
+		            </thead>
+		            
+		            <c:choose>
+		            	<c:when test="${empty questionList}">
+		            		<tr><td colspan="5">개시물이 존재하지 않습니다.</td></tr>
+		            	</c:when>
+		            	<c:otherwise>
+		            		<c:forEach var="question" items="${questionList}" varStatus="status">
+		            			<tr>
+				                    <td class="board_title">[${question.qna_type}]${question.qna_title}</td>
+				                    <td>${question.member_id} </td>
+				                    <td><fmt:formatDate value="${question.qna_date}" pattern="yyyy-MM-dd"/>
+									</td>
+				                    <td>${question.qna_readcount} </td>
+				                    <td class="action-buttons">
+				                    	<p class="qna_num" style="display : none;">${question.qna_num}</p>
+				                    	<c:if test="${question.request_status == 'Y'}">
+					                        <button class="edit">수정하기</button>
+				                    	</c:if>
+				                    	<c:if test="${question.request_status == 'N'}">
+					                        <button class="request">답변하기</button>
+				                    	</c:if>
+				                    	
+				                        <button class="delete">삭제하기</button>
+				                    </td>
+				                </tr>
+		            		
+		            		</c:forEach>
+		            	
+		            	</c:otherwise>
+		            </c:choose>
+		            
+		               
+		                
+		        </table>
+		
+		       
+		
+		        
+		</div>
 	</div>
 	<script type="text/javascript">
 		$(".edit").on("click",function(event){

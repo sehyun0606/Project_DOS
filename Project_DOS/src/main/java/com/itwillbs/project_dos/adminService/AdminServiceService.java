@@ -2,10 +2,12 @@ package com.itwillbs.project_dos.adminService;
 
 import java.util.List;
 
+import org.apache.ibatis.javassist.SerialVersionUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.project_dos.adminMapper.AdminServiceMapper;
+import com.itwillbs.project_dos.vo.FAQVO;
 import com.itwillbs.project_dos.vo.NoticeVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 
@@ -65,6 +67,34 @@ public class AdminServiceService {
 
 	public int requestQuestion(String request_content, int qna_num) {
 		return serviceMapper.updateAdminQuestion(request_content, qna_num);
+	}
+
+	public int deleteQuestion(int qna_num) {
+		return serviceMapper.deleteAdminQuestion(qna_num);
+	}
+
+	public List<QuestionVO> searchQuestionListByName(String searchQuery) {
+		return serviceMapper.selectAdminQuestionByName(searchQuery);
+	}
+
+	public List<QuestionVO> searchQuestionListByDate(String searchQuery) {
+		return serviceMapper.selectAdminQuestionByDate(searchQuery);
+	}
+
+	public List<QuestionVO> searchQuestionListByID(String searchQuery) {
+		return serviceMapper.selectAdminQuestionByID(searchQuery);
+	}
+
+	public List<QuestionVO> searchQuestionListByCategory(String searchQuery) {
+		return serviceMapper.selectAdminQuestionByCategory(searchQuery);
+	}
+
+	public FAQVO getFAQ() {
+		return serviceMapper.selectAdminFAQ();
+	}
+
+	public int updateFAQ(FAQVO faqVO) {
+		return serviceMapper.updateFAQ(faqVO);
 	}
 	
 	

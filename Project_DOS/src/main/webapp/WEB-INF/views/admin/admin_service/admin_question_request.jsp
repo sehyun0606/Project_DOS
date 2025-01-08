@@ -108,6 +108,7 @@
             opacity: 0.8;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <!-- Top 메뉴 포함 -->
@@ -149,10 +150,20 @@
             <!-- 버튼 -->
             <div class="action-buttons">
                 <button type="button" class="back" onclick="location.href='AdminNotice'">뒤로가기</button>
+                <p class="qna_num" style="display: none;">${question.qna_num}</p>
                 <button type="button" class="delete">삭제</button>
                 <button type="submit" class="submit">답변</button>
             </div>
         </form>
     </div>
+    <script type="text/javascript">
+	    $(".delete").on("click",function(event){
+			let message = confirm("삭제하시겠습니까?");
+			if(message){
+				let qna_num = $(event.target).siblings(".qna_num").text();
+				location.href = "AdminQuestionDelete?qna_num=" + qna_num;
+			}
+		})
+    </script>
 </body>
 </html>

@@ -16,20 +16,8 @@
                         <li><a class="dropdown-item" href="#!">찾아오시는 길</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">메뉴</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">세트메뉴</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">스테이크</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">셀러드</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">파스타</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">리조또&필라프</a></li>
-                    </ul>
-                </li>
+                
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="Menu">메뉴</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">예약하기</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="MemberShip">멤버쉽</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Review">리뷰</a></li>
