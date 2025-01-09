@@ -9,6 +9,8 @@
   		<typeAlias type="com.itwillbs.project_dos.vo.MemberVO" alias="member"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.ReviewVO" alias="Review"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.MenuVO" alias="Menu"/>
+  		<typeAlias type="com.itwillbs.project_dos.vo.MailAuthInfo" alias="mailAuthInfo"/>
+  		
   	</typeAliases>
   
   </configuration>
