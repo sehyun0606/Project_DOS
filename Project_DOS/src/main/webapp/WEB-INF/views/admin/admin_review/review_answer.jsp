@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,7 +18,7 @@
         }
 
         /* 컨테이너 */
-        .container {
+        .container2 {
             width: 80%;
             margin: 0 auto;
             padding-top: 20px;
@@ -42,6 +43,7 @@
         .review-header .user-info {
             display: flex;
             align-items: center;
+            width: 30%;
         }
 
         .review-header .user-info img {
@@ -74,7 +76,7 @@
         }
 
         .response-section textarea {
-            width: 100%;
+            width: 80%;
             height: 80px;
             resize: none;
             padding: 10px;
@@ -108,37 +110,57 @@
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
 
     <!-- 리뷰 상세 컨테이너 -->
-    <div class="container">
+    <div class="container2">
         <div class="review-box">
             <!-- 리뷰 상단 -->
             <div class="review-header">
                 <div class="user-info">
                     <img src="profile_placeholder.png" alt="프로필 이미지">
                     <div>
-                        <div class="user-name">길레기</div>
-                        <div class="user-level">black 🥇</div>
+                        <div class="user-name">${review.member_id}</div>
+                        <div class="user-level">${member.membership}</div>
                     </div>
-                    <div><p>2024.12.24</p></div>
+                    <div style="margin-left: 5%;"><p><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd"/></p></div>
                 </div>
-                
+                <div style="margin-right: 20% ">
+                	${review.review_title}
+                </div>
                 <div class="review-score">
-                    <span>5.0</span>
-                    <span>★★★★★</span>
+                    <span >${review.review_rating}</span>
+                    <span id="review-rating${review.review_idx}"></span>
                 </div>
             </div>
 
             <!-- 리뷰 내용 -->
             <div class="review-content">
-                여기에 리뷰 내용을 입력하세요.
+                ${review.review_content}
             </div>
 
             <!-- 답변 영역 -->
-            <div class="response-section">
-                <textarea placeholder="답변 내용을 입력하세요"></textarea>
-                <button class="btn-reply">답변 하기</button>
-                <button class="btn-delete">리뷰 삭제</button>
-            </div>
+           	<form action="ReviewAnswer?review_idx=${review.review_idx}" method="post">
+	            <div class="response-section">
+	                <textarea placeholder="답변 내용을 입력하세요" name="answer_content"> ${review.answer_content }</textarea>
+	                <button class="btn-reply" type="submit">답변</button>
+	                <button class="btn-delete">삭제</button>
+	                <button type="button" class="back" onclick="location.href='AdminReview'">뒤로</button>
+	            </div>
+           	</form>
         </div>
     </div>
+ <script type="text/javascript">
+
+ function getStarRating(rating) {
+     let stars = '';
+     for (let i = 1; i <= 5; i++) {
+         if (i <= rating) {
+             stars += '★';
+         } else {
+             stars += '☆';
+         }
+     }
+     return stars;
+ }
+ document.getElementById("review-rating${review.review_idx}").textContent = getStarRating(${review.review_rating});
+ </script>
 </body>
 </html>

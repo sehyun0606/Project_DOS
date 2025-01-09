@@ -108,6 +108,7 @@
                 <label><input type="checkbox" name="person" value="2"> 2인</label>
                 <label><input type="checkbox" name="person" value="3"> 3인</label>
                 <label><input type="checkbox" name="person" value="4"> 4인</label>
+                <label><input type="checkbox" name="person" value="4"> 5인~8인</label>
             </div>
         </div>
         <div class="input-group">

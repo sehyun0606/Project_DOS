@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.adminMapper.AdminReviewMapper">
+ 
+ 	<select id="selectReviewList" resultType="Review">
+ 		SELECT *
+ 		FROM review
+ 		ORDER BY
+ 			review_idx DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+ 	
+ 	<select id="selectAdminReviewCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM review
+ 	</select>
+ 	
+ 	<select id="selecetNoRequestReviewCount" resultType="int">
+ 		SELECT COUNT(
+ 			CASE WHEN answer_status = 'N' THEN 1 END
+ 		)
+ 		FROM review
+ 	</select>
+ 	
+	<select id="selectAdminReview" resultType="Review">
+		SELECT *
+		FROM review
+		WHERE review_idx = #{review_idx}
+	</select>
+	<select id="selectNoRequestReviewList" resultType="Review">
+ 		SELECT *
+ 		FROM review
+ 		WHERE answer_status = 'N'
+ 		ORDER BY
+ 			review_idx DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+ 	<select id="selectReviewListByDate" resultType="Review">
+ 		SELECT *
+ 		FROM review
+ 		ORDER BY
+ 			review_date DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+ 	<select id="selectReviewListByStar" resultType="Review">
+ 		SELECT *
+ 		FROM review
+ 		ORDER BY
+ 			review_rating DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+ 	<select id="selectReviewListByLike" resultType="Review">
+ 		SELECT *
+ 		FROM review
+ 		ORDER BY
+ 			review_like DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+	
+ </mapper>

@@ -183,7 +183,7 @@
 	  
 	        <div id="review-list">
 	           <h3>리뷰 관리</h3>
-			<c:forEach var="review" items="${reviewList}">
+			<c:forEach var="review" items="${filterReviewList}">
 			    <div class="review-card" onclick="goToReviewInfo(${review.review_idx})">
 			        <!-- 프로필 이미지 클릭 시 goToReviewInfo 함수 호출 -->
 			        <img class="review-image" alt="Profile Image" >
@@ -213,7 +213,7 @@
 			 <!-- Pagination -->
 			     <div class="pagination">
 		        	<input type="button" value="이전"
-		        		onclick="location.href='AdminReveiw?pageNum=${pageInfo.pageNum - 1}'"
+		        		onclick="location.href='AdminReviewFilter?category=${category}&pageNum=${pageInfo.pageNum - 1}'"
 		        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
 			        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 			        	<c:choose>
@@ -221,17 +221,18 @@
 			        			<strong style="margin-left: 20px;">${i}</strong>
 			        		</c:when>
 			        		<c:otherwise>
-			        			<a href="AdminReview?pageNum=${i}" style="margin-left: 20px;">${i}</a>
+			        			<a href="AdminReviewFilter?category=${category}&pageNum=${i}" style="margin-left: 20px;">${i}</a>
 			        		</c:otherwise>
 			        	</c:choose>
 			        </c:forEach>
 			        <input type="button" value="다음"
-			        onclick="location.href='AdminReview?pageNum=${pageInfo.pageNum+1}'"
+			        onclick="location.href='location.href='AdminReviewFilter?category=${category}&pageNum=${pageInfo.pageNum+1}'"
 			        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>style="margin-left: 20px;">
 		        </div>
 	        </div>
 	</div>
 	<select id="categorySelect">
+        <option >정렬방법을 선택하세요</option>
         <option value="all">전체</option>
         <option value="noRequest">답변안한 리뷰</option>
         <option value="date">날짜순</option>
@@ -258,7 +259,7 @@
         }
         return stars;
     }
-	<c:forEach var="review" items="${reviewList}">
+	<c:forEach var="review" items="${filterReviewList}">
 		document.getElementById("review-rating${review.review_idx}").textContent = getStarRating(${review.review_rating});
 	</c:forEach>
 </script>

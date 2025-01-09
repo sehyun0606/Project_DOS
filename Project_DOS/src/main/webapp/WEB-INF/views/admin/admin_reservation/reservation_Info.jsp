@@ -53,7 +53,7 @@
             border: 1px solid #ccc;
         }
 
-        .reservation-list {
+        #reservation-list {
             margin-top: 30px;
             border-top: 1px solid #ccc;
             padding-top: 20px;
@@ -86,34 +86,62 @@
             color: white;
             border: none;
         }
+        .selected {
+	        background-color: #007bff; /* 선택된 상태 배경색 */
+	        color: white;             /* 선택된 상태 글자색 */
+	        border: 2px solid #0056b3;
+   		 }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <div class="main-container">
         <div class="date-header">
-            <h1>12월 1일</h1>
+            <h1>${param.month}월 ${param.date}일</h1>
             <p>예약한 팀 : 0</p>
         </div>
 
         <div class="box-container">
             <c:forEach var="i" begin="1" end="9">
-                <div class="box">${i}</div>
+                <div class="box" id="${i}">${i}</div>
             </c:forEach>
         </div>
 
-        <div class="reservation-list">
-            <!-- 서버에서 전달된 시간 리스트 -->
-            <c:set var="timeList" value="${'12:00,2:00,4:00,6:00,8:00'}" />
-            <c:forEach var="time" items="${timeList}">
-                <div class="reservation-item">
-                    <span>${time} 예약자 이름</span>
-                    <div>
-                        <button class="edit-button" onclick="location.href='ReservationEdit'">편집</button>
-                        <button class="cancel-button">예약 취소</button>
-                    </div>
-                </div>
-            </c:forEach>
+        <div id="reservation-list">
+            
         </div>
     </div>
+<script type="text/javascript">
+	$(function(){
+		$(".box").click(function(){
+			
+			// 기존에 선택된 클래스 제거
+            $(".box").removeClass("selected");
+
+            // 현재 클릭된 요소에 클래스 추가
+            $(this).addClass("selected");
+            
+         	// 선택된 box의 id 값을 가져오기
+            const selectedID = $(this).attr("id"); // 클릭된 박스의 id 가져오기
+
+			$.ajax({
+				type : "GET",
+				url : "ReservationTime",
+				data :{
+					month : ${param.month},
+					date : ${param.date},
+					table : selectedID
+				},
+				success : function(response){
+					$("#reservation-list").html(response);
+				},
+				error : function() {
+					$("#reservation-list").html(selectedID)
+				}
+			})
+		})
+	})
+	
+</script>
 </body>
 </html>

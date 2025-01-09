@@ -148,7 +148,7 @@
 			
             <!-- 버튼 -->
             <div class="action-buttons">
-                <button type="button" class="back" onclick="location.href='AdminNotice'">뒤로가기</button>
+                <button type="button" class="back" onclick="location.href='AdminQuestion'">뒤로가기</button>
                 <p class="qna_num" style="display: none;">${question.qna_num}</p>
                 <button type="button" class="delete">삭제</button>
                 <button type="submit" class="submit">수정</button>

@@ -1,127 +1,223 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>예약 관리</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
-    <script>
-	    function openPopup(url) {
-	        const width = Math.min(window.innerWidth * 0.8, 1000); // 화면 너비의 80% 또는 최대 1000px
-	        const height = Math.min(window.innerHeight * 0.8, 800); // 화면 높이의 80% 또는 최대 800px
-	        const left = (window.innerWidth - width) / 2;
-	        const top = (window.innerHeight - height) / 2;
-	
-	        window.open(url, "popupWindow", `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
-	    }
-	</script>
-    
     <style>
-        .calendar-container {
-            width: 80%;
-            margin: 0 auto;
-            text-align: center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .calendar-header {
-            margin: 20px 0;
+        #main {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .calendar-header h2 {
-            margin: 0;
-            margin-right: 10px;
+        .calendar-container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .calendar-header select {
-            padding: 5px;
-            font-size: 14px;
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
         }
 
-        .calendar-grid {
+        .controls button {
+            background: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #007bff;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .controls button:hover {
+            background: #e0e0e0;
+        }
+
+        .controls .current-month {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .calendar-header {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+
+        .calendar-body {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
         }
 
         .calendar-cell {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
             border: 1px solid #ddd;
-            padding: 10px;
-            background-color: #f9f9f9;
-            text-align: left;
-            position: relative;
-        }
-
-        .calendar-cell a {
-            text-decoration: none;
-            color: black;
+            cursor: pointer;
+            transition: background 0.3s;
         }
 
         .calendar-cell:hover {
-            background-color: #e0e0e0;
+            background: #f0f8ff;
         }
 
-        .date-info {
-            margin-top: 5px;
+        .calendar-cell.disabled {
+            background: #f9f9f9;
+            color: #ccc;
+            cursor: not-allowed;
         }
 
-        .calendar-cell h4 {
-            margin: 0;
+        .calendar-cell.today {
+            border: 2px solid #007bff;
+            font-weight: bold;
+            color: #007bff;
         }
-
-        .date-picker {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        .date-picker input[type="date"] {
-            padding: 5px;
-            font-size: 14px;
+        .title{
+        	margin-top: 2%;
+        	margin-left: 45%;
         }
     </style>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
+    <div class="title">
+		 <h1>예약 관리</h1>
+    </div>
+    <div id="main">
+        <div class="calendar-container">
+            <div class="controls">
+                <button id="prev-month">이전</button>
+                <span class="current-month" id="current-month"></span>
+                <button id="next-month">다음</button>
+            </div>
 
-    <div class="calendar-container">
-        <div class="calendar-header">
-            <h1>예약 관리</h1>
-        </div>
+            <div class="calendar-header">
+                <div>일</div>
+                <div>월</div>
+                <div>화</div>
+                <div>수</div>
+                <div>목</div>
+                <div>금</div>
+                <div>토</div>
+            </div>
 
-        <!-- 헤더에서 월 선택 -->
-        <div class="calendar-header">
-            <h2>${param.month != null ? param.month + "월" : "12월"}</h2>
-            <form action="calendar.jsp" method="get">
-                <select id="month" name="month" onchange="this.form.submit()">
-                    <c:forEach var="i" begin="1" end="12">
-                        <option value="${i}" ${i == (param.month != null ? param.month : 12) ? 'selected' : ''}>
-                            ${i}월
-                        </option>
-                    </c:forEach>
-                </select>
-            </form>
-        </div>
-        <a href="ReservationInfo"  onclick="openPopup(this.href); return false;">예약 상세 내역 테스트 링크</a>
-
-        <div class="calendar-grid">
-            <c:forEach var="day" begin="1" end="31">
-                <div class="calendar-cell">
-                    <a href="reservationDetail.jsp?date=2024-${param.month != null ? param.month : 12}-${day}" onclick="openPopup(this.href); return false;">
-                        <h4>${day}</h4>
-                        <div class="date-info">
-                            <p>당일 상품 매출: 0</p>
-                            <p>예약한 팀: 0</p>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
+            <div class="calendar-body" id="calendar-body">
+                <!-- 날짜가 동적으로 추가될 영역 -->
+            </div>
         </div>
     </div>
-</body>
+    <script>
+        const calendarBody = document.getElementById('calendar-body');
+        const currentMonthLabel = document.getElementById('current-month');
+        const prevMonthButton = document.getElementById('prev-month');
+        const nextMonthButton = document.getElementById('next-month');
 
+        let today = new Date(); // 현재 날짜
+        let currentYear = today.getFullYear(); // 현재 연도
+        let currentMonth = today.getMonth(); // 현재 월 (0 = 1월)
+
+        function renderCalendar(year, month) {
+            calendarBody.innerHTML = '';
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            // 이전 달의 날짜 계산
+            const prevLastDate = new Date(year, month, 0).getDate();
+
+            // 헤더 업데이트
+            currentMonthLabel.textContent = `\${year}년 \${month + 1}월`;
+
+            // 빈 칸 추가 (이전 달의 날짜들)
+            for (let i = firstDay; i > 0; i--) {
+                const cell = document.createElement('div');
+                cell.classList.add('calendar-cell', 'disabled');
+                cell.textContent = prevLastDate - i + 1;
+                calendarBody.appendChild(cell);
+            }
+
+            // 이번 달의 날짜들 추가
+            for (let date = 1; date <= lastDate; date++) {
+                const cell = document.createElement('div');
+                cell.classList.add('calendar-cell');
+                cell.innerHTML = `\${date}`;
+
+                if (
+                    year === today.getFullYear() &&
+                    month === today.getMonth() &&
+                    date === today.getDate()
+                ) {
+                    cell.classList.add('today');
+                }
+
+                cell.addEventListener('click', () => {
+                	 const popupURL = 'ReservationInfo?month='+(month+1)+'&date='+date;
+
+                	window.open(popupURL, '_blank', 'width=400,height=800');
+                });
+
+                calendarBody.appendChild(cell);
+            }
+
+            // 다음 달의 날짜 계산 (빈 칸 채우기)
+            const totalCells = calendarBody.childNodes.length;
+            const remainingCells = 7 - (totalCells % 7);
+
+            if (remainingCells < 7) {
+                for (let i = 1; i <= remainingCells; i++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('calendar-cell', 'disabled');
+                    cell.textContent = i;
+                    calendarBody.appendChild(cell);
+                }
+            }
+        }
+
+        function changeMonth(offset) {
+            currentMonth += offset;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar(currentYear, currentMonth);
+        }
+
+        prevMonthButton.addEventListener('click', () => changeMonth(-1));
+        nextMonthButton.addEventListener('click', () => changeMonth(1));
+
+        // 초기 렌더링
+        renderCalendar(currentYear, currentMonth);
+    </script>
+</body>
 </html>
