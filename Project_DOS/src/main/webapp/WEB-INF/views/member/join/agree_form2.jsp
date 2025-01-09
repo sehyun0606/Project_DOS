@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>약관 동의</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -63,13 +64,13 @@
 3. “회원”의 정의
 가. “회원”이란 회사 홈페이지, 모바일 버전 홈페이지 및 APP에 접속하여 본 약관에 따라 회사 인터넷 회원으로 가입하여 회사 홈페이지, 모바일 버전 홈페이지 및 APP이 제공하는 서비스를 받는 자를 말합니다.
 
-나. 회원이 회사 인터넷 회원으로 가입하거나 소지한 부메랑 카드를 등록하면, “아웃백 부메랑 멤버십 회원”이 됩니다. 본 약관에서 별도로 정한 사항이 없다면, “아웃백 부메랑 멤버십 회원”으로서의 권한 및 이용과 관련한 규정은 “아웃백 부메랑 멤버십 이용약관”에 따릅니다.
+나. 회원이 회사 인터넷 회원으로 가입하거나 소지한 부메랑 카드를 등록하면, “DOS 멤버십 회원”이 됩니다. 본 약관에서 별도로 정한 사항이 없다면, “DOS 멤버십 회원”으로서의 권한 및 이용과 관련한 규정은 “DOS 멤버십 이용약관”에 따릅니다.
 
-다. 회원이 배달 주문 서비스 이용 신청 시, 별도의 가입 없이 배달 주문 서비스 이용 회원이 됩니다. “아웃백 배달 주문 서비스 이용 회원”의 권한 및 이용과 관련한 규정은 “아웃백 배달 주문 서비스 이용약관”에 따릅니다.
+다. 회원이 배달 주문 서비스 이용 신청 시, 별도의 가입 없이 배달 주문 서비스 이용 회원이 됩니다. “DOS 배달 주문 서비스 이용 회원”의 권한 및 이용과 관련한 규정은 “DOS 배달 주문 서비스 이용약관”에 따릅니다.
 
-라. 본 약관과 DOS 멤버십 이용약관의 내용상 충돌이 있을 경우 아웃백 부메랑 멤버십 이용약관이 우선합니다.
+라. 본 약관과 DOS 멤버십 이용약관의 내용상 충돌이 있을 경우 DOS 멤버십 이용약관이 우선합니다.
  
-마. 본 약관과 DOS 주문 서비스 이용약관의 내용상 충돌이 있을 경우 아웃백 배달 주문 서비스 이용약관이 우선합니다.
+마. 본 약관과 DOS 주문 서비스 이용약관의 내용상 충돌이 있을 경우 DOS 배달 주문 서비스 이용약관이 우선합니다.
 
 제2장 회원 관리 및 서비스
 1. 회원 ID와 비밀번호
@@ -123,7 +124,7 @@ DOS 홈페이지 회원은 "본인 회원"만을 원칙으로 합니다.
 
 다. 회원이 지류 영수증 발급을 희망하는 경우 회원은 해당 거래가 발생한 매장에 방문하여 지류 영수증의 발급을 요청할 수 있습니다.
 
-라. 모바일 버전 홈페이지와 APP의 “전자 영수증” 메뉴를 통해 아웃백 매장 이용 내역(결제 및 취소 내역) 등을 확인할 수 있습니다. (단, 부메랑 멤버십 카드로 적립, 할인, 결제 취소에 따른 적립 취소/할인 취소의 건의 한해서만 확인 가능합니다.)
+라. 모바일 버전 홈페이지와 APP의 “전자 영수증” 메뉴를 통해 DOS 매장 이용 내역(결제 및 취소 내역) 등을 확인할 수 있습니다. (단, 부메랑 멤버십 카드로 적립, 할인, 결제 취소에 따른 적립 취소/할인 취소의 건의 한해서만 확인 가능합니다.)
 
 마. 제반 설비 장애 또는 이용 폭주로 일시적인 서비스 장애가 발생한 경우, 전자 영수증 서비스 전부 또는 일부를 제한하거나 중지할 수 있습니다.
 
@@ -192,7 +193,7 @@ DOS 홈페이지 회원은 "본인 회원"만을 원칙으로 합니다.
 
 
 
-본 이용약관은 2024년 02월 27일부터 시행합니다.
+본 이용약관은 2025년 1월 1일부터 시행합니다.
             </textarea>
         </div>
 
@@ -213,7 +214,7 @@ DOS 홈페이지 회원은 "본인 회원"만을 원칙으로 합니다.
 
         <div class="mt-4">
             <button type="button" class="btn btn-custom" onclick="checkAgreement()">다음으로</button>
-            <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="history.back()">뒤로가기</button>
         </div>
     </form>
 </div>
@@ -228,7 +229,7 @@ DOS 홈페이지 회원은 "본인 회원"만을 원칙으로 합니다.
             if (agree.checked) {
                 // 동의했을 때의 처리 (예: 다음 페이지로 이동)
                 alert("다음 단계로 이동합니다.");
-                window.location.href="SelectAgree";
+                window.location.href="JoinForm";
             } else {
                 alert("동의를 하셔야 회원가입이 가능합니다.");
             }

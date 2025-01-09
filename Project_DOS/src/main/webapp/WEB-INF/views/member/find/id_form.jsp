@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -48,14 +49,14 @@
 	<article>
 		<h1 class="text-center mb-4">아이디 찾기</h1>
 		<div class="login-container mt-5">
-		    <form action="FindSelectAgree" method="get">
+		    <form action="FindSelectAgree" id="FindId" method="post">
 		        <div class="mb-3">
 		            <label for="login" class="form-label">User Name</label>
-		            <input type="text" id="login" name="login" class="form-control" placeholder="이름 입력" >
+		            <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름 입력" >
 		        </div>
 		        <div class="mb-3">
 		            <label for="phonenumber" class="form-label">Phone Number</label>
-		            <input type="text" id="phonenumber" name="phonenumber" class="form-control" placeholder="전화번호 입력" >
+		            <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호 입력" >
 		        </div>
 		        <button type="submit" class="btn btn-dark w-100 mb-3">아이디 찾기</button>
 		        <div class="d-flex justify-content-between">

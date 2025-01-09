@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -51,19 +53,19 @@
 		    <form action="LoginAction" method="post">
 		        <div class="mb-3">
 		            <label for="login" class="form-label">Login</label>
-		            <input type="text" id="login" name="member_id" class="form-control" placeholder="아이디 입력" required>
+		            <input type="text" id="login" name="member_id" class="form-control" placeholder="아이디 입력" required value="${cookie.rememberId.value}">
 		        </div>
 		        <div class="mb-3">
 		            <label for="password" class="form-label">Password</label>
-		            <input type="password" id="password" name="member_passwd" class="form-control" placeholder="비밀번호 입력" required>
+		            <input type="password" id="password" name="member_passwd" class="form-control" placeholder="비밀번호 입력" required >
 		        </div>
 		        <div class="form-check mb-3">
-		            	<input type="checkbox" id="remember" name="remember" class="form-check-input">
+		            	<input type="checkbox" id="rememberId" name="rememberId" class="form-check-input" <c:if test="${not empty cookie.rememberId.value}">checked</c:if>>
 		            	<label for="remember" class="form-check-label">아이디 저장</label>
 		        </div>
 		        <button type="submit" class="btn btn-dark w-100 mb-3">로그인</button>
 		        <div class="text-center">
-		       	    <a href="FindLogin" class="text-black no-underline " >아이디 찾기</a> | <a href="FindPasswd" class="text-black no-underline ">비밀번호 찾기</a>
+		       	    <a href="FindId" class="text-black no-underline " >아이디 찾기</a> | <a href="FindPasswd" class="text-black no-underline ">비밀번호 찾기</a>
 		   	    </div>
 		    </form>
 		</div>

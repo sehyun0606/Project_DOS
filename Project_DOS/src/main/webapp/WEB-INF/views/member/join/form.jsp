@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/js/member_join_form.js"></script>
     <style>
         .card {
             width: 600px; /* 카드의 너비 설정 */
@@ -44,35 +46,35 @@
 		    <form action="JoinSuccess" name="joinForm" method="post">
 		        <div class="mb-3">
 		            <label for="username" class="form-label">아이디</label>
-		            <input type="text" class="form-control" id="username" name="member_id" placeholder="아이디를 입력하세요." >
+		            <input type="text" class="form-control" id="id" name="member_id" placeholder="4~16자 영문자, 숫자, _조합" onblur="checkId()" required >
 		        </div>
 		        <div class="mb-3">
 		            <label for="password" class="form-label">비밀번호</label>
-		            <input type="password" class="form-control" id="password" name="member_passwd" placeholder="비밀번호를 입력하세요." >
+		            <input type="password" class="form-control" id="passwd" name="member_passwd" placeholder="비밀번호를 입력하세요." required >
 		        </div>
 		        <div class="mb-3">
 		            <label for="confirmPassword" class="form-label">비밀번호 확인</label>
-		            <input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호를 다시 입력하세요." >
+		            <input type="password" class="form-control" id="passwd2" placeholder="비밀번호를 다시 입력하세요." required>
 		        </div>
 		        <div class="mb-3">
 		            <label for="name" class="form-label">이름</label>
-		            <input type="text" class="form-control" id="name" name="member_name" placeholder="이름을 입력하세요." >
+		            <input type="text" class="form-control" id="name" name="member_name" pattern="^[가-힣]{2,6}$" title="한글 2글자 ~ 6글자 사이" required>
 		        </div>
 		        <div class="mb-3">
 		            <label for="birthdate" class="form-label">생년월일</label>
-		            <input type="date" class="form-control" id="birthdate" name="member_birth" >
+		            <input type="date" class="form-control" id="birthdate" name="member_birth"  required>
 		        </div>
 		        <div class="mb-3">
 		            <label for="phoneNumber" class="form-label">전화번호</label>
-		            <input type="text" class="form-control" id="phoneNumber" name="member_phone" placeholder="전화번호를 입력하세요.">
+		            <input type="text" class="form-control" id="phoneNumber" name="member_phone" placeholder="전화번호를 입력하세요." required>
 		        </div>
 		        <div class="mb-3">
 		            <label for="email" class="form-label">이메일</label>
-		            <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" name="member_email" >
+		            <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요" name="member_email" required>
 		        </div>
 		        <div class="mb-3">
 			            <label for="email" class="form-label">주소</label>
-						<input type="text" class="form-control" id="postcode" name="member_post_code" size="6" readonly placeholder="우편번호">
+						<input type="text" class="form-control" id="postcode" name="member_post_code" size="6" readonly placeholder="우편번호" required>
 			            <input type="text" class="form-control" id="address1" name="member_address1" size="6" placeholder="기본주소" >
 			            <input type="text" class="form-control" id="address2" name="member_address2" size="6" placeholder="상세주소" >
 						<input type="button" class="form-control btn btn-dark" value="주소검색" id="btnSearchAddress"><br>
