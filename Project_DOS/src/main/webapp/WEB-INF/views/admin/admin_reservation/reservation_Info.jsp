@@ -97,13 +97,13 @@
 <body>
     <div class="main-container">
         <div class="date-header">
-            <h1>${param.month}월 ${param.date}일</h1>
-            <p>예약한 팀 : 0</p>
+            <h1>${param.year}년 ${param.month}월 ${param.date}일</h1>
+            <p>예약한 팀 : ${reservationCount}</p>
         </div>
 
         <div class="box-container">
-            <c:forEach var="i" begin="1" end="9">
-                <div class="box" id="${i}">${i}</div>
+            <c:forEach var="reservation" items="${reservationCountByTable}" varStatus="status">
+                <div class="box" id="${status.index + 1}">${status.index + 1 }<br><br> 예약 : ${reservation}</div>
             </c:forEach>
         </div>
 
@@ -128,6 +128,7 @@
 				type : "GET",
 				url : "ReservationTime",
 				data :{
+					year : ${param.year},
 					month : ${param.month},
 					date : ${param.date},
 					table : selectedID

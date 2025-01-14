@@ -21,6 +21,9 @@
 		<c:when test="${empty targetURL}">
 			history.back();
 		</c:when>
+		<c:when test="${targetURL eq 'close'}">
+			window.close();
+		</c:when>
 		<c:otherwise>
 			location.href = "${targetURL}";
 		</c:otherwise>

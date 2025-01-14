@@ -31,7 +31,6 @@
         .menu-category button {
             margin: 0 10px;
             padding: 10px 20px;
-            background-color: #f5f5f5;
             border: 1px solid #ddd;
             cursor: pointer;
             font-size: 16px;
@@ -107,7 +106,26 @@
         	width: 10%;
         	margin-left: 80%;
         }
+        .selected {
+	        background-color: black; /* 선택된 상태 배경색 */
+	        color: white;             /* 선택된 상태 글자색 */
+	        border: 2px solid black;
+   		 }
+   		  /* 'best-tag' 클래스를 위한 스타일 설정 */
+        .best-tag {
+            background-color: gold; /* 배경색을 금색으로 설정 */
+            color: black; /* 글자색을 검정색으로 설정 */
+            font-weight: bold; /* 글자를 굵게 설정 */
+            position: absolute; /* 부모 요소 기준으로 절대 위치 설정 */
+            top: 10px; /* 상단에서 10px 떨어진 위치 */
+            right: 10px; /* 오른쪽에서 10px 떨어진 위치 */
+            padding: 5px 10px; /* 내부 여백 설정 (상하 5px, 좌우 10px) */
+            border-radius: 5px; /* 모서리를 둥글게 설정 */
+        }
+
+        
     </style>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <!-- Top 메뉴 포함 -->
@@ -120,81 +138,48 @@
                     <button onclick="location.href='MenuAdd'">메뉴 추가 버튼</button>
         </div>
         <div class="menu-category">
-            <button>스테이크</button>
-            <button>세트메뉴</button>
-            <button>파스타</button>
-            <button>샐러드</button>
-            <button>사이드</button>
-            <button>주류</button>
+            <button class="menu" id="set">세트메뉴</button>
+            <button class="menu" id="steak">스테이크</button>
+            <button class="menu" id="pasta">파스타</button>
+            <button class="menu" id="salad">샐러드</button>
+            <button class="menu" id="side">사이드</button>
+            <button class="menu" id="drink">주류</button>
         </div>
 
-        <h2>SET Menu</h2>
 
         <div class="menu-list">
-            <!-- 메뉴 아이템 -->
-            <div class="menu-item">
-                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
-                <div class="menu-info">
-                    <h3>메뉴 이름</h3>
-                    <p>메뉴 소개</p>
-                    <div class="price">9999원</div>
-                </div>
-                <div class="menu-buttons">
-                    <button>메뉴 편집 버튼</button>
-                    <button>메뉴 삭제 버튼</button>
-                </div>
-            </div>
-
-            <!-- 복사 가능한 메뉴 블록 -->
-            <div class="menu-item">
-                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
-                <div class="menu-info">
-                    <h3>메뉴 이름</h3>
-                    <p>메뉴 소개</p>
-                    <div class="price">9999원</div>
-                </div>
-                <div class="menu-buttons">
-                    <button>메뉴 편집 버튼</button>
-                    <button>메뉴 삭제 버튼</button>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
-                <div class="menu-info">
-                    <h3>메뉴 이름</h3>
-                    <p>메뉴 소개</p>
-                    <div class="price">9999원</div>
-                </div>
-                <div class="menu-buttons">
-                    <button>메뉴 편집 버튼</button>
-                    <button>메뉴 삭제 버튼</button>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
-                <div class="menu-info">
-                    <h3>메뉴 이름</h3>
-                    <p>메뉴 소개</p>
-                    <div class="price">9999원</div>
-                </div>
-                <div class="menu-buttons">
-                    <button>메뉴 편집 버튼</button>
-                    <button>메뉴 삭제 버튼</button>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
-                <div class="menu-info">
-                    <h3>메뉴 이름</h3>
-                    <p>메뉴 소개</p>
-                    <div class="price">9999원</div>
-                </div>
-                <div class="menu-buttons">
-                    <button>메뉴 편집 버튼</button>
-                    <button>메뉴 삭제 버튼</button>
-                </div>
-            </div>
         </div>
     </div>
+  <script>
+	 $(function () {
+			$(".menu").click(function(){
+				// 기존에 선택된 클래스 제거
+	            $(".menu").removeClass("selected");
+	
+	            // 현재 클릭된 요소에 클래스 추가
+	            $(this).addClass("selected");
+	            
+	         	// 선택된 box의 id 값을 가져오기
+	            const selectedID = $(this).attr("id"); // 클릭된 박스의 id 가져오기
+	            
+	             $.ajax({
+					type : "GET",
+					url : "AdminMenuList",
+					data :{
+						menu : selectedID,
+						
+					},
+					success : function(response){
+						$(".menu-list").html(response);
+					},
+					error : function() {
+						$(".menu-list").html(selectedID)
+					}
+				});
+	            
+	            
+			});
+	 });
+  </script>
 </body>
 </html>
