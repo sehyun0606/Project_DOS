@@ -14,7 +14,7 @@ public class ReservationVO {
 	private int reservation_idx;
 	private String member_id;
 	private String member_phone;
-	private Date reservatrion_date;
+	private Date reservation_date;
 	private String reservation_time;
 	private int people_count;
 	private int table_num;

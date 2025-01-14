@@ -179,9 +179,9 @@
                 }
 
                 cell.addEventListener('click', () => {
-                	 const popupURL = 'ReservationInfo?month='+(month+1)+'&date='+date;
+                	 const popupURL = 'ReservationInfo?year='+ year +'&month='+(month+1)+'&date='+date;
 
-                	window.open(popupURL, '_blank', 'width=400,height=800');
+                	window.open(popupURL, '_blank', 'width=500,height=800');
                 });
 
                 calendarBody.appendChild(cell);

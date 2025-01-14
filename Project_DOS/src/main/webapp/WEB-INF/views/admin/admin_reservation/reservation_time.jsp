@@ -2,14 +2,27 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-     <!-- 서버에서 전달된 시간 리스트 -->
-	<c:set var="timeList" value="${'12:00,2:00,4:00,6:00,8:00'}" />
-	<c:forEach var="time" items="${timeList}">
+     
+	<c:forEach var="reservation" items="${reservationList}">
 		<div class="reservation-item">
-		 <span	>${time} 예약자 이름</span>
-			<div>
-				<button class="edit-button" onclick="location.href='ReservationEdit'">편집</button>
-				<button class="cancel-button">예약 취소</button>
-			</div>
+		 <span>${reservation.reservation_time}</span>
+		 <span>${reservation.member_id}</span>
+		 <span>${reservation.member_phone}</span>
+			<form action="ReservationEdit" method="get">
+				<input type="hidden" name="reservation_date" value="${param.year}-${param.month}-${param.date}">
+				<input type="hidden" name="reservation_time" value="${reservation.reservation_time}">
+				<input type="hidden" name="member_id" value="${reservation.member_id}">
+				<input type="hidden" name="table_num" value="${param.table}">
+				<button type="submit" class="edit-button">예약 편집</button>
+				
+			</form>
+			<form action="ReservationDelete" method="get">
+				<input type="hidden" name="reservation_date" value="${param.year}-${param.month}-${param.date}">
+				<input type="hidden" name="reservation_time" value="${reservation.reservation_time}">
+				<input type="hidden" name="member_id" value="${reservation.member_id}">
+				<input type="hidden" name="reservation_idx" value="${reservation.reservation_idx}">
+				<input type="hidden" name="table_num" value="${param.table}">
+				<button class="cancel-button" type="submit">예약 취소</button>
+			</form>
 		</div>
 	</c:forEach>

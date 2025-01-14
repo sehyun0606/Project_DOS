@@ -85,21 +85,16 @@
     	<form action="ReservationEdit" method="post">
 			<h1>${reservation.member_id}</h1>
 	        <h2>날짜 수정</h2>
-			<input type="hidden" id="idx" value="${reservation.reservation_idx}" name="reservation_idx">
+			<input type="hidden" id="idx" value="${param.reservation_idx}" name="reservation_idx">
 	        <!-- 날짜 선택 -->
 	        <div class="date-picker">
 	            <label for="date">Date</label>
-	            <input type="date" id="date" name="reservation_date" value="${reservation.reservation_date}" >
+	            <input type="date" id="date" name="reservation_date" value="${param.reservation_date}" >
 	        </div>
 			<!-- 네모 박스 -->
 	        <div class="box-container">
 	            <c:forEach var="i" begin="1" end="9">
-	            	<c:if test="${reservation.table_num == i}">
-			            <div id="${i}" class="box selected">${i}</div>
-			        </c:if>
-			        <c:if test="${reservation.table_num != i}">
 			            <div id="${i}" class="box">${i}</div>
-			        </c:if>
 	            </c:forEach>
 	        </div>
 	          <div  class="input-group">
@@ -140,13 +135,13 @@
         
     </div>
    <script type="text/javascript">
-  	 const reservationIdx = $("#idx").val();
+	   const reservationIdx = $("#idx").val();
 	   $("#date").change(function() {
 	       var selectedDate = $(this).val(); // 선택된 날짜 가져오기
 	       window.location.href = "ReservationTableEdit?reservation_date=" + selectedDate +"&reservation_idx=" + reservationIdx;
 	   });
-	   const reservationDate = `${reservation.reservation_date}`
-	   
+	   const reservationDate = `${param.reservation_date}`
+	    	
 	   		//기존 시간 선택되어있음
 	    	$("#time-select").val($("#time").text());
 	    	
@@ -159,6 +154,7 @@
 	    		$(".box").click(function(){
 	    			
 	    			$("input[name='people_count']").prop("checked", false);
+	    			
 	    			
 	    			// 기존에 선택된 클래스 제거
 	                $(".box").removeClass("selected");

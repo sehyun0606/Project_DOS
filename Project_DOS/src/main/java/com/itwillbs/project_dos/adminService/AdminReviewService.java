@@ -52,4 +52,5 @@ public class AdminReviewService {
 		return reviewMapper.selectReviewListByLike(startRow,listLimit);
 	}
 
+
 }
