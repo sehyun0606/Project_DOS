@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   	<typeAliases>
+  		<typeAlias type="com.itwillbs.project_dos.vo.FAQVO" alias="faq"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.NoticeVO" alias="notice"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.QuestionVO" alias="question"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.MemberVO" alias="member"/>
