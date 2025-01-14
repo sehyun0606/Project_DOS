@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.mapper.NoticeMapper">
+ 	<!-- 전체 게시물 목록 갯수 조회 - SELECT -->
+	<!-- COUNT() 함수 활용 -->
+	<select id="selectBoardListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM notice_board
+	</select>
+	
+	<!-- 게시물 목록 조회 - SELECT -->
+	<!-- 정렬 : 참조글번호(board_re_ref) 기준 내림차순, 순서번호(board_re_seq) 기준 오름차순 -->
+	<!-- LIMIT 절을 활용하여 조회할 게시물 갯수 제한(startRow 행부터 listLimit 만큼 조회) -->
+	<select id="selectNoteceList" resultType="notice"> <!-- mybatis-config.xml 에서 alias 설정함 -->
+		SELECT *
+		FROM notice_board
+		ORDER BY
+			board_num DESC
+		LIMIT
+			#{startRow}
+			, #{listLimit}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ </mapper>
+ 
+ 
+ 
+ 
+ 

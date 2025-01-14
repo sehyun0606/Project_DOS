@@ -49,14 +49,14 @@
 	<article>
 		<h1 class="text-center mb-4">아이디 찾기</h1>
 		<div class="login-container mt-5">
-		    <form action="FindSelectAgree" id="FindId" method="post">
+		    <form action="FindIdSelectAgree" id="FindId" method="post">
 		        <div class="mb-3">
 		            <label for="login" class="form-label">User Name</label>
-		            <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름 입력" >
+		            <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름 입력" required>
 		        </div>
 		        <div class="mb-3">
 		            <label for="phonenumber" class="form-label">Phone Number</label>
-		            <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호 입력" >
+		            <input type="text" id="member_phone" name="member_phone" class="form-control" placeholder="전화번호 입력" required>
 		        </div>
 		        <button type="submit" class="btn btn-dark w-100 mb-3">아이디 찾기</button>
 		        <div class="d-flex justify-content-between">

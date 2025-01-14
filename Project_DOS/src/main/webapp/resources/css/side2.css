@@ -1,0 +1,89 @@
+/* 사이드 메뉴 전체 레이아웃 */
+#layoutSidenav {
+    width: 150px;
+}
+
+.h5 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+        
+#layoutSidenav_nav {
+    width: 150px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    left: 0;
+    padding-top: 20px;
+}
+
+/* 메뉴 스타일 */
+.sb-sidenav {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.sb-sidenav .nav {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sb-sidenav .nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sb-sidenav .nav-link:hover {
+    background-color: #eaeaea;
+    color: #007bff;
+    border-radius: 8px;
+}
+
+.sb-sidenav .nav-link .sb-nav-link-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #666;
+}
+
+.sb-sidenav .nav-link.active {
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+}
+
+.sb-sidenav .nav-link.active .sb-nav-link-icon {
+    color: white;
+}
+
+/* 스크롤바 스타일 (사이드 메뉴가 넘칠 경우) */
+.sb-sidenav-menu {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 10px;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-track {
+    background-color: #f8f9fa;
+}

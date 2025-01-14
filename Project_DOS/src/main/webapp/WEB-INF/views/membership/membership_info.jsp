@@ -17,6 +17,7 @@
         }
     </script>
     <style>
+    
         body {
             background-color: #f8f9fa; /* 배경색 */
         }
@@ -50,9 +51,9 @@
     </style>
 </head>
 <body>
-	<header>
+	<nav>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-	</header>
+	</nav>
 
 	<div class="container mt-5">
 	    <h1>MEMBERSHIP</h1>

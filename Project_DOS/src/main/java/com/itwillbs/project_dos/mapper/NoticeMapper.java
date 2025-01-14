@@ -7,17 +7,16 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itwillbs.project_dos.vo.FAQVO;
+import com.itwillbs.project_dos.vo.NoticeVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 
 @Mapper
-public interface QnaMapper {
+public interface NoticeMapper {
 
-	int selectQnaListCount();
+	int selectBoardListCount();
 
-	List<QuestionVO> selectQnaList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
+	List<NoticeVO> selectNoteceList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
 
-	FAQVO selectFaq();
 
 	
 }

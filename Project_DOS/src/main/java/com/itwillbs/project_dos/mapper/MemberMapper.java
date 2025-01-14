@@ -1,5 +1,7 @@
 package com.itwillbs.project_dos.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,7 +25,26 @@ public interface MemberMapper {
 	void insertMailAuthInfo(MailAuthInfo mailAuthInfo);
 	// 기존 인증 정보 수정
 	void updateMailAuthInfo(MailAuthInfo mailAuthInfo);
-
+	// 멤버 이메일 확인
 	MemberVO selectMemberEmail(String email);
+	// 멤버 이메일 코드 확인
+	String selectAuthCode(String email);
+
+
+	String getMailAuthInfo(Map<String, String> map);
+
+	MemberVO selectMemberId(Map<String, String> map);
+
+	MemberVO updatePasswd(Map<String, String> map);
+
+	int modifyPasswd(Map<String, String> map);
+
+	String getIdCheck(String id);
+
+	int updateMemberAuth(String member_email);
+
+
+
+
 
 }

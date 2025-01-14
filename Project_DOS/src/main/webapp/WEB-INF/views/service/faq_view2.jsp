@@ -79,97 +79,50 @@
         font-weight: bold; /* 글씨 두껍게 */
         color: #007bff; /* 글자색 변경 (파란색) */
     	}
+    	.board-content-wrapper {
+        padding: 20px; /* 내부 여백 */
+        text-align: center; /* 텍스트 가운데 정렬 */
+        background-color: #f8f9fa; /* 배경색 */
+        border: 1px solid #ccc; /* 테두리 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        min-height: 600px; /* 최소 높이 */
+    	min-width: 600px; /* 최소 너비 */
+   	 	}
+
+	    /* 게시판 본문 텍스트 스타일 */
+	    .board-content p {
+	        height: auto; /* 텍스트 영역 높이 자동 */
+	        margin-top: 15px; /* 상단 간격 */
+	        font-size: 1.1rem; /* 글자 크기 */
+	        line-height: 1.6; /* 줄 간격 */
+	        color: #333; /* 글자 색상 */
+	    }
     </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
-
     <!-- 상단 네비게이션 -->
     <nav>
         <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
     </nav>
-
     <!-- 사이드바와 메인 콘텐츠 레이아웃 -->
     <div class="layout-container">
         <!-- 고정 사이드바 -->
         <div id="side-menu">
 			<jsp:include page="/WEB-INF/views/inc/service_side.jsp"></jsp:include>
 		</div>
-
         <!-- 메인 콘텐츠 -->
         <div class="main-content">
             <article class="content">
                 <div class="container">
                     <div class="table-container">
-                        <h2 class="text-center mb-4">공지사항</h2>
-                        <div class="d-flex justify-content-between mb-3">
-                            <!-- 제목 select -->
-                            <div class="input-group me-2" style="width: 15%;">
-                                <select class="form-control selectpicker" id="noticeselect">
-                                    <option value="">제목</option>
-                                    <option value="">내용</option>
-                                    <option value="">ID</option>
-                                </select>
-                            </div>
-                            <!-- 검색 텍스트 -->
-                            <div class="input-group flex-grow-1 me-2">
-                                <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="검색어">
-                                <button class="btn btn-outline-secondary" type="button" style="width: 15%">검색</button>
-                            </div>
-                            <!-- 글쓰기 버튼 -->
-                            <div style="width: 15%;">
-                                <button class="btn btn-primary w-100" type="button">글쓰기</button>
-                            </div>
-                        </div>
-                        <table class="table table-bordered text-center">
-                            <thead class="table-light">
-                            <tr>
-                                <th style="width: 5%;">번호</th>
-                                <th style="width: 65%;">제목</th>
-                                <th style="width: 10%;">작성자</th>
-                                <th style="width: 10%;">등록일</th>
-                            </tr>
-                            </thead>
-                            <c:choose>
-                                <c:when test="${empty noticeBoard}">
-                                    <tr><td colspan="5">게시물이 존재하지 않습니다</td></tr>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:forEach var="notice" items="${noticeBoard}" varStatus="status">
-                                        <tr>
-                                            <td class="board_num">${notice.board_num}</td>
-                                            <td class="board_title">${notice.board_title}</td>
-                                            <td>
-                                                <fmt:formatDate value="${notice.board_date}" pattern="yy-MM-dd HH:mm"/>
-                                            </td>
-                                            <td>${notice.board_readcount}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </c:otherwise>
-                            </c:choose>
-                        </table>
-                        <nav class="d-flex justify-content-center">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="Question?pageNum=${pageInfo.pageNum - 1}" 
-                                        <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>&#9664;</a>
-                                </li>
-                                <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
-                                    <c:choose>
-                                        <c:when test="${i eq pageInfo.pageNum}">
-                                            <a class="page-link"><b>${i}</b></a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="page-item"><a class="page-link" href="Question?pageNum=${i}">${i}</a></li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                                <li class="page-item">
-                                    <a class="page-link" href="Question?pageNum=${pageInfo.pageNum + 1}" 
-                                        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" >disabled</c:if>>&#9654;</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <h2 class="text-center mb-4">FAQ</h2>
+                        <div class="board-content-wrapper">
+				            <div class="board-content">
+			                	${faqList.faq_title}<br>
+			                	${faqList.faq_content }
+				            </div>
+				        </div>
                     </div>
                 </div>
             </article>

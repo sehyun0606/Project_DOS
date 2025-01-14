@@ -68,13 +68,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .board_title {
+        .qna_title {
         cursor: pointer; /* 커서가 손가락 모양으로 변경 */
         transition: background-color 0.3s, font-weight 0.3s; /* 부드러운 전환 효과 */
   	  	}
 
     /* 제목에 호버 효과 */
-  		.board_title:hover {
+  		.qna_title:hover {
         background-color: #f0f0f0; /* 배경색 변경 */
         font-weight: bold; /* 글씨 두껍게 */
         color: #007bff; /* 글자색 변경 (파란색) */
@@ -101,7 +101,7 @@
             <article class="content">
                 <div class="container">
                     <div class="table-container">
-                        <h2 class="text-center mb-4">공지사항</h2>
+                        <h2 class="text-center mb-4">문의사항</h2>
                         <div class="d-flex justify-content-between mb-3">
                             <!-- 제목 select -->
                             <div class="input-group me-2" style="width: 15%;">
@@ -128,21 +128,23 @@
                                 <th style="width: 65%;">제목</th>
                                 <th style="width: 10%;">작성자</th>
                                 <th style="width: 10%;">등록일</th>
+                                <th style="width: 15%;">조회수</th>
                             </tr>
                             </thead>
                             <c:choose>
-                                <c:when test="${empty noticeBoard}">
+                                <c:when test="${empty qnaList}">
                                     <tr><td colspan="5">게시물이 존재하지 않습니다</td></tr>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach var="notice" items="${noticeBoard}" varStatus="status">
+                                    <c:forEach var="qna" items="${qnaList}" varStatus="status">
                                         <tr>
-                                            <td class="board_num">${notice.board_num}</td>
-                                            <td class="board_title">${notice.board_title}</td>
+                                            <td class="qna_num">${qna.qna_num}</td>
+                                            <td class="qna_title">${qna.qna_title}</td>
+                                            <td>${qna.member_id}</td>
                                             <td>
-                                                <fmt:formatDate value="${notice.board_date}" pattern="yy-MM-dd HH:mm"/>
+                                                <fmt:formatDate value="${qna.qna_date}" pattern="yy-MM-dd HH:mm"/>
                                             </td>
-                                            <td>${notice.board_readcount}</td>
+                                            <td>${qna.qna_readcount}</td>
                                         </tr>
                                     </c:forEach>
                                 </c:otherwise>
@@ -179,12 +181,10 @@
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 	</footer>
     <!-- 부트스트랩 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-    <script src="resources/js/scripts_main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
 		// 게시물 제목열 클릭 이벤트 핸들링
-		$(".board_title").on("click", function(event) {
+		$(".qna_title").on("click", function(event) {
 // 			console.log(event.target);
 			
 			// [ 클릭된 제목에 해당하는 게시물의 글 번호 가져오기 ]
@@ -206,7 +206,6 @@
 			// => 파라미터 : 글번호(위에서 탐색한 번호), 페이지번호(PageInfo 객체의 pageNum 속성값)
 			location.href = "BoardDetail?board_num=" + board_num + "&pageNum=${pageInfo.pageNum}";
 		});
-		
 	</script>
 </body>
 </html>

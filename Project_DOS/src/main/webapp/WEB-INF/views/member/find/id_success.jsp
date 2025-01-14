@@ -37,7 +37,7 @@
 	</header>
 	<article>
 		<h1>고객님의 아이디는</h1><br>
-		<p>ID : xxxxx</p><br>
+		<p>ID : ${member.member_id}</p><br>
 		<div class="container">
 		    <a href="MemberLogin" class="btn btn-dark btn-custom">로그인</a>
 		    <a href="FindPasswd" class="btn btn-secondary btn-custom">비밀번호 찾기</a>

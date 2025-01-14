@@ -1,5 +1,7 @@
 package com.itwillbs.project_dos.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,37 @@ public class MemberService {
 	public MemberVO getMemberEmail(String email) {
 		return mapper.selectMemberEmail(email);
 	}
+
+	public String getAuthCode(String email) {
+		return mapper.selectAuthCode(email);
+	}
+
+	public String getmailAuthInfo(Map<String, String> map) {
+		return mapper.getMailAuthInfo(map);
+	}
+
+	public MemberVO getMemberId(Map<String, String> map) {
+		return mapper.selectMemberId(map);
+	}
+
+	public MemberVO passwdModify(Map<String, String> map) {
+		return mapper.updatePasswd(map);
+	}
+
+	public int modifyPasswd(Map<String, String> map) {
+		return mapper.modifyPasswd(map);
+	}
+
+	public String getIdCheck(String id) {
+		return mapper.getIdCheck(id);
+	}
+
+	public int updateMemberAuth(String member_email) {
+		return mapper.updateMemberAuth(member_email);
+	}
+
+
+
 
 
 

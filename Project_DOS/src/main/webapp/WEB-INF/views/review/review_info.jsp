@@ -16,8 +16,8 @@
         }
 
         .container {
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: auto;
+            margin: auto;
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -105,9 +105,9 @@
             object-fit: cover;
         }
 
-        .admin-reply {
-            margin-top: 20px;
-        }
+         .admin-reply { 
+            margin-top: 20px; 
+          } 
 
 	.dotted-divider {
             border-top: 3px dotted  #ddd;
@@ -117,8 +117,9 @@
 </head>
 <body>
     <!-- Top 메뉴 포함 -->
-<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-
+	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+	<br>
+	<br>
     <div class="container">
         <!-- 사용자 리뷰 -->
         <div class="review-header">
@@ -162,6 +163,9 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 
     <script>
         let isLiked = false;
@@ -183,6 +187,5 @@
             likeCountElem.textContent = likeCount;
         }
     </script>
-    <jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 </body>
 </html>

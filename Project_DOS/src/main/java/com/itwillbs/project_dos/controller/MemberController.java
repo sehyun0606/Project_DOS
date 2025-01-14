@@ -1,5 +1,7 @@
 package com.itwillbs.project_dos.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.project_dos.service.MailService;
 import com.itwillbs.project_dos.service.MemberService;
@@ -35,12 +39,12 @@ public class MemberController {
 			String rememberId,
 			HttpSession session,
 			Model model,
-			BCryptPasswordEncoder passwordEncoder,
+			BCryptPasswordEncoder bpe,
 			HttpServletResponse response) {
 		
 		MemberVO dbMember = memberservice.getMember(member.getMember_id());
 		
-		if(dbMember == null || !passwordEncoder.matches(member.getMember_passwd(), dbMember.getMember_passwd())) { 
+		if(dbMember == null || !bpe.matches(member.getMember_passwd(), dbMember.getMember_passwd())) { 
 			model.addAttribute("msg", "로그인 실패!");
 			return "result/result";
 		} else if(dbMember.getMember_status() == 3) { 
@@ -66,6 +70,21 @@ public class MemberController {
 			response.addCookie(cookie);
 
 			return "redirect:/";
+		}
+	}
+	
+	// 로그인 중복확인 로직
+	@GetMapping("MemberCheckId")
+	@ResponseBody
+	public String MemberCheckId(String id) {
+		String responseData = "";
+		
+		String memberId = memberservice.getIdCheck(id);
+		if(id.equals(memberId)) {
+			responseData = "true";
+			return responseData;
+		} else {
+			return responseData;
 		}
 	}
 
@@ -123,46 +142,74 @@ public class MemberController {
 	public String MemberAgreeEmail() {
 		return "member/join/agree_email";
 	}
-
+	
+	// 메일 발송 비지니스 로직
 	@GetMapping("sendAuthMail")
+	@ResponseBody
 	public String sendAuthMail(String email, Model model) {
-		
+		String responseData = "false";
 		MemberVO member = memberservice.getMemberEmail(email);
 		if(member != null) {
-		// ----------------- 인증 메일 발송 작업 추가 --------------------
-		// MailService - sendAuthMail() 메서드 호출하여 인증메일 발송 요청
-		// => 파라미터 : MemberVO 객체   리턴타입 : MailAuthInfo(mailAuthInfo)
-		MailAuthInfo mailAuthInfo = mailservice.sendAuthMail(member);
-		System.out.println("member : " + member);
-		System.out.println("인증메일 정보 : " + mailAuthInfo);
-		// -------------------
-		// MemberService - registMailAuthInfo() 메서드 호출하여 인증 정보 등록 요청
-		// => 파라미터 : MailAuthInfo 객체   리턴타입 : void
-		memberservice.registMailAuthInfo(mailAuthInfo);
-		return "member/find/id_agree_email";
+			// ----------------- 인증 메일 발송 작업 추가 --------------------
+			// MailService - sendAuthMail() 메서드 호출하여 인증메일 발송 요청
+			// => 파라미터 : MemberVO 객체   리턴타입 : MailAuthInfo(mailAuthInfo)
+			MailAuthInfo mailAuthInfo = mailservice.sendAuthMail(member);
+			System.out.println("member : " + member);
+			System.out.println("인증메일 정보 : " + mailAuthInfo);
+			// -------------------
+			// MemberService - registMailAuthInfo() 메서드 호출하여 인증 정보 등록 요청
+			// => 파라미터 : MailAuthInfo 객체   리턴타입 : void
+			memberservice.registMailAuthInfo(mailAuthInfo);
+			responseData = "true";
+			return responseData;
 		} else {
-			model.addAttribute("msg", "등록되지 않은 이메일 입니다!");
-			return "result/result";
+			return responseData;
 		}
 	}
 	
-	@GetMapping("success_page")
-	public String success_page() {
+	// 인증코드 체크 비즈니스 로직
+	@GetMapping("authCodeCheck")
+	@ResponseBody
+	public String authCodeCheck(String code, String email) {
+		String responseData = "";
+		String CodeInfo = memberservice.getAuthCode(email);
+		System.out.println("code : " + code);
+		try {
+			if(code.equals(CodeInfo)) {
+				System.out.println("일치함");
+				responseData = "true";
+			} else {
+				System.out.println("일치하지 않음");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseData;
+	}
+	
+	@GetMapping("successPage")
+	public String success_page(String member_email) {
+		int updateCount = memberservice.updateMemberAuth(member_email);
+		
+		
 		return "member/join/success";
 	}
 	
+	// 아이디 찾기 폼 이동 
 	@GetMapping("FindId")
 	public String FindIdForm() {
 		return "member/find/id_form";
 	}
 	
+	// 비밀번호 찾기 폼 이동
 	@GetMapping("FindPasswd")
 	public String FindPasswdForm() {
 		return "member/find/passwd_form";
 	}
 
-	@PostMapping("FindSelectAgree")
-	public String FindSelectAgreeId(Model model, MemberVO member) {
+	//아이디 찾기 폼 로직
+	@PostMapping("FindIdSelectAgree")
+	public String FindIdSelectAgree(Model model, MemberVO member) {
 		
 		MemberVO findMember = memberservice.findIdMember(member.getMember_name(),member.getMember_phone());
 		
@@ -179,12 +226,22 @@ public class MemberController {
 		return "member/find/id_agree_email";
 	}
 	
+	//아이디 찾기 성공 비즈니스 로직
 	@GetMapping("FindIdSuccess")
-	public String FindId() {
-		return "member/find/id_success";
-//		return null;
+	public String FindIdSucces(@RequestParam Map<String, String> map, Model model) {
+		MemberVO member = memberservice.getMemberId(map);
+		String mailAuthCodeInfo = memberservice.getmailAuthInfo(map);
+		if(!map.get("emailAuthCode").equals(mailAuthCodeInfo)) {
+			model.addAttribute("msg", "정보가 일치하지 않습니다!");
+			return "result/result";
+		} else {
+			System.out.println("일치 합니다!");
+			model.addAttribute("member", member);
+			return "member/find/id_success";
+		}
 	}
 	
+	// 비밀번호 찾기 폼 로직
 	@PostMapping("FindPasswdSelectAgree")
 	public String FindPasswdSelectAgree(Model model, MemberVO member) {
 		
@@ -204,10 +261,56 @@ public class MemberController {
 		return "member/find/passwd_agree_email";
 	}
 
-	@GetMapping("FindPswd")
-	public String FindPswd() {
-		return "member/find/passwd_success";
+	@GetMapping("FindPasswdSuccess")
+	public String FindPasswdSuccess(@RequestParam Map<String, String> map, Model model) {
+		String mailAuthCodeInfo = memberservice.getmailAuthInfo(map);
+		
+		if(!map.get("emailAuthCode").equals(mailAuthCodeInfo)) {
+			model.addAttribute("msg", "정보가 일치하지 않습니다!");
+			return "result/result";
+		} else {
+			System.out.println("일치 합니다!");
+			model.addAttribute("email", map.get("member_email"));
+//			return "member/find/passwd_modify";
+			return "redirect:/changePasswd";
+		}
 	}
+	
+	@GetMapping("changePasswd")
+	public String changePasswd() {
+		return "member/find/passwd_modify";
+	}
+	
+	@PostMapping("PasswdModify")
+	public String PasswdModify(@RequestParam Map<String, String> map, Model model, BCryptPasswordEncoder bpe, MemberVO member) {
+		
+		String securedPasswd = bpe.encode(map.get("newPasswd"));
+		System.out.println("평문 : " + map.get("newPasswd"));
+		System.out.println("암호문 : " + securedPasswd);
+		map.put("newPasswd", securedPasswd);
+		
+		int updatePasswd = memberservice.modifyPasswd(map);
+		
+		System.out.println("새로 입력한 비밀번호 : " + updatePasswd);
+		if(updatePasswd > 0) {
+			model.addAttribute("msg", "비밀번호가 변경되었습니다 로그인 페이지로 이동합니다.");
+			model.addAttribute("targetURL", "MemberLogin");
+			return "result/result";
+		} else {
+			model.addAttribute("msg", "비밀번호 수정 실패!");
+			return "result/result";
+		}
+		
+	}
+	
+
+//	@GetMapping("SuccessPasswdModify")
+//	public String SuccessPasswdModify(@RequestParam Map<String, String> map, Model model) {
+//		MemberVO newPasswd = memberservice.passwdModify(map);
+//		return"";
+//	}
+	
+
 	
 	@GetMapping("MemberShip")
 	public String MemberShipInfo() {

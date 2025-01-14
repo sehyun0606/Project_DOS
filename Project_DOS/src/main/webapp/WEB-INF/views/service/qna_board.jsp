@@ -1,285 +1,161 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%@ include file="../inc/top.jsp" %>
-<%-- <%@ include file="../inc/side.jsp" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- 날짜 표시 형식을 변경하기 위해 JSTL - fmt 라이브러리 추가 --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 모바일에서 화면 크기에 맞게 표시하도록 설정 -->
-    <title>문의사항게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
-    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
-	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    	.footer {
-			margin-top:100px;
-		}
-    
-        .table {
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        .table th, .table td {
-            word-wrap: break-word;
-            overflow: hidden;
-        }
-
-        .table th:nth-child(1), .table td:nth-child(1) { width: 10%; } /* 번호 열 */
-        .table th:nth-child(2), .table td:nth-child(2) { width: 40%; } /* 제목 열 */
-        .table th:nth-child(3), .table td:nth-child(3) { width: 20%; } /* 작성자 열 */
-        .table th:nth-child(4), .table td:nth-child(4) { width: 15%; } /* 등록일 열 */
-        .table th:nth-child(5), .table td:nth-child(5) { width: 15%; } /* 조회수 열 */
-
-        .table td:nth-child(1) {
-            text-align: center;
-        }
-
-        .table td:nth-child(2) {
-            text-align: left;
-        }
-
-        .table td:nth-child(3) {
-            text-align: center;
-        }
-
-        .table td:nth-child(4) {
-            text-align: center;
-        }
-
-        .table td:nth-child(5) {
-            text-align: center;
-        }
-
-        .btn-custom {
-            background-color: white;
-            color: black;
-            border: 1px solid #ccc;
-        }
-
-        .btn-custom:hover {
-            background-color: #f8f9fa;
-            border-color: #ddd;
-            color: black;
-        }
-
-        .pagination {
-            justify-content: center;
-        }
-
-        .pagination .page-item {
-            border: 1px solid #ddd;
-        }
-
-        .pagination .page-link {
-            padding: 10px 15px;
-            color: black;
-            text-decoration: none;
-        }
-
-        .pagination .page-link:hover {
-            background-color: #f8f9fa;
-            color: black;
-        }
-
-        .pagination .active .page-link {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: white;
-        }
-
-	    .fixed-buttons {
-		    position: static;  /* fixed 대신 absolute로 변경 */
-		    z-index: 10;
-		}
-
-
-        .fixed-buttons button {
-            width: 150px;
-            margin-left: 1500px;
-            margin-right: 100px;
-            margin-bottom: 50px;
-        }
-
-        /* 글쓰기 버튼 스타일 */
-        .btn-write {
-            background-color: white;
-            color: black;
-            border: 1px solid #ccc;
-        }
-
-        .btn-write:hover {
-            background-color: #f8f9fa;
-            border-color: #ddd;
-            color: black;
-        }
-        
-        .container2 {
-        	text-align:center;
-        	margin-top: 20px;
-        	margin-left: 200px;
-        	margin-right: 200px;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <!-- 부트스트랩 CSS -->
+    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
     </style>
 </head>
 <body>
-    <div class="container2">
-        <!-- 검색 바 -->
-        <div class="row mb-4">
-            <div class="col-md-3">
-            	<select class="form-control selectpicker" id="noticeselect">
-                    <option value="">제목</option>
-                    <option value="">내용</option>
-                    <option value="">ID</option>
-                </select>
+	<nav>
+		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+	</nav>
+	
+	<div class="d-flex">
+        <!-- 사이드바 -->
+        <div class="offcanvas offcanvas-start show" style="width: 250px; background-color: #f8f9fa;" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarLabel">메뉴</h5>
             </div>
-            <div class="col-md-6">
-                <input type="text" id="search" class="form-control" placeholder="검색어를 입력하세요">
+            <div class="offcanvas-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="#">홈</a></li>
+                    <li class="list-group-item"><a href="#">게시판</a></li>
+                    <li class="list-group-item"><a href="#">문의사항</a></li>
+                    <li class="list-group-item"><a href="#">설정</a></li>
+                </ul>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-custom btn-block" onclick="">검색</button>
-            </div>
-			<div class="col-md-3">
-			    <button type="button" class="btn btn-custom btn-block" onclick="location.href='/project_dos/Faq';">자주 묻는 질문</button>
-			</div>
         </div>
-
-        <!-- 테이블 -->
-        <div class="table-container">
-            <table class="table table-hover table-striped text-center">
-                <thead>
-                	<tr style="font-weight: bold; background-color: #f1f1f1;">
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>등록일</th>
-                        <th>조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr>
-				    <td>1</td>
-					    <td>&lt;에약문의&gt; 고객님들이 자주 문의하시는 질문 모음</td>
-					    <td>관리자</td>
-					    <td>2024-12-20</td>
-					    <td>15</td>
-					</tr>
-					<tr>
-                        <td>2</td>
-                        <td>&lt;예약문의&gt; 예약 관련 문의입니다.</td>
-                        <td>허진용1</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>&lt;일반문의&gt;멤버쉽 기간은 어떻게되나요?</Q></td>
-                        <td>허진용2</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>&lt;일반문의&gt;쿠폰은 어떻게 쓰나요?</td>
-                        <td>허진용4</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>&lt;일반문의&gt;세트 메뉴가 바뀔수있나요?</td>
-                        <td>허진용5</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>&lt;이벤트 문의&gt;이벤트 참여는 회원만 가능한가요?</td>
-                        <td>허진용6</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>&lt;이벤트 문의&gt;신년 이벤트는 몇명에게 적용인가요?</td>
-                        <td>허진용7</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                     <tr>
-                        <td>8</td>
-                        <td>&lt;일반문의&gt;주차장은 어떻게 운영하나요?</td>
-                        <td>허진용8</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                     <tr>
-                        <td>9</td>
-                        <td>&lt;일반문의&gt;배달 가능한가요?</td>
-                        <td>허진용9</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                     <tr>
-                        <td>10</td>
-                        <td>&lt;일반문의&gt;멤버쉽 해택 자세하게 알려주세요.</td>
-                        <td>허진용10</td>
-                        <td>2024-12-20</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 페이지 네비게이션 -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">◀</span>
-                    </a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">4</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">▶</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-	<script>
-    function qna_write() {
-    	let isLoggedIn = true;
-        if (isLoggedIn) {
-            location.href = '/project_dos/Qna_write';
-        } else {
-            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-            location.href = '/project_dos/MemberLogin'; // 로그인 페이지 맵핑
-        }
-    }
-	</script>
-    <div class="fixed-buttons">
-        <button type="button" class="btn btn-write" onclick="qna_write()">글쓰기</button>
-    </div>
-
-    <!-- Bootstrap JS 및 jQuery (CDN) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<div class="flex-grow-1">
+	<article class="content">
+		<div class="container my-5">
+		    <h2 class="text-center mb-4">문의사항</h2>
+		    <div class="d-flex justify-content-between mb-3">
+		        <!-- 제목 select -->
+		        <div class="input-group me-2" style="width: 15%;">
+		            <select class="form-control selectpicker" id="noticeselect">
+		                <option value="">제목</option>
+		                <option value="">내용</option>
+		                <option value="">ID</option>
+		            </select>
+		        </div>
+		        <!-- 검색 텍스트 -->
+		        <div class="input-group flex-grow-1 me-2">
+		            <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="검색어">
+		            <button class="btn btn-outline-secondary" type="button" style="width: 15%">검색</button>
+		        </div>
+		        <!-- 글쓰기 버튼 -->
+		        <div style="width: 15%;">
+		            <button class="btn btn-primary w-100" type="button">글쓰기</button>
+		        </div>
+		    </div>
+		    <table class="table table-bordered text-center">
+		        <thead class="table-light">
+		        <tr>
+		            <th style= "width: 5%;">번호</th>
+		            <th style= "width: 65%;">제목</th>
+		            <th style= "width: 10%;">작성자</th>
+		            <th style= "width: 10%;">등록일</th>
+		            <th style= "width: 15%;">조회수</th>
+		        </tr>
+		        </thead>
+		        <c:choose>
+					<c:when test="${empty qnaList}"> <%-- 게시물 목록이 존재하지 않을 경우 --%>
+						<tr><td colspan="5">게시물이 존재하지 않습니다</td></tr>
+					</c:when>
+					<c:otherwise>
+						<%-- List 객체(boardList)를 차례대로 반복하면서 게시물 목록 출력 --%>
+						<%-- JSTL - <c:forEach> 과 EL 조합하여 작업 --%>
+						<c:forEach var="qna" items="${qnaList}" varStatus="status">
+							<%-- List 객체에서 꺼낸 BoardVO 객체(board)에 접근하여 데이터 출력 --%>
+							<tr>
+								<td class="qna_num" >${qna.qna_num}</td>
+								<td class="qna_title">${qna.qna_title}</td>
+								<td>${qna.member_id}</td>
+								<td>
+									<%--
+									JSTL - format(fmt) 라이브러리를 활용하여 날짜 및 시각 형식(포맷) 변경
+									1) <fmt:formatDate> : Date 타입의 날짜의 날짜 형식(포맷) 변경
+									   => <fmt:formatDate value="${날짜 및 시각 객체}" pattern="표현패턴">
+									   => 자바의 SimpleDateFormat 등의 포맷팅 클래스와 동일한 역할 수행
+									2) <fmt:parseDate> : String 객체의 날짜 형식 변경
+									----------------------------------------------------------------------
+									[ 날짜 및 시각 형식을 지정하는 패턴 문자 ]
+									y : 연도(yy : 연도 2자리, yyyy : 연도 4자리)
+									M : 월(MM : 월 2자리)
+									d : 일(dd : 일 2자리)
+									H : 시(HH : 24시간제, hh : 12시간제)
+									m : 분(mm : 분 2자리)
+									s : 초(ss : 초 2자리) 
+									=> yy-MM-dd HH:mm : 연도2자리-월2자리-일2자리 시2자리:분2자리
+									--%>
+									<fmt:formatDate value="${qna.qna_date}" pattern="yy-MM-dd HH:mm"/>
+								</td>
+								<td>${qna.qna_readcount}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>					
+				</c:choose>
+		    </table>
+		    <nav class="d-flex justify-content-center">
+		        <ul class="pagination">
+<!-- 		            <li class="page-item"><a class="page-link" href="#">&#9664;</a></li> -->
+<!-- 		            <li class="page-item active"><a class="page-link" href="#">1</a></li> -->
+<!-- 		            <li class="page-item"><a class="page-link" href="#">2</a></li> -->
+<!-- 		            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+<!-- 		            <li class="page-item"><a class="page-link" href="#">4</a></li> -->
+<!-- 		            <li class="page-item"><a class="page-link" href="#">&#9654;</a></li> -->
+		        
+			    <%-- [이전] 버튼 클릭 시 현재 페이지의 이전 페이지 요청(2 페이지 일 경우 1 페이지 요청) --%>
+				<%-- 현재 목록의 페이지번호 - 1 값을 파라미터로 전달 --%>
+				<%-- 단, 현재 페이지가 1 페이지일 경우 비활성화(disabled) --%>
+				<li class="page-item"><a class="page-link" href="Question?pageNum=${pageInfo.pageNum - 1}" <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>
+				&#9664;</a></li>
+<!-- 				<input type="button" value="이전"  -->
+<%-- 					onclick="location.href='BoardList?pageNum=${pageInfo.pageNum - 1}'"  --%>
+<%-- 				<c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if> --%>
+				
+				<%-- 계산된 페이지 번호가 저장된 PageInfo 객체(pageInfo) 를 통해 페이지번호 반복 출력 --%>
+				<%-- startPage 부터 endPage 까지 1씩 증가하면서 페이지번호 출력 --%>
+				<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+					<%-- 각 페이지번호 마다 하이퍼링크 설정 --%>
+					<%-- 단, 현재 페이지(i값과 pageNum 동일)는 하이퍼링크 없이 굵게(<strong>) 표시 --%>
+					<c:choose>
+						<c:when test="${i eq pageInfo.pageNum}">
+							<a class="page-link"><b>${i}</b></a>
+						</c:when>
+						<c:otherwise>
+							<%-- 페이지번호 하이퍼링크 클릭 시 BoardList 서블릿 요청(파라미터 : 페이지번호) --%>
+<%-- 							<a href="BoardList?pageNum=${i}">${i}</a> --%>
+							<li class="page-item"><a class="page-link" href="Question?pageNum=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+				<%-- [다음] 버튼 클릭 시 현재 페이지의 다음 페이지 요청(2 페이지 일 경우 3 페이지 요청) --%>
+				<%-- 현재 목록의 페이지번호 + 1 값을 파라미터로 전달 --%>
+				<%-- 단, 현재 페이지가 최대 페이지 번호와 동일할 경우 비활성화(disabled) --%>
+				<li class="page-item"><a class="page-link" href="Question?pageNum=${pageInfo.pageNum + 1}" <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" >disabled</c:if>>
+				&#9654;</a></li>
+<!-- 				<input type="button" value="다음"  -->
+<%-- 					onclick="location.href='BoardList?pageNum=${pageInfo.pageNum + 1}'"  --%>
+				
+				</ul>
+		    </nav>
+		</div>
+	</article>
+	</div>
+	</div>
+<!-- 부트스트랩 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

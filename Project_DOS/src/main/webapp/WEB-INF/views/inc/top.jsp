@@ -16,7 +16,6 @@
                         <li><a class="dropdown-item" href="#!">찾아오시는 길</a></li>
                     </ul>
                 </li>
-                
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Menu">메뉴</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">예약하기</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="MemberShip">멤버쉽</a></li>
@@ -35,25 +34,23 @@
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Notice">공지사항</a></li>
             </ul>
             <div id="top_menu">
-				
-					<c:choose>
-						<c:when test="${empty sessionScope.sId}"> <%-- 미 로그인 시 --%>
-							<a class="login-item" href="MemberLogin">로그인</a> | 
-							<a class="login-item" href="MemberJoin">회원가입</a>
-						</c:when>
-						<c:when test="${sessionScope.sId eq 'admin'}">
-							<p class="login-item" >${sessionScope.sId}</p> 님 | 
-							<a class="login-item" href="javascript:void(0)" onclick="logout()">로그아웃</a> |
-							<%-- 만약, 세션 아이디가 "admin" 일 경우 [관리자페이지] 링크 추가 --%>
-							<a class="login-item" href="AdminHome">관리자페이지</a>
-						</c:when>
-						<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
-							<a class="login-item" href="MemberInfo">${sessionScope.sId}</a> 님 | 
-							<a class="login-item" href="javascript:void(0)" onclick="logout()">로그아웃</a>
-							
-						</c:otherwise>
-					</c:choose>
-				
+				<c:choose>
+					<c:when test="${empty sessionScope.sId}"> <%-- 미 로그인 시 --%>
+						<a class="login-item" href="MemberLogin">로그인</a> | 
+						<a class="login-item" href="MemberJoin">회원가입</a>
+					</c:when>
+					<c:when test="${sessionScope.sId eq 'admin'}">
+						<p class="login-item" >${sessionScope.sId}</p> 님 | 
+						<a class="login-item" href="javascript:void(0)" onclick="logout()">로그아웃</a> |
+						<%-- 만약, 세션 아이디가 "admin" 일 경우 [관리자페이지] 링크 추가 --%>
+						<a class="login-item" href="AdminHome">관리자페이지</a>
+					</c:when>
+					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
+						<a class="login-item" href="MemberInfo">${sessionScope.sId}</a> 님 | 
+						<a class="login-item" href="javascript:void(0)" onclick="logout()">로그아웃</a>
+						
+					</c:otherwise>
+				</c:choose>
 			</div>
         </div>
     </div>

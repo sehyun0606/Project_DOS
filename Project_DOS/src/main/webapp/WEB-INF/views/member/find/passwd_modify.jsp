@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -47,30 +48,23 @@
 	</header>
 	
 	<article>
-		<h1 class="text-center mb-4">비밀번호 찾기</h1>
+		<h1 class="text-center mb-4">DOS</h1>
 		<div class="login-container mt-5">
-		    <form action="FindPasswdSelectAgree" method="post">
-		        <div class="mb-3">
-		            <label for="id" class="form-label">ID</label>
-		            <input type="text" id="id" name="member_id" class="form-control" placeholder="아이디 입력" required >
+		    <form action="PasswdModify" method="post">
+		    	<input type="hidden" name="member_email" value="${param.email}">
+		        <div class="mb-3 text-center">
+		            <label for="login" class="form-label"><b>새로운 비밀번호 생성</b></label>
 		        </div>
 		        <div class="mb-3">
-		            <label for="name" class="form-label">User Name</label>
-		            <input type="text" id="name" name="member_name" class="form-control" placeholder="이름 입력" required>
+		            <label for="login" class="form-label">새 비밀번호</label>
+		            <input type="password" id="login" name="newPasswd" class="form-control" placeholder="새로운 비밀번호 입력" required >
 		        </div>
 		        <div class="mb-3">
-		            <label for="phonenumber" class="form-label">Phone Number</label>
-		            <input type="text" id="phonenumber" name="member_phone" class="form-control" placeholder="전화번호 입력" required>
-		        </div >
-		        <button type="submit" class="btn btn-dark w-100 mb-3">비밀번호 찾기</button>
-		        <div class="d-flex justify-content-center">
-		       	    <a href="MemberLogin" class="text-black no-underline " >로그인 하기</a>
-		   	    </div>
+		            <label for="password" class="form-label">새 비밀번호 확인</label>
+		            <input type="password" id="password"  class="form-control" placeholder="비밀번호 확인" required >
+		        </div>
+		        <button type="submit" class="btn btn-dark w-100 mb-3">비밀번호 변경</button>
 		    </form>
-		</div>
-		<div class="d-grid gap-2 col-6 mx-auto">
-		    <p class="text-center mt-4">아직 DOS 계정이 없으신가요?</p>
-		    <button class="btn btn-custom" onclick="location.href='MemberJoin'">회원가입</button>
 		</div>
 	</article>
 	<br>
@@ -78,7 +72,6 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 	</footer>
-	
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>

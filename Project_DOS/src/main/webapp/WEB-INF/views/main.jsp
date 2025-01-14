@@ -24,33 +24,35 @@
             padding: 20px; /* 패딩 추가 */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
             text-align: center; /* 텍스트 중앙 정렬 */
-            margin-bottom: 20px; /*카드 간격 */
+            margin-bottom: 10px; /*카드 간격 */
         }
+        
         h1 {
             text-align: center;
             margin: 30px 0; /* 제목과 카드 간격 */
             font-weight: bold;
         }
+        
         .btn-custom {
             width: 300px; /* 버튼 너비 100% */
         }
+ 		.button-container { 
+			display: flex;
+			justify-content: center;  /* 버튼을 중앙 정렬 */
+			gap: 10px; /* 버튼 간격 */ 
+		  	margin-top: 20px; /* 버튼 위쪽 여백 */ 
+		} 
         
-        .button-container {
-            display: flex;
-            justify-content: center; /* 버튼을 중앙 정렬 */
-            gap: 10px; /* 버튼 간격 */
-            margin-top: 20px; /* 버튼 위쪽 여백 */
-        }
-        
-         .checkbox-label {
-            cursor: pointer; /* 커서를 포인터로 변경 */
-        }
+	   .checkbox-label { 
+          cursor: pointer; /* 커서를 포인터로 변경 */ 
+    	}
     </style>
 </head>
 <body>
     <header>
     	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
     </header>
+    
     <!-- 슬라이드 이미지 섹션 -->
     <div class="slider-section">
         <div class="slider">
@@ -104,7 +106,7 @@
     <!-- 멤버쉽 소개 -->
     <div class="membership-section">
         <h2><b>멤버쉽</b></h2>
-        <div class="row">
+        <div class="row" >
 	        <div class="col-md-4 membership-card">
 	            <img src="${pageContext.request.contextPath}/resources/images/whiteSun.png" alt="WHITH" class="mb-3" />
 	            <h3 style="color: white">WHITE</h3>
@@ -137,14 +139,18 @@
 	            <p><b>혜택 기간</b>: 2025-01-01 ~ 2025-12-31</p>
 	        </div>
 	    </div>
-    </div><br><br><br>
+    </div>
+    <br>
+    <br>
+    <br>
 
     <!-- 버튼 섹션 -->
     <div class="buttons-section">
         <button id="reserve-btn"><b>예약하기</b></button>
         <button id="store-btn"><b>STORE</b></button>
     </div><br><br><br>
-
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script src="resources/js/scripts_main.js"></script>
     <jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 </body>

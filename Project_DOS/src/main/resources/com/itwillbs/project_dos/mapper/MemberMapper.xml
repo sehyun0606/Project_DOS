@@ -14,7 +14,7 @@
 			, #{member_name}
 			, #{member_phone}
 			, #{member_email}
-			, 'Y'
+			, 'N'
 			, #{member_birth}
 			, NOW()
 			, null
@@ -73,15 +73,42 @@
 		FROM member
 		WHERE member_email = #{email}
 	</select>
+	
+	<select id="selectAuthCode" resultType="string">
+		SELECT auth_code
+		FROM mailAuthInfo
+		WHERE email = #{email}
+	</select>
+	
+	<select id="getMailAuthInfo" resultType="string">
+		SELECT auth_code
+		FROM mailAuthInfo
+		WHERE email = #{member_email}
+	</select>
 
+	<select id="selectMemberId" resultType="member" >
+		SELECT member_id
+		FROM member
+		WHERE member_email = #{member_email}
+	</select>
 
+	<update id="modifyPasswd">
+		UPDATE member
+		SET member_passwd = #{newPasswd}
+		WHERE member_email = #{member_email}
+	</update>
 
+	<select id="getIdCheck" resultType="string">
+		SELECT member_id
+		FROM member
+		WHERE member_id = #{id}
+	</select>
 
-
-
-
-
-
+	<update id="updateMemberAuth">
+		UPDATE member
+		SET member_email_auth = 'Y'
+		WHERE member_email = #{member_email}
+	</update>
 
 
 
