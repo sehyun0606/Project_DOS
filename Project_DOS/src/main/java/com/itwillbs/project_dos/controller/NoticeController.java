@@ -86,5 +86,33 @@ public class NoticeController {
 					
 		return "service/notice_board";
 	}
+	
+	
+	@GetMapping("BoardDetail")
+	public String BoardDetail(int board_num, Model model) {
+		
+		NoticeVO notice = noticeservice.getBoardList(board_num);
+		model.addAttribute("notice", notice);
+		return "service/notice_detail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 

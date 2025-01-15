@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%-- <%@ include file="../inc/side.jsp" %> --%>
-<%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,7 +31,7 @@
 		    color: #333;
 		}
         .container {
-            margin-top: 30px;
+            margin-top: auto;
         }
 
         .board-title {
@@ -120,28 +118,50 @@
 		
 
     </style>
+    
 </head>
 <body>
+	<nav>
+        <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+    </nav>
+    <br>
+    <br>
     <div class="container">
-        <div class="row mb-4">
-			<div class="col-md-3">
-			    <select class="custom-select btn-custom">
-			        <option value="일반문의">일반 문의</option>
-			        <option value="예약문의">예약 문의</option>
-			    </select>
-			    <span class="dropdown-arrow">▽</span>
-			</div>
-            <div class="col-md-6">
-                <input type="text" id="search" class="form-control" value="" placeholder="제목을 입력해주세요.">                
+<!--         <div class="row mb-4"> -->
+<!-- 			<div class="col-md-3"> -->
+<!-- 			    <select class="custom-select btn-custom"> -->
+<!-- 			        <option value="일반문의">일반 문의</option> -->
+<!-- 			        <option value="예약문의">예약 문의</option> -->
+<!-- 			    </select> -->
+<!-- 			    <span class="dropdown-arrow">▽</span> -->
+<!-- 			</div> -->
+<!--             <div class="col-md-6"> -->
+<!--                 <input type="text" id="search" class="form-control" value="" placeholder="제목을 입력해주세요.">                 -->
+<!--             </div> -->
+<!--         </div> -->
+		<div class="d-flex justify-content-between mb-3">
+		<!-- 제목 select -->
+			<div class="input-group me-2" style="width: 25%;">
+                <select class="form-control selectpicker" id="noticeselect">
+                    <option value="">일반 문의</option>
+                    <option value="">에약 문의</option>
+                </select>
             </div>
-        </div>
+		<!-- 검색 텍스트 -->
+			<div class="input-group flex-grow-1 me-2">
+			    <input type="text" class="form-control" placeholder="제목을 입력해주세요." >
+			</div>
+			<!-- 글쓰기 버튼 -->
+			<div style="width: 20%;">
+			<button class="btn btn-primary w-100" type="button" onclick="location.href='registQna'">등록</button>
+			</div>
+		</div>
 		<textarea class="text1" id="text1" placeholder="내용을 입력해주세요."></textarea>
  	</div>
+ 	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
+	</footer>
  	
-    <div class="fixed-btn-container">
-       	<button class="btn-list"onclick="location.href=''">등록</button>
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

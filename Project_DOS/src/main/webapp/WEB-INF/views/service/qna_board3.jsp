@@ -25,6 +25,7 @@
             min-height: 100vh;
         }
         .sidebar {
+        	height: 100vh;
             width: auto;
             background-color: #f8f9fa;
             color: #fff;
@@ -118,7 +119,7 @@
                             </div>
                             <!-- 글쓰기 버튼 -->
                             <div style="width: 15%;">
-                                <button class="btn btn-primary w-100" type="button">글쓰기</button>
+                                <button class="btn btn-primary w-100" type="button" onclick="location.href='qnaWrite?$sessionScope.sId=${sessionScope.sId }'" >글쓰기</button>
                             </div>
                         </div>
                         <table class="table table-bordered text-center">
@@ -198,13 +199,13 @@
 // 			console.log(board_num); // 클릭된 게시물의 글번호 출력됨
 			// -----------------------------------
 			// 2) 클릭 대상 요소의 형제 노드 탐색
-			let board_num = $(event.target).siblings(".board_num").text();
+			let qna_num = $(event.target).siblings(".qna_num").text();
 // 			console.log("siblings : " + board_num); // 클릭된 게시물의 글번호 출력됨
 			// -----------------------------------
 			
 			// "BoardDetail" 서블릿 주소 요청
 			// => 파라미터 : 글번호(위에서 탐색한 번호), 페이지번호(PageInfo 객체의 pageNum 속성값)
-			location.href = "BoardDetail?board_num=" + board_num + "&pageNum=${pageInfo.pageNum}";
+			location.href = "QnaDetail?qna_num=" + qna_num + "&pageNum=${pageInfo.pageNum}";
 		});
 	</script>
 </body>

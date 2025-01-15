@@ -1,234 +1,189 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<%-- <%@ include file="../inc/side.jsp" %> --%>
-<%@ include file="../inc/top.jsp" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>문의사항게시판</title>
-    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
-    <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
-	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    /* 고정 버튼 영역 */
-	.fixed-buttons {
-            position: static;
-            bottom: auto;
-            left: auto;
-            transform: none;
-            z-index: auto;
-	}
-
-    /* 고정 버튼 스타일 */
-    .fixed-buttons button {
-        width: 150px; /* 버튼 너비 */
-        margin-bottom: 10px; /* 버튼 간 간격 */
-    }
-
-    /* 전체 컨테이너 */
-    .container2 {
-        margin: 30px auto 0; /* 상단 여백 30px, 가로 중앙 정렬 */
-        padding: 0 200px; /* 좌우 여백 */
-    }
-
-    /* 게시판 제목 스타일 */
-    .board-title {
-        font-size: 2rem; /* 글자 크기 */
-        font-weight: bold; /* 글자 굵기 */
-    }
-	   .board-meta3 {
-	    width: 210px; /* 부모 컨테이너 너비에 맞춤 */
-	    height: 50px;
-	    border: 2px solid #ccc;
-	    border-radius: 5px;
-	    display: flex;
-	    align-items: center;
-	    padding: 10px;
-	}
-
-
-    .board-meta3 p, .board-meta3 span {
-	    line-height: 1.5; /* 텍스트 행간 */
-	    text-align: center; /* 텍스트 가운데 정렬 */
-	}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <!-- 부트스트랩 CSS -->
+    <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/css/side2.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    
-    .board-meta2 {
-	    width: 510px;       /* 버튼의 너비 */
-	    height: 50px;       /* 버튼의 높이 */
-        max-width	: 1500px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center; /* 세로 중심 정렬 */
-        min-height: 0;
-        box-sizing: border-box;
-        padding: 10px; /* 상하단 여백 균일하게 */
-        margin-left: -100px;
-    }
-    .board-meta2 p, .board-meta2 span {
-    	margin: 0; /* 기본 외부 여백 제거 */
-	    line-height: 1.5; /* 텍스트 행간 */
-	    text-align: center; /* 텍스트 가운데 정렬 */
-	}
-    .board-meta {
-	    width: 210px;       /* 버튼의 너비 */
-	    height: 50px;       /* 버튼의 높이 */
-        border: 2px solid #ccc;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        margin-left: 20px;
-        min-height: 0;
-        box-sizing: border-box;
-        padding: 10px; /* 상하단 여백 균일하게 */
-    }
-    
-    .board-meta p, .board-meta span {
-        margin: 0; /* 기본 외부 여백 제거 */
-        line-height: 1.5; /* 텍스트 행간 */
-        text-align: center; /* 텍스트 가운데 정렬 */
-    }
-    
-    .board-content {
-        display: flex; /* 부모 컨테이너에서 자식 요소들이 나란히 배치되게 설정 */
-        flex-direction: row; /* 이미지와 텍스트가 옆으로 배치되게 */
-        justify-content: center; /* 수평 중앙 정렬 */
-        align-items: flex-start; /* 세로 정렬 */
-        width: 100%; /* 가로 최대 크기 */
-    }
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+        .sidebar {
+        	height: auto;
+            width: auto;
+            background-color: #f8f9fa;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar h5 {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #495057;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .table-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .board_title {
+        cursor: pointer; /* 커서가 손가락 모양으로 변경 */
+        transition: background-color 0.3s, font-weight 0.3s; /* 부드러운 전환 효과 */
+  	  	}
 
-    
-    .board-content p {
-        margin: 0; /* 기본 여백 제거 */
-        font-size: 1.1rem; /* 텍스트 크기 */
-        color: #333; /* 글자 색상 */
-        width: 50%; /* 텍스트의 최대 폭 */
-        text-align: left; /* 텍스트 왼쪽 정렬 */
-    }
-
-    /* 게시판 본문 영역 */
-    .board-content-wrapper {
+    /* 제목에 호버 효과 */
+  		.board_title:hover {
+        background-color: #f0f0f0; /* 배경색 변경 */
+        font-weight: bold; /* 글씨 두껍게 */
+        color: #007bff; /* 글자색 변경 (파란색) */
+    	}
+    	.board-content-wrapper {
         padding: 20px; /* 내부 여백 */
         text-align: center; /* 텍스트 가운데 정렬 */
         background-color: #f8f9fa; /* 배경색 */
         border: 1px solid #ccc; /* 테두리 */
         border-radius: 5px; /* 모서리 둥글게 */
-        min-height: 300px; /* 최소 높이 */
-    	min-width: 300px; /* 최소 너비 */
-    }
-    
-    .board-content-wrapper + .board-content-wrapper {
-   		margin-top: 50px; /* 이전 보드 콘텐츠와 다음 보드 콘텐츠 사이의 여백 */
-	}
+    	min-width: 600px; /* 최소 너비 */
+    	min-height: 400px;
+   	 	}
 
+	    /* 게시판 본문 텍스트 스타일 */
+	    .board-content p {
+	        height: auto; /* 텍스트 영역 높이 자동 */
+	        margin-top: 15px; /* 상단 간격 */
+	        font-size: 1.1rem; /* 글자 크기 */
+	        line-height: 1.6; /* 줄 간격 */
+	        color: #333; /* 글자 색상 */
+	    }
+	    
+	    .inline-button-container {
+		    text-align: center; /* 중앙 정렬 */
+		    padding: 20px; /* 패딩 */
+		}
+		
+		.btn {
+		    display: inline-block; /* 인라인 블록으로 설정 */
+		    padding: 10px 20px; /* 버튼 패딩 */
+		    font-size: 16px; /* 글자 크기 */
+		    border: none; /* 테두리 제거 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    cursor: pointer; /* 마우스 커서 변경 */
+		    margin: 5px; /* 버튼 간 간격 */
+		}
+		
+		.btn:hover {
+		    background-color: #0056b3; /* 호버 시 색상 변경 */
+		}
 
-
-    /* 게시판 본문 텍스트 스타일 */
-    .board-content p {
-        height: auto; /* 텍스트 영역 높이 자동 */
-        margin-top: 15px; /* 상단 간격 */
-        font-size: 1.1rem; /* 글자 크기 */
-        line-height: 1.6; /* 줄 간격 */
-        color: #333; /* 글자 색상 */
-    }
-
-    /* 고정 버튼 컨테이너 */
-    .fixed-buttons {
-        position: absolute; /* 화면 기준 고정 위치 */
-        bottom: 330px; /* 하단 거리 */
-        left: 50%; /* 가로 중앙 정렬 */
-        transform: translateX(-50%); /* 중앙 정렬 보정 */
-        z-index: 10; /* 다른 요소 위에 배치 */
-    }
-    
-    .footer {
-    	margin:100px;
-    }
-
-	
-    /* 공통 버튼 스타일 */
-    .btn-list, .btn-custom {
-        border: 2px solid #ccc; /* 테두리 색상 및 두께 */
-        border-radius: 5px; /* 모서리 둥글게 */
-        padding: 10px 20px; /* 내부 여백 */
-        font-size: 1rem; /* 글자 크기 */
-        background-color: white; /* 배경색 */
-        color: black; /* 글자색 */
-    }
-    
-    /* 버튼의 포커스 상태에서 파란색 테두리 제거 */
-        button:focus, .btn:focus {
-            outline: none;
-            box-shadow: none;
-        }
-        
-        /* 버튼의 hover 상태에서 테두리 유지 */
-        button:hover, .btn:hover {
-            border: 2px solid #ccc;
-        }
-</style>
-
+    </style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
-    <div class="container2">
-        <div class="row mb-4">
-			<div class="col-md-3 d-flex align-items-center">
-			    <select class="board-meta3" id="noticeselect">
-			        <option value="">일반 문의</option>
-			        <option value="">예약 문의</option>
-			    </select>
-			</div>
-            <div class="board-meta2">
-                <p>일반 문의입니다.</p> 
-            </div>
-            <div class="board-meta">
-            	<p>작성자: <span id="author">${sessionScope.userId}</span></p>
-            </div>
-            <div class="board-meta">
-            	<p>조회수: <span id="views">${sessionScope.views}</span></p>
-            </div>
-            <div class="board-meta">
-            	<p>등록일: <span id="regDate">${sessionScope.regDate}</span></p>
-            </div>
-            
-        </div>
-
-        <div class="board-content-wrapper">
-            <div class="board-content">
-                <p>
-                </p>
-            </div>
-        </div>
-		<div class="board-meta" style="margin-left: auto;margin-top: 10px;margin-bottom: 10px;">
-			<p>등록일: <span id="regDate">${sessionScope.regDate}</span></p>
+    <!-- 상단 네비게이션 -->
+    <nav>
+        <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+    </nav>
+    <!-- 사이드바와 메인 콘텐츠 레이아웃 -->
+    <div class="layout-container">
+        <!-- 고정 사이드바 -->
+        <div id="side-menu">
+			<jsp:include page="/WEB-INF/views/inc/service_side.jsp"></jsp:include>
 		</div>
-        <div class="board-content-wrapper" >
-            <div class="board-content">
-                <p>
-                </p>
-           
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <article class="content">
+                <div class="container">
+                    <div class="table-container">
+	                    <div class="input-group flex-grow-1 me-2" >
+	                        <input type="text" class="form-control" value="제목: ${qna.qna_title }" readonly>
+	                    </div>
+	                    <br>
+                        	<div class="d-flex justify-content-between mb-3">
+	                            <!-- 제목 select -->
+	                            <!-- 검색 텍스트 -->
+	                            <div class="input-group flex-grow-1 me-2" style="width: 20%;">
+	                                <input type="text" class="form-control" name="qna_num" value="${param.qna_num }" hidden>
+	                                <input type="text" class="form-control" value="작성자: ${qna.member_id}" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+	                                <input type="text" class="form-control" value="문의 타입: ${qna.qna_type}" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+	                                <input type="text" class="form-control" value="조회수: ${qna.qna_readcount}" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+	                                <input type="text" class="form-control" value="게시일: <fmt:formatDate value='${qna.qna_date}' pattern='yy-MM-dd'/>" readonly>
+	                            </div>
+                        	</div>
+                        <div class="board-content-wrapper">
+				            <div class="board-content">
+				            	${qna.qna_content}
+				            </div>
+				        </div>
+	                    <div class="inline-button-container">
+						    <button class="btn btn-primary" onclick="location.href='QnaModify?qna_num=${qna.qna_num}&page_num=${param.pageNum }'">수정</button>
+						    <button class="btn btn-primary" onclick="location.href='QnaDelete'">삭제</button>
+						    <button class="btn btn-primary" onclick="location.href='Question'">목록</button>
+						</div>
 
-            </div>
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
-
-    <div class="fixed-buttons">
-        <button type="button" class="btn btn-custom">이전글</button>
-        <button type="button" class="btn btn-custom">목록</button>
-        <button type="button" class="btn btn-custom">다음글</button>
-    <c:if test="${sessionScope.userRole == 'ADMIN'}">
-        <button type="button" class="btn btn-custom">수정하기</button>
-    </c:if>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
+	</footer>
+    <!-- 부트스트랩 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="resources/js/scripts_main.js"></script>
+    <script type="text/javascript">
+		// 게시물 제목열 클릭 이벤트 핸들링
+		
+	</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-    margin: 20;
+    margin: 0px;
     font-family: Arial, sans-serif;
     scroll-behavior: smooth; /* Top 버튼 클릭 시 부드러운 스크롤 */
     position: relative;

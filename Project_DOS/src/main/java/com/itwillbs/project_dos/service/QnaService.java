@@ -1,6 +1,7 @@
 package com.itwillbs.project_dos.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,20 @@ public class QnaService {
 
 	public FAQVO getfaq() {
 		return mapper.selectFaq();
+	}
+
+
+	public int insertQnaBoard(QuestionVO qna) {
+		return mapper.insertQnaBoard(qna);
+	}
+
+
+	public int qnaModify(QuestionVO qna) {
+		return mapper.updateQnaBoard(qna);
+	}
+
+	public QuestionVO getBoard(int qna_num) {
+		return mapper.selectBoard(qna_num);
 	}
 
 	

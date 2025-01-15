@@ -1,6 +1,7 @@
 package com.itwillbs.project_dos.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,6 +19,13 @@ public interface QnaMapper {
 	List<QuestionVO> selectQnaList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
 
 	FAQVO selectFaq();
+
+	int insertQnaBoard(QuestionVO qna);
+
+
+	int updateQnaBoard(QuestionVO qna);
+
+	QuestionVO selectBoard(int qna_num);
 
 	
 }

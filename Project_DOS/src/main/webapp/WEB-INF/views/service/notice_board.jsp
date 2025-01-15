@@ -25,6 +25,7 @@
             min-height: 100vh;
         }
         .sidebar {
+        	height: 100vh;
             width: auto;
             background-color: #f8f9fa;
             color: #fff;
@@ -115,10 +116,6 @@
                             <div class="input-group flex-grow-1 me-2">
                                 <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="검색어">
                                 <button class="btn btn-outline-secondary" type="button" style="width: 15%">검색</button>
-                            </div>
-                            <!-- 글쓰기 버튼 -->
-                            <div style="width: 15%;">
-                                <button class="btn btn-primary w-100" type="button">글쓰기</button>
                             </div>
                         </div>
                         <table class="table table-bordered text-center">

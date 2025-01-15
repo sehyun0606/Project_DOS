@@ -17,6 +17,8 @@ public interface NoticeMapper {
 
 	List<NoticeVO> selectNoteceList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
 
+	NoticeVO selectBoardList(int board_num);
+
 
 	
 }

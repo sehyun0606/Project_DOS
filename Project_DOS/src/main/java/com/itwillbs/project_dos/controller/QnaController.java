@@ -1,11 +1,15 @@
 package com.itwillbs.project_dos.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.project_dos.service.QnaService;
@@ -96,4 +100,101 @@ public class QnaController {
 			
 			return "service/faq_view2";
 		}
+		
+		@GetMapping("qnaWrite")
+		public String qnaWriteForm(HttpSession session, Model model) {
+			String id = (String)session.getAttribute("sId");
+			
+			if(id == null) {
+				model.addAttribute("msg", "접근 권한이 없습니다!");
+				// 로그인 페이지로 강제 이동시키기 위해 targetURL 속성값으로 "MemberLogin" 추가
+				model.addAttribute("targetURL", "MemberLogin");
+				
+				return "result/result";
+			}
+			return "service/qna_write2";
+		}
+		
+		@PostMapping("registQna")
+		public String registQna(Model model, HttpSession session, QuestionVO qna) {
+			
+			String id = (String)session.getAttribute("sId");
+			
+			if(id == null) {
+				model.addAttribute("msg", "접근 권한이 없습니다!");
+				// 로그인 페이지로 강제 이동시키기 위해 targetURL 속성값으로 "MemberLogin" 추가
+				model.addAttribute("targetURL", "MemberLogin");
+				
+				return "result/result";
+			}
+			
+			int insertCount = qnaservice.insertQnaBoard(qna);
+//			System.out.println(insertCount);
+			if(insertCount > 0) {
+					return "redirect:/Question";
+			} else {
+				model.addAttribute("msg", "등록 실패!");
+				return "result/result";
+			}
+			
+		}
+		
+		@GetMapping("QnaDetail")
+		public String QnaDetail(Model model, HttpSession session, int qna_num) {
+			
+			QuestionVO qna = qnaservice.getBoard(qna_num);
+			System.out.println(qna);
+			
+			model.addAttribute("qna",qna);
+			
+			return "service/qna_view";
+		}
+		
+		@GetMapping("QnaModify")
+		public String QnaModifyForm(Model model, HttpSession session, @RequestParam Map<String, String> map, int qna_num) {
+			QuestionVO qna = qnaservice.getBoard(qna_num);
+			System.out.println(qna);
+			
+			model.addAttribute("qna",qna);
+			return "service/qna_modify";
+		}
+		
+		@PostMapping("successModify")
+		public String successModify(QuestionVO qna, @RequestParam(defaultValue = "1") int pageNum,
+				HttpSession session, Model model) {
+			
+			int updateCount = qnaservice.qnaModify(qna);
+			
+			if(updateCount > 0) {
+				return "redirect:/QnaDetail?qna_num=" + qna.getQna_num() + "&pageNum=" + pageNum;
+			} else {
+				model.addAttribute("msg", "등록 실패!");
+				return "result/result";
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }

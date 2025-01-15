@@ -25,7 +25,7 @@
             min-height: 100vh;
         }
         .sidebar {
-			height: 100vh;
+        	height: 100vh;
             width: auto;
             background-color: #f8f9fa;
             color: #fff;
@@ -69,61 +69,54 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .board_title {
-        cursor: pointer; /* 커서가 손가락 모양으로 변경 */
-        transition: background-color 0.3s, font-weight 0.3s; /* 부드러운 전환 효과 */
-  	  	}
-
-    /* 제목에 호버 효과 */
-  		.board_title:hover {
-        background-color: #f0f0f0; /* 배경색 변경 */
-        font-weight: bold; /* 글씨 두껍게 */
-        color: #007bff; /* 글자색 변경 (파란색) */
-    	}
-    	.board-content-wrapper {
-        padding: 20px; /* 내부 여백 */
-        text-align: center; /* 텍스트 가운데 정렬 */
-        background-color: #f8f9fa; /* 배경색 */
-        border: 1px solid #ccc; /* 테두리 */
-        border-radius: 5px; /* 모서리 둥글게 */
-        min-height: 600px; /* 최소 높이 */
-    	min-width: 600px; /* 최소 너비 */
-   	 	}
-
-	    /* 게시판 본문 텍스트 스타일 */
-	    .board-content p {
-	        height: auto; /* 텍스트 영역 높이 자동 */
-	        margin-top: 15px; /* 상단 간격 */
-	        font-size: 1.1rem; /* 글자 크기 */
-	        line-height: 1.6; /* 줄 간격 */
-	        color: #333; /* 글자 색상 */
-	    }
+    	.text1 {
+ 			height: 700px;
+ 			width: 1256px;
+ 			resize: none;
+ 		}
     </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
+
     <!-- 상단 네비게이션 -->
     <nav>
         <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
     </nav>
+
     <!-- 사이드바와 메인 콘텐츠 레이아웃 -->
     <div class="layout-container">
         <!-- 고정 사이드바 -->
-        <div id="side-menu">
-			<jsp:include page="/WEB-INF/views/inc/service_side.jsp"></jsp:include>
-		</div>
+
         <!-- 메인 콘텐츠 -->
         <div class="main-content">
             <article class="content">
                 <div class="container">
                     <div class="table-container">
-                        <h2 class="text-center mb-4">FAQ</h2>
-                        <div class="board-content-wrapper">
-				            <div class="board-content">
-			                	${faqList.faq_title}<br>
-			                	${faqList.faq_content }
-				            </div>
-				        </div>
+                        <h2 class="text-center mb-4">문의사항 등록</h2>
+                        <form action="registQna" method="post">
+	                        <div class="d-flex justify-content-between mb-3">
+	                            <div class="input-group me-2" style="width: 15px;" hidden>
+	                                <input type="text" name="member_id" class="form-control" value="${sessionScope.sId}" hidden>
+	                            </div>
+	                            <!-- 제목 select -->
+	                            <div class="input-group me-2" style="width: 15%;">
+	                                <select class="form-control selectpicker" id="noticeselect" name="qna_type">
+	                                    <option value="일반문의">일반 문의</option>
+	                                    <option value="예약문의">예약 문의</option>
+	                                </select>
+	                            </div>
+	                            <!-- 검색 텍스트 -->
+	                            <div class="input-group flex-grow-1 me-2">
+	                                <input type="text" name="qna_title" class="form-control" placeholder="제목을 입력하세요." aria-label="검색어">
+	                            </div>
+	                            <!-- 글쓰기 버튼 -->
+	                            <div style="width: 20%;">
+	                                <button class="btn btn-primary w-100" type="submit">등록</button>
+	                            </div>
+	                        </div>
+	                   		<textarea class="text1" id="text1" name="qna_content" placeholder="내용을 입력해주세요."></textarea>
+                   		</form>
                     </div>
                 </div>
             </article>
@@ -133,11 +126,8 @@
 		<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 	</footer>
     <!-- 부트스트랩 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-    <script src="resources/js/scripts_main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
-		
 	</script>
 </body>
 </html>

@@ -25,7 +25,7 @@
             min-height: 100vh;
         }
         .sidebar {
-			height: 100vh;
+        	height: 100vh;
             width: auto;
             background-color: #f8f9fa;
             color: #fff;
@@ -86,8 +86,8 @@
         background-color: #f8f9fa; /* 배경색 */
         border: 1px solid #ccc; /* 테두리 */
         border-radius: 5px; /* 모서리 둥글게 */
-        min-height: 600px; /* 최소 높이 */
     	min-width: 600px; /* 최소 너비 */
+    	min-height: 400px;
    	 	}
 
 	    /* 게시판 본문 텍스트 스타일 */
@@ -98,6 +98,26 @@
 	        line-height: 1.6; /* 줄 간격 */
 	        color: #333; /* 글자 색상 */
 	    }
+	    
+	    .inline-button-container {
+		    text-align: center; /* 중앙 정렬 */
+		    padding: 20px; /* 패딩 */
+		}
+		
+		.btn {
+		    display: inline-block; /* 인라인 블록으로 설정 */
+		    padding: 10px 20px; /* 버튼 패딩 */
+		    font-size: 16px; /* 글자 크기 */
+		    border: none; /* 테두리 제거 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    cursor: pointer; /* 마우스 커서 변경 */
+		    margin: 5px; /* 버튼 간 간격 */
+		}
+		
+		.btn:hover {
+		    background-color: #0056b3; /* 호버 시 색상 변경 */
+		}
+
     </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
@@ -117,13 +137,35 @@
             <article class="content">
                 <div class="container">
                     <div class="table-container">
-                        <h2 class="text-center mb-4">FAQ</h2>
+	                    <div class="input-group flex-grow-1 me-2" >
+	                        <input type="text" class="form-control" value="제목: ${notice.board_title }" readonly>
+	                    </div>
+	                    <br>
+                        	<div class="d-flex justify-content-between mb-3">
+	                            <!-- 제목 select -->
+	                            <!-- 검색 텍스트 -->
+	                            <div class="input-group flex-grow-1 me-2" style="width: 20%;">
+	                                <input type="text" class="form-control" name="board_num" value="번호: ${param.board_num}" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+	                                <input type="text" class="form-control" value="문의 타입: 공지사항" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+	                                <input type="text" class="form-control" value="조회수: ${notice.board_readcount}" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+	                                <input type="text" class="form-control" value="게시일: <fmt:formatDate value='${notice.board_date}' pattern='yy-MM-dd'/>" readonly>
+	                            </div>
+                        	</div>
                         <div class="board-content-wrapper">
 				            <div class="board-content">
-			                	${faqList.faq_title}<br>
-			                	${faqList.faq_content }
+				            	${notice.board_content}
 				            </div>
 				        </div>
+	                    <div class="inline-button-container">
+						    <button class="btn btn-primary" onclick="location.href='Notice'">목록</button>
+						</div>
+
                     </div>
                 </div>
             </article>
@@ -137,6 +179,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script src="resources/js/scripts_main.js"></script>
     <script type="text/javascript">
+		// 게시물 제목열 클릭 이벤트 핸들링
 		
 	</script>
 </body>

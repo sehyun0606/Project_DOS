@@ -16,6 +16,8 @@
             });
         }
     </script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <style>
     
         body {

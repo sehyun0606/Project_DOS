@@ -314,7 +314,7 @@ public class MemberController {
 	
 	@GetMapping("MemberShip")
 	public String MemberShipInfo() {
-		return "membership/membership_info";
+		return "membership/membership_info2";
 	}
 	
 	

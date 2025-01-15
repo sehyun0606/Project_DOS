@@ -23,6 +23,10 @@ public class NoticeService {
 		return mapper.selectNoteceList(startRow, listLimit);
 	}
 
+	public NoticeVO getBoardList(int board_num) {
+		return mapper.selectBoardList(board_num);
+	}
+
 
 	
 }

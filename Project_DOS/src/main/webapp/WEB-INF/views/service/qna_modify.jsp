@@ -25,7 +25,7 @@
             min-height: 100vh;
         }
         .sidebar {
-			height: 100vh;
+        	height: 100vh;
             width: auto;
             background-color: #f8f9fa;
             color: #fff;
@@ -86,7 +86,7 @@
         background-color: #f8f9fa; /* 배경색 */
         border: 1px solid #ccc; /* 테두리 */
         border-radius: 5px; /* 모서리 둥글게 */
-        min-height: 600px; /* 최소 높이 */
+        min-height: 400px; /* 최소 높이 */
     	min-width: 600px; /* 최소 너비 */
    	 	}
 
@@ -98,6 +98,31 @@
 	        line-height: 1.6; /* 줄 간격 */
 	        color: #333; /* 글자 색상 */
 	    }
+	    
+	    .inline-button-container {
+		    text-align: center; /* 중앙 정렬 */
+		    padding: 20px; /* 패딩 */
+		}
+		
+		.btn {
+		    display: inline-block; /* 인라인 블록으로 설정 */
+		    padding: 10px 20px; /* 버튼 패딩 */
+		    font-size: 16px; /* 글자 크기 */
+		    border: none; /* 테두리 제거 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    cursor: pointer; /* 마우스 커서 변경 */
+		    margin: 5px; /* 버튼 간 간격 */
+		}
+		
+		.btn:hover {
+		    background-color: #0056b3; /* 호버 시 색상 변경 */
+		}
+		.text1 {
+ 			min-height: 500px;
+ 			width: 1210px;
+ 			resize: none;
+ 		}
+
     </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
@@ -116,15 +141,50 @@
         <div class="main-content">
             <article class="content">
                 <div class="container">
-                    <div class="table-container">
-                        <h2 class="text-center mb-4">FAQ</h2>
-                        <div class="board-content-wrapper">
-				            <div class="board-content">
-			                	${faqList.faq_title}<br>
-			                	${faqList.faq_content }
-				            </div>
-				        </div>
-                    </div>
+	                <form action="successModify" method="post">
+	                    <div class="table-container">
+		                    <div class="input-group flex-grow-1 me-2" >
+		                        <input type="text" class="form-control" name="qna_title" value="${qna.qna_title }">
+		                    </div>
+		                    <br>
+	                        	<div class="d-flex justify-content-between mb-3">
+		                            <!-- 제목 select -->
+		                            <!-- 검색 텍스트 -->
+		                            <div class="input-group flex-grow-1 me-2" style="width: 20%;">
+		                                <input type="text" class="form-control" name="qna_num" value="${qna.qna_num}" hidden>
+		                                <input type="text" class="form-control" value="작성자: ${qna.member_id}" readonly>
+		                            </div>
+		                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+		                                <select class="form-control selectpicker" id="noticeselect" style="text-align: center;" name="qna_type" >
+		                                <c:choose>
+		                                	<c:when test="${qna.qna_type eq '일반문의' }">
+							                    <option value="일반문의" selected>일반 문의</option>
+							                    <option value="예약문의">예약 문의</option>
+		                                	</c:when>
+		                                	<c:otherwise>
+							                    <option value="일반문의" >일반 문의</option>
+							                    <option value="예약문의" selected>예약 문의</option>
+		                                	</c:otherwise>
+		                                </c:choose>
+						                </select>
+		                            </div>
+		                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+		                                <input type="text" class="form-control" value="조회수: ${qna.qna_readcount}" readonly>
+		                            </div>
+		                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
+		                                <input type="text" class="form-control" value="게시일: <fmt:formatDate value='${qna.qna_date}' pattern='yy-MM-dd'/>" readonly>
+		                            </div>
+	                        	</div>
+	                        <div class="board-content-wrapper">
+					            <div class="board-content">
+					            	<textarea class="text1" id="text1" name="qna_content" placeholder="내용을 입력해주세요.">${qna.qna_content}</textarea>
+					            </div>
+					        </div>
+		                    <div class="inline-button-container">
+							    <input type="submit" class="btn btn-primary" value="등록">
+							</div>
+	                    </div>
+	                </form>
                 </div>
             </article>
         </div>
@@ -137,6 +197,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script src="resources/js/scripts_main.js"></script>
     <script type="text/javascript">
+		// 게시물 제목열 클릭 이벤트 핸들링
 		
 	</script>
 </body>
