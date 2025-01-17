@@ -59,7 +59,7 @@ public class AdminMenuController {
 		
 		//파일 업로드 작업
 		String realPath = getRealPath(session, virtualPath);
-		String subDir = createDirectories(realPath);
+		String subDir = menu.getMenu_category();
 		
 		realPath += "/" + subDir;
 		
