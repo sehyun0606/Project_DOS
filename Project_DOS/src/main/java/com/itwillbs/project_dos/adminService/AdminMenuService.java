@@ -17,4 +17,8 @@ public class AdminMenuService {
 		return menuMapper.selectMenuList(menu);
 	}
 
+	public int registMenu(MenuVO menu) {
+		return menuMapper.insertMenu(menu);
+	}
+
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
 	    <a href="./"><img class="logo-img" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
@@ -17,7 +17,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Menu">메뉴</a></li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">예약하기</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="#!" id="reservation">예약하기</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="MemberShip">멤버쉽</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Review">리뷰</a></li>
                 <li class="nav-item dropdown">
@@ -63,4 +63,14 @@
 			location.href = "MemberLogout";
 		}
 	}
+	$(document).ready(function () {
+	    $("#reservation").on("click", function (event) {
+	        event.preventDefault();
+
+	      	const popupURL = 'Reservation';
+
+        	window.open(popupURL, '_blank', 'width=550,height=800');
+	    });
+	});
+	
 </script>

@@ -16,7 +16,7 @@ public class ReservationVO {
 	private String member_phone;
 	private Date reservation_date;
 	private String reservation_time;
-	private int people_count;
+	private String people_count;
 	private int table_num;
 	private int reservation_status;
 }

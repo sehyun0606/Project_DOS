@@ -140,6 +140,7 @@
         <div class="menu-category">
             <button class="menu" id="set">세트메뉴</button>
             <button class="menu" id="steak">스테이크</button>
+            <button class="menu" id="riz&phi">리조또&필라프</button>
             <button class="menu" id="pasta">파스타</button>
             <button class="menu" id="salad">샐러드</button>
             <button class="menu" id="side">사이드</button>
@@ -152,6 +153,25 @@
     </div>
   <script>
 	 $(function () {
+			// 초기화: 페이지 로드 시 특정 ID를 선택된 상태로 설정
+		    const defaultID = "set"; // 기본 선택된 ID
+		    $("#" + defaultID).addClass("selected"); // 해당 ID에 'selected' 클래스 추가
+
+		    // 초기 AJAX 요청: 기본 선택된 ID로 데이터 로드
+		    $.ajax({
+		        type: "GET",
+		        url: "AdminMenuList",
+		        data: {
+		            menu: defaultID,
+		        },
+		        success: function (response) {
+		            $(".menu-list").html(response); // 성공 시 응답 내용 업데이트
+		        },
+		        error: function () {
+		            $(".menu-list").html(defaultID); // 오류 시 기본 ID 표시
+		        }
+		    });
+		 
 			$(".menu").click(function(){
 				// 기존에 선택된 클래스 제거
 	            $(".menu").removeClass("selected");

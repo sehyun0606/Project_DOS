@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -122,9 +123,18 @@
             <div class="reservation-card">
                 <h3 class="reservation-title">Dinner of Steak</h3>
                 <p class="reservation-details">
-                    일정: 12.19(목) 오후8시<br>
-                    2번 테이블<br>
-                    인원: 2명
+                    일정: ${param.reservation_date} <br>
+                    <c:choose>
+                    	<c:when test="${param.reservation_time eq '10:00' }">
+                    		오전 ${param.reservation_time}
+                    	</c:when>
+                    	<c:otherwise>
+                    		오후 ${param.reservation_time}
+                    	</c:otherwise>
+                    </c:choose>
+                    <br>
+                    ${param.table_num}번 테이블<br>
+                    인원: ${param.people_count }
                 </p>
             </div>
         </div>
@@ -136,16 +146,31 @@
         <div class="info-section">
             <h2 class="info-title">예약자 정보</h2>
             <p class="info-details">
-                이름: 박애진<br>
-                전화번호: 010-7920-8014
+                id: ${param.member_id }<br>
+                전화번호: ${phone}
             </p>
-            <button class="my-page-btn">마이페이지</button>
+            <button class="my-page-btn" onclick="redirectToMypage()">내 정보 수정하기</button>
         </div>
     </div>
 
     <!-- 하단 예약 버튼 -->
-    <button class="confirm-btn">예약</button>
+    <form action="ReservationConfirm">
+    	<input type="hidden" name="reservation_date" value="${param.reservation_date}">
+    	<input type="hidden" name="reservation_time" value="${param.reservation_time}">
+    	<input type="hidden" name="table_num" value="${param.table_num}">
+    	<input type="hidden" name="people_count" value="${param.people_count}">
+    	<input type="hidden" name="member_id" value="${param.member_id}">
+	    <button class="confirm-btn" type="submit">예약</button>
+    </form>
     
+<script type="text/javascript">
+	function redirectToMypage() {
+	    // 부모 창의 URL 변경
+	    window.opener.location.href = 'Mypage'; // 메인 페이지 URL로 변경
+	    // 팝업 창 닫기
+	    window.close();
+	}
+</script>
     
 </body>
 </html>
