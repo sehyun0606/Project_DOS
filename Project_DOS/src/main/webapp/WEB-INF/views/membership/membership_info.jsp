@@ -17,7 +17,7 @@
         }
     </script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <style>
     
         body {
@@ -58,6 +58,7 @@
 	</nav>
 
 	<div class="container mt-5">
+		<input type="hidden" id="id" value="${sessionScope.sId}">
 	    <h1>MEMBERSHIP</h1>
 	    <div class="row">
 	        <div class="col-md-4 membership-card">
@@ -93,7 +94,7 @@
 	        </div>
 	    </div>
 	     <div class="button-container">
-			<button class="btn btn-success btn-custom" data-bs-toggle="modal" data-bs-target="#membershipModal">멤버십 가입</button>
+			<button class="btn btn-success btn-custom" id="membershipButton">멤버십 가입</button>
 			<button class="btn btn-secondary btn-custom" onclick="window.history.back()">뒤로가기</button>
    		 </div>
 	</div>
@@ -108,6 +109,10 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                    	<div>
+                    		<b><span id="amount">50000</span><span>원</span></b>
+						</div>
+                    	<br>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="agreeAll" onclick="toggleCheckboxes(this)">
                             <label class="form-check-label checkbox-label" for="agreeAll">
@@ -155,6 +160,27 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script>
+
+	
+	// 객체 초기화
+	var IMP = window.IMP;
+	IMP.init("imp65450054");
+	let amount = $("#amount").text();
+	console.log(amount);
+	let id = $("#id").val();
+	console.log(id);
+	
+	$("#membershipButton").click(function() {
+	    if (id != "") {
+	        // 조건이 참일 경우 모달 열기
+	        $("#membershipModal").modal('show');
+	    } else {
+	        // 조건이 거짓일 경우 처리할 내용
+	        alert('로그인을 해주세요.');
+	    }
+	});
+	
+	
     function checkAgreement() {
         // 체크박스 상태 확인
         const agreePersonalInfo = document.getElementById('agree1').checked;
@@ -165,10 +191,31 @@
         if (!agreePersonalInfo || !agreeProcessing || !agreeMarketing) {
             alert("필수 항목에 체크하셔야합니다.");
         } else {
-            // 모든 체크박스에 동의한 경우, 다음 단계로 진행 (예: 폼 제출)
+            // 모든 체크박스에 동의한 경우, 다음 단계로 진행
             alert("약관에 동의하셨습니다.");
-            window.location.href="SelectAgree";
-            // 여기서 폼 제출이나 다음 단계로 진행하는 코드를 추가할 수 있습니다.
+         	// 결제창 호출      
+            IMP.request_pay(
+                {
+                    pg: "kakaopay.TC0ONETIME",
+                    pay_method: "card",
+                    merchant_uid: "880447580-507365", // 상점 고유 주문번호
+                    name: "DOS 멤버쉽",
+                    amount: amount,
+                    buyer_email: "good@portone.io",
+                    buyer_name: id, 
+                    buyer_tel: "010-1234-5678",
+                    buyer_addr: "서울특별시 강남구 삼성동",
+                    buyer_postcode: "123-456",
+                },
+                function (rsp) {
+                    // callback
+                    if (rsp.success) {
+                        alert('결제가 성공했습니다.');
+                    } else {
+                        alert('결제 실패: ' + rsp.error_msg);
+                    }
+                } // 콜백 함수 끝
+            );
         }
     }
 </script>

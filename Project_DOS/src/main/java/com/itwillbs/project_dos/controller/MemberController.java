@@ -304,17 +304,11 @@ public class MemberController {
 	}
 	
 
-//	@GetMapping("SuccessPasswdModify")
-//	public String SuccessPasswdModify(@RequestParam Map<String, String> map, Model model) {
-//		MemberVO newPasswd = memberservice.passwdModify(map);
-//		return"";
-//	}
-	
 
 	
 	@GetMapping("MemberShip")
 	public String MemberShipInfo() {
-		return "membership/membership_info2";
+		return "membership/membership_info";
 	}
 	
 	
