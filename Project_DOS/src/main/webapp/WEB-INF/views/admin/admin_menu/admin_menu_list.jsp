@@ -6,7 +6,7 @@
 
 <c:forEach items="${menuList}" var="menu">
 	<div class="menu-item">
-	    <img src="/images/sample-image.jpg" alt="메뉴 이미지">
+	    <img src="/resources/upload/${menu.menu_img}" alt="메뉴 이미지">
 	    <div class="menu-info">
 	    	
 	        <h3>
