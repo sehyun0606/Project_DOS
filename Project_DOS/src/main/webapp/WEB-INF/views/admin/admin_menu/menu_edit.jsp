@@ -87,54 +87,47 @@
     <h1>메뉴 등록</h1>
 
     <div class="form-container">
-        <form action="MenuAdd" method="post" enctype="multipart/form-data">
+        <form action="MenuEdit" method="post">
             <!-- 메뉴 이름 -->
             <div class="form-group">
                 <label for="menuName">메뉴 이름</label>
-                <input type="text" id="menuName" name="menu_name" required>
+                <input type="text" id="menuName" name="menuName" required>
             </div>
 
             <!-- 가격 -->
             <div class="form-group">
                 <label for="menuPrice">가격</label>
-                <input type="text" id="menuPrice" name="menu_price" required>
+                <input type="text" id="menuPrice" name="menuPrice" required>
             </div>
 
             <!-- 카테고리 -->
             <div class="form-group">
                 <label for="menuCategory">카테고리</label>
-                <select name="menu_category" style="margin-right: 23%;">
-                	<option value="set">세트메뉴</option>
-                	<option value="steak">스테이크</option>
-                	<option value="pasta">파스타</option>
-                	<option value="salad">셀러드</option>
-                	<option value="riz&phi">리조또&필라프</option>
-                	<option value="side">사이드</option>
-                	<option value="drink">주류</option>
-                </select>
+                <input type="text" id="menuCategory" name="menuCategory" required>
             </div>
 
-<!--             이미지 업로드 -->
+            <!-- 이미지 업로드 -->
             <div class="form-group">
-                <label for="menuImg">이미지</label>
-                <input type="file" id="menuImage" name="menuImg" >
+                <label for="menuImage">이미지</label>
+                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
+                <input type="file" id="menuImage" name="menuImage" accept="image/*">
             </div>
 
             <!-- 키워드 표시 -->
             <div class="form-group">
                 <label>키워드 표시</label>
                 <div>
-                    <input type="checkbox" id="newKeyword" name="new_menu" value="Y">
-                    <label for="new_menu">신메뉴 키워드 표시</label>
-                    <input type="checkbox" id="popularKeyword" name="popular_menu" value="Y">
-                    <label for="popular_menu">인기메뉴 키워드 표시</label>
+                    <input type="checkbox" id="newKeyword" name="newKeyword">
+                    <label for="newKeyword">신메뉴 키워드 표시</label>
+                    <input type="checkbox" id="popularKeyword" name="popularKeyword">
+                    <label for="popularKeyword">인기메뉴 키워드 표시</label>
                 </div>
             </div>
 
             <!-- 메뉴 소개 -->
             <div class="form-group">
                 <label for="menuDescription">메뉴 소개</label>
-                <textarea id="menuDescription" name="menu_description" required>메뉴 소개 글</textarea>
+                <textarea id="menuDescription" name="menuDescription" required>메뉴 소개 글</textarea>
             </div>
 
             <!-- 버튼 -->

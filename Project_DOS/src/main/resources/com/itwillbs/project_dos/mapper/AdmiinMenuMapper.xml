@@ -8,4 +8,18 @@
  		FROM menu
  		WHERE menu_category = #{menu}
  	</select>
+ 	<insert id="insertMenu">
+ 		INSERT
+ 		INTO menu
+ 		VALUES (
+ 			#{menu_name},
+ 			#{menu_description},
+ 			#{menu_price},
+ 			NOW(),
+ 			#{new_menu},
+ 			#{populer_menu},
+ 			#{menu_category},
+ 			#{menu_img}
+ 		)
+ 	</insert>
 </mapper>

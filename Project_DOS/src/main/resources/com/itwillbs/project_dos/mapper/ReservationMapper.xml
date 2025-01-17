@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.mapper.ReservationMapper">
+ 	
+ 	<select id="selectTimeList">
+ 		SELECT reservation_time
+ 		FROM reservation
+ 		WHERE table_num = #{table}
+ 		AND reservation_date = #{date}
+ 	</select>
+ 	
+ 	<insert id="insertReservation">
+ 		<selectKey keyProperty="reservation_idx" resultType="int" order="BEFORE">
+ 			SELECT IFNULL(MAX(reservation_idx),0)
+ 			FROM reservation;
+ 		</selectKey>
+ 		INSERT
+ 		INTO reservation(reservation_idx,member_id,reservation_date,reservation_time,people_count,table_num,reservation_status,member_phone)
+ 		SELECT 
+ 			#{reservation_idx} + 1,
+ 			#{member_id},
+ 			#{reservation_date},
+ 			#{reservation_time},
+ 			#{people_count},
+ 			#{table_num},
+ 			1,
+ 			member_phone from member where member_id = #{member_id}
+ 		
+ 	</insert>
+ 	<select id="selectPhoneNum" resultType="String">
+ 		SELECT 
+	    CONCAT(
+	        SUBSTRING(member_phone, 1, 3), '-', 
+	        SUBSTRING(member_phone, 4, 4), '-', 
+	        SUBSTRING(member_phone, 8)
+	    ) AS formatted_phone_number
+		FROM member
+		WHERE member_id = #{member_id};
+ 	</select>
+ 	
+ 	<select id="selectReservationNum" resultType="int">
+ 		SELECT reservation_idx
+ 		FROM reservation
+ 		WHERE member_id = #{member_id}
+ 		AND reservation_date = #{reservation_date}
+ 		AND reservation_time = #{reservation_time}
+ 		AND people_count = #{people_count}
+ 		AND table_num = #{table_num}
+ 	</select>
+ 	
+ 	<select id="selectMyReservation" resultType="reservation">
+ 		SELECT *
+ 		FROM reservation
+ 		WHERE reservation_idx = #{reservationNum}
+ 	</select>
+ 	
+ </mapper>

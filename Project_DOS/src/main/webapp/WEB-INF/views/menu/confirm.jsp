@@ -138,49 +138,34 @@
         <!-- 예약 세부 정보 섹션 -->
           <div class="reservation-info">
             <div>
-                <span>No.xx</span> <!-- 예약 번호 -->
+                <span>NO.${myReservation.reservation_idx}</span> <!-- 예약 번호 -->
                 <span class="status">예약 완료</span> <!-- 예약 상태 -->
             </div>
             <div>
-                <p>일정:</p> <!-- 일정 정보 -->
-                <p>테이블:</p> <!-- 테이블 정보 -->
-                <p>인원: 2명</p> <!-- 인원 정보 -->
+                <p>일정:${myReservation.reservation_date} ${myReservation.reservation_time}</p> <!-- 일정 정보 -->
+                <p>테이블: ${myReservation.table_num}</p> <!-- 테이블 정보 -->
+                <p>인원: ${myReservation.people_count}</p> <!-- 인원 정보 -->
             </div>
         </div>
 
         <!-- 예약 변경 및 취소 버튼 섹션 -->
         <div class="action-buttons">
-            <button>예약변경</button> <!-- 예약 변경 버튼 -->
-            <button>예약취소</button> <!-- 예약 취소 버튼 -->
+            <button onclick="location.href = MyReservationEdit">예약변경</button> <!-- 예약 변경 버튼 -->
         </div>
 
-        <!-- 드롭다운 버튼 섹션 -->
-        <div class="dropdown-container">
-            <button class="dropdown-btn" onclick="showPopup('판매자 정보')">판매자 정보 ▼</button> <!-- 판매자 정보 버튼 -->
-            <button class="dropdown-btn" onclick="showPopup('예약자 정보')">예약자 정보 ▼</button> <!-- 예약자 정보 버튼 -->
-        </div>
 
         <!-- 마이페이지 버튼 -->
-        <button class="mypage-btn">마이페이지</button> <!-- 마이페이지 이동 버튼 -->
+        <button class="mypage-btn" onclick="redirectToMypage()">마이페이지</button> <!-- 마이페이지 이동 버튼 -->
     </div>
 
-    <!-- 팝업 창 -->
-    <div id="popup" class="popup">
-        <span class="close-btn" onclick="closePopup()">&times;</span> <!-- 팝업 닫기 버튼 -->
-        <div class="popup-content" id="popup-content"></div> <!-- 팝업 내용 표시 -->
-    </div>
 
     <script>
-        // 팝업 열기 함수
-        function showPopup(content) {
-            document.getElementById('popup-content').innerText = content; // 팝업 내용 설정
-            document.getElementById('popup').style.display = 'block'; // 팝업 표시
-        }
-
-        // 팝업 닫기 함수
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none'; // 팝업 숨김 처리
-        }
+    	function redirectToMypage() {
+    	    // 부모 창의 URL 변경
+    	    window.opener.location.href = 'Mypage'; // 메인 페이지 URL로 변경
+    	    // 팝업 창 닫기
+    	    window.close();
+    	}
     </script>
 </body>
 </html>

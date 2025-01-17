@@ -2,6 +2,8 @@ package com.itwillbs.project_dos.vo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,4 +23,5 @@ public class MenuVO {
    private String origin_info;
    private String allergy_info;
    private String menu_img;
+   private MultipartFile menuImg;
 }

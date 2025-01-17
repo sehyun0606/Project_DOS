@@ -11,4 +11,6 @@ public interface AdminMenuMapper {
 
 	List<MenuVO> selectMenuList(String menu);
 
+	int insertMenu(MenuVO menu);
+
 }
