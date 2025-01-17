@@ -148,11 +148,7 @@
             </div>
         </div>
 
-        <!-- 예약 변경 및 취소 버튼 섹션 -->
-        <div class="action-buttons">
-            <button onclick="location.href = MyReservationEdit">예약변경</button> <!-- 예약 변경 버튼 -->
-        </div>
-
+        
 
         <!-- 마이페이지 버튼 -->
         <button class="mypage-btn" onclick="redirectToMypage()">마이페이지</button> <!-- 마이페이지 이동 버튼 -->

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,12 +181,13 @@
             <div class="profile-container">
                 <div class="profile-image">Image</div>
                 <div class="profile-details">
-                    <h2>NAME</h2>
+                    <h2>${member.member_name}</h2>
+                    <c:set var="formattedPhoneNumber" value="${member.member_phone.substring(0, 3)}-${member.member_phone.substring(3, 7)}-${member.member_phone.substring(7)}" />
                     <ul>
-                        <li>아이디: example123</li>
-                        <li>생년월일: 1990-01-01</li>
-                        <li>이메일: example@example.com</li>
-                        <li>전화번호: 010-1234-5678</li>
+                        <li>아이디: ${member.member_id}</li>
+                        <li>생년월일: ${member.member_birth}</li>
+                        <li>이메일: ${member.member_email}</li>
+                        <li>전화번호: ${formattedPhoneNumber}</li>
                     </ul>
                     <div class="membership">
                         <button>멤버쉽 가입하기</button>

@@ -19,7 +19,7 @@
 	    </div>
 	    <div class="menu-buttons">
 	        <button>메뉴 편집 버튼</button>
-	        <button>메뉴 삭제 버튼</button>
+	        <button onclick="location.href=MenuDelete">메뉴 삭제 버튼</button>
 	    </div>
 	</div>
 </c:forEach>

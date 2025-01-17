@@ -118,6 +118,12 @@ public class AdminMenuController {
 		}
 		return subDir;
 	}
+	
+	@GetMapping("MenuDelete")
+	public String menuDelete() {
+		
+		return "redirect:/AdminMenu";
+	}
 }
 
 

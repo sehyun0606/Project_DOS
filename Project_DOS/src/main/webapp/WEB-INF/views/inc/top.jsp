@@ -46,7 +46,7 @@
 						<a class="login-item" href="AdminHome">관리자페이지</a>
 					</c:when>
 					<c:otherwise> <%-- 로그인 한 사용자일 경우 --%>
-						<a class="login-item" href="MemberInfo">${sessionScope.sId}</a> 님 | 
+						<a class="login-item" href="Mypage">${sessionScope.sId}</a> 님 | 
 						<a class="login-item" href="javascript:void(0)" onclick="logout()">로그아웃</a>
 						
 					</c:otherwise>
