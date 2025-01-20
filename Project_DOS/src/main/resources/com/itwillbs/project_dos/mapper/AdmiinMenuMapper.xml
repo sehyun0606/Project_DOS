@@ -22,4 +22,33 @@
  			#{menu_img}
  		)
  	</insert>
+ 	
+ 	<select id="selectMenuDetail" resultType="Menu">
+ 		SELECT * 
+ 		FROM menu
+ 		WHERE menu_name = #{menu_name};
+ 	</select>
+ 	
+ 	<update id="deleteMenuFile">
+ 		UPDATE menu
+ 		SET menu_img = ''
+ 		WHERE menu_img = #{menu_img}
+ 	</update>
+ 	
+ 	<update id="updateMenu">
+ 		UPDATE menu
+ 		SET
+ 			menu_name = #{menu_name},
+ 			menu_description = #{menu_description},
+ 			menu_price = #{menu_price},
+ 			update_date = NOW(),
+ 			new_menu = #{new_menu},
+ 			populer_menu = #{populer_menu},
+ 			menu_category = #{menu_category},
+ 			<if test="!menu_img.equals('')">
+ 			menu_img = #{menu_img}
+ 			</if>
+ 		WHERE menu_name = #{menu_name}
+ 	</update>
+ 	
 </mapper>

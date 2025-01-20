@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.project_dos.adminService.AdminMenuService;
@@ -94,29 +95,32 @@ public class AdminMenuController {
 		}
 	}
 	
-	//파일 업로드 및 다운로드를 위한 유틸리티 메서드
-	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
-	private String getRealPath(HttpSession session, String virturalPath) {
-		return session.getServletContext().getRealPath(virturalPath);
-	}
-	
-	//파일 업로드 시점에 맞는 날짜별 서브디렉토리 생성
-	private String createDirectories(String realPath) {
+	@ResponseBody
+	@PostMapping("MenuDeleteFile")
+	public String menuDeleteFile(String menu_img, HttpSession session) {
 		
-		LocalDate today = LocalDate.now();
-		String datePattern = "yyyy/MM/dd";
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
+		String responseData = "false";
 		
-		String subDir = today.format(dtf);
-		realPath += "/" + subDir;
-		
-		try {
-			Path path = Paths.get(realPath);
-			Files.createDirectories(path);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(menu_img.equals("")) {
+			return responseData;
 		}
-		return subDir;
+		
+		int deleteCount = menuService.removeMenuFile(menu_img);
+		
+		if (deleteCount > 0) {
+			String realPath = getRealPath(session, virtualPath);
+			
+			Path path = Paths.get(realPath,menu_img);
+			
+			try {
+				Files.deleteIfExists(path);
+				responseData = "true";
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return responseData;
 	}
 	
 	@GetMapping("MenuDelete")
@@ -124,6 +128,69 @@ public class AdminMenuController {
 		
 		return "redirect:/AdminMenu";
 	}
+	
+	@GetMapping("MenuEdit")
+	public String menuEdit(Model model, String menu_name) {
+		
+		MenuVO menu = menuService.getMenuDetail(menu_name);
+		
+		model.addAttribute("menu",menu);
+		
+		return "admin/admin_menu/menu_edit";
+	}
+	
+	@PostMapping("MenuEdit")
+	public String menuEdit(MenuVO menu, HttpSession session, Model model) {
+		
+		String realPath = getRealPath(session, virtualPath);
+		String subDir = menu.getMenu_category();
+		
+		realPath += "/" + subDir;
+		
+		MultipartFile menuImg = menu.getMenuImg();
+		
+		menu.setMenu_img("");
+		
+		String imgName = "";
+		
+		if(!menuImg.getOriginalFilename().equals("")) {
+			imgName = UUID.randomUUID().toString() + "_" + menuImg.getOriginalFilename();
+			menu.setMenu_img(subDir + "/" + imgName);
+		}
+		
+		int updateCount = menuService.editMenu(menu);
+		
+		if(updateCount > 0) {
+			try {
+				MultipartFile mFile = menu.getMenuImg();
+				String fileName = UUID.randomUUID().toString() + "_" + mFile.getOriginalFilename();
+				
+				if(!mFile.getOriginalFilename().equals("")) {
+					mFile.transferTo(new File(realPath,fileName));
+				}
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return "redirect:/AdminMenu";
+		}
+		else {
+			model.addAttribute("msg","글 수정 실패!");
+			return "result/fail";
+		}
+		
+	}
+	
+	//파일 업로드 및 다운로드를 위한 유틸리티 메서드
+	//파일 업로드에 사용될 실제 업로드 디렉토리 경로를 리턴하는 메서드
+	private String getRealPath(HttpSession session, String virturalPath) {
+		return session.getServletContext().getRealPath(virturalPath);
+	}
+	
+	
+	
 }
 
 

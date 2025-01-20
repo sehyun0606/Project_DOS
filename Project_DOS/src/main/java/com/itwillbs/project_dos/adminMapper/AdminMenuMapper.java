@@ -13,4 +13,10 @@ public interface AdminMenuMapper {
 
 	int insertMenu(MenuVO menu);
 
+	MenuVO selectMenuDetail(String menu_name);
+
+	int deleteMenuFile(String menu_img);
+
+	int updateMenu(MenuVO menu);
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -53,10 +54,8 @@
         }
 
         .form-group img {
-            width: 100px;
-            height: 100px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            width: 30px;
+            height: 30px;
             margin-right: 15px;
         }
 
@@ -78,6 +77,7 @@
             background-color: #ddd;
         }
     </style>
+   	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <!-- Top 메뉴 포함 -->
@@ -87,39 +87,55 @@
     <h1>메뉴 등록</h1>
 
     <div class="form-container">
-        <form action="MenuEdit" method="post">
+        <form action="MenuEdit" method="post" enctype="multipart/form-data">
             <!-- 메뉴 이름 -->
             <div class="form-group">
                 <label for="menuName">메뉴 이름</label>
-                <input type="text" id="menuName" name="menuName" required>
+                <input type="text" id="menuName" name="menu_name" value="${menu.menu_name}" required>
             </div>
 
             <!-- 가격 -->
             <div class="form-group">
                 <label for="menuPrice">가격</label>
-                <input type="text" id="menuPrice" name="menuPrice" required>
+                <input type="text" id="menuPrice" name="menu_price" value="${menu.menu_price}" required>
             </div>
 
-            <!-- 카테고리 -->
-            <div class="form-group">
+             <div class="form-group">
                 <label for="menuCategory">카테고리</label>
-                <input type="text" id="menuCategory" name="menuCategory" required>
+                <select id="menuCategory" name="menu_category" style="margin-right: 23%;">
+                	<option id="set" value="set">세트메뉴</option>
+                	<option id="steak" value="steak">스테이크</option>
+                	<option id="pasta" value="pasta">파스타</option>
+                	<option id="salad" value="salad">셀러드</option>
+                	<option id="riz&phi" value="riz&phi">리조또&필라프</option>
+                	<option id="side" value="side">사이드</option>
+                	<option id="drink" value="drink">주류</option>
+                </select>
             </div>
-
-            <!-- 이미지 업로드 -->
-            <div class="form-group">
-                <label for="menuImage">이미지</label>
-                <img src="/images/sample-image.jpg" alt="메뉴 이미지">
-                <input type="file" id="menuImage" name="menuImage" accept="image/*">
-            </div>
+			
+			<c:choose>
+				<c:when test="${not empty menu.menu_img}">
+					<div class="form-group">
+						<label for="menuImg">이미지</label>
+						<span id="file">${menu.menu_img}<a href="javascript:deleteFile()"><img src="${pageContext.request.contextPath}/resources/images/delete-icon.png"></a></span>
+						<input type="file" name="menuImg" hidden>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="form-group">
+		                <label for="menuImg">이미지</label>
+		                <input type="file" id="menuImage" name="menuImg" >
+	            	</div>
+				</c:otherwise>
+			</c:choose>
 
             <!-- 키워드 표시 -->
             <div class="form-group">
                 <label>키워드 표시</label>
                 <div>
-                    <input type="checkbox" id="newKeyword" name="newKeyword">
+                    <input type="checkbox" id="newKeyword" name="newKeyword" value="Y">
                     <label for="newKeyword">신메뉴 키워드 표시</label>
-                    <input type="checkbox" id="popularKeyword" name="popularKeyword">
+                    <input type="checkbox" id="popularKeyword" name="popularKeyword" value="Y">
                     <label for="popularKeyword">인기메뉴 키워드 표시</label>
                 </div>
             </div>
@@ -127,7 +143,7 @@
             <!-- 메뉴 소개 -->
             <div class="form-group">
                 <label for="menuDescription">메뉴 소개</label>
-                <textarea id="menuDescription" name="menuDescription" required>메뉴 소개 글</textarea>
+                <textarea id="menuDescription" name="menu_description" required>${menu.menu_description}</textarea>
             </div>
 
             <!-- 버튼 -->
@@ -136,5 +152,43 @@
             </div>
         </form>
     </div>
+    
+    <script type="text/javascript">
+    	$(function(){
+    		$('#menuCategory option[value="${menu.menu_category}"]').prop('selected',true)
+    		
+    		if(${menu.new_menu eq 'Y'}){
+    			$('#newKeyword').prop('checked',true)
+    		}
+    		if(${menu.populer_menu eq 'Y'}){
+    			$('#popularKeyword').prop('checked',true)
+    		}
+    	})
+    	
+    	function deleteFile(){
+    		if(confirm("파일 삭제?")){
+    			$.ajax({
+    				type : "POST",
+    				url : "MenuDeleteFile",
+    				data : {
+    					menu_img : $("#file").text()
+    				}
+    			}).done(function(result){
+    				if(result.trim() == "true"){
+    					console.log("삭제 성공")
+    					let fileElem = $("input[name=menu_img]")
+    					$(fileElem).parent().find("span").remove();
+    					
+    					$(fileElem).prop("hidden",false);
+    					
+    				}else{
+    					console.log("실패..")
+    				}
+    			}).fail(function(){
+    				alert("파일 삭제 오류 발생!")
+    			})
+    		}
+    	}
+    </script>
 </body>
 </html>
