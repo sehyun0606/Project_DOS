@@ -163,10 +163,10 @@ public class AdminMenuController {
 		if(updateCount > 0) {
 			try {
 				MultipartFile mFile = menu.getMenuImg();
-				String fileName = UUID.randomUUID().toString() + "_" + mFile.getOriginalFilename();
+				
 				
 				if(!mFile.getOriginalFilename().equals("")) {
-					mFile.transferTo(new File(realPath,fileName));
+					mFile.transferTo(new File(realPath,imgName));
 				}
 			} catch (IllegalStateException e) {
 				e.printStackTrace();

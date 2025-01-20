@@ -176,7 +176,7 @@
     			}).done(function(result){
     				if(result.trim() == "true"){
     					console.log("삭제 성공")
-    					let fileElem = $("input[name=menu_img]")
+    					let fileElem = $("input[name=menuImg]")
     					$(fileElem).parent().find("span").remove();
     					
     					$(fileElem).prop("hidden",false);
