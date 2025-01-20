@@ -13,9 +13,15 @@ import com.itwillbs.project_dos.vo.QuestionVO;
 @Mapper
 public interface NoticeMapper {
 
-	int selectBoardListCount();
+	int selectBoardListCount(
+			@Param("searchType") String searchType, 
+			@Param("searchKeyword") String searchKeyword);
 
-	List<NoticeVO> selectNoteceList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
+	List<NoticeVO> selectNoticeList(
+			@Param("searchType") String searchType, 
+			@Param("searchKeyword") String searchKeyword,
+			@Param("startRow") int startRow, 
+			@Param("listLimit") int listLimit);
 
 	NoticeVO selectBoardList(int board_num);
 

@@ -20,9 +20,9 @@
 			, null
 			, 1
 			, null
-			, #{member_post_code}
 			, #{member_address1}
 			, #{member_address2}
+			, #{member_post_code}
 		)
 	</insert>
 
@@ -110,11 +110,31 @@
 		WHERE member_email = #{member_email}
 	</update>
 
-
-
-
-
-
+	<select id="selectPaymentMember" resultType="member">
+		SELECT *
+		FROM member
+		WHERE member_id = #{id}
+	</select>
+	
+	<insert id="insertPaymentMember">
+		INSERT
+		INTO perchaseHistory
+		VALUES(
+			#{merchant_uid}
+			, #{buyer_name}
+			, #{buyer_tel}
+			, #{name}
+			, #{amount}
+			, #{pay_method}
+			, NOW()
+		)
+	</insert>
+	
+	<select id="selectMembership" resultType="string">
+		SELECT product_name
+		FROM perchaseHistory
+		WHERE member_id = #{id}
+	</select>
 
 
 

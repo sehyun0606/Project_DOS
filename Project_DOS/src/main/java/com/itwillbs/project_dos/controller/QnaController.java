@@ -23,9 +23,13 @@ public class QnaController {
 		private QnaService qnaservice;
 		@GetMapping("Question")
 		public String QuestionList(
+				@RequestParam(defaultValue = "") String searchType,
+				@RequestParam(defaultValue = "") String searchKeyword,
 				@RequestParam(defaultValue = "1") int pageNum,
 				Model model) {
 		//	System.out.println("페이지번호 : " + pageNum);
+//			System.out.println("검색타입: " + searchType);
+//			System.out.println("검색타입: " + searchKeyword);
 			
 			// ------------------------------------------------------
 			// [ 페이징 처리 ]
@@ -36,7 +40,7 @@ public class QnaController {
 			// 2. 실제 뷰페이지에서 페이징 처리를 수행하는데 필요한 계산 작업
 			// 1) BoardService - getBoardListCount() 메서드 호출하여 전체 게시물 갯수 조회 요청
 			//    => 파라미터 : 없음   리턴타입 : int(listCount)
-			int listCount = qnaservice.getQnaListCount();
+			int listCount = qnaservice.getQnaListCount(searchType,searchKeyword);
 			System.out.println("전체 게시물 수 : " + listCount);
 			
 			// 2) 한 페이지에서 표시할 목록(페이지 당 페이지 번호) 갯수 설정
@@ -83,7 +87,7 @@ public class QnaController {
 			// BoardService - getBoardList() 메서드를 호출하여 전체 게시물 목록 조회 요청
 			// => 파라미터 : 시작행번호, 페이지 당 게시물 수   
 			//    리턴타입 : List<BoardVO>(boardList)
-			List<QuestionVO> qnaList = qnaservice.getQnaList(startRow, listLimit);
+			List<QuestionVO> qnaList = qnaservice.getQnaList(searchType, searchKeyword, startRow, listLimit);
 			
 			// ------------------------------------------------------
 			// 조회된 게시물 목록 정보(List 객체)를 Model 객체에 저장

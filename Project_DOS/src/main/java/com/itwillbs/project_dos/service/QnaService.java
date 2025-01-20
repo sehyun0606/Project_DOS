@@ -15,17 +15,12 @@ public class QnaService {
 	@Autowired
 	private QnaMapper mapper;
 
-	public int getQnaListCount() {
-		return mapper.selectQnaListCount();
+	public int getQnaListCount(String searchType, String searchKeyword) {
+		return mapper.selectQnaListCount(searchType,searchKeyword);
 	}
 
-	public List<QuestionVO> getQnaList(int startRow, int listLimit) {
-//		// 임시) @Value 어노테이션으로 포함시킨 속성값 확인
-//		System.out.println("test_data(service) : " + test_data);
-		// -------------------------------------------------
-		
-		// BoardMapper - selectQnaList()
-		return mapper.selectQnaList(startRow, listLimit);
+	public List<QuestionVO> getQnaList(String searchType, String searchKeyword, int startRow, int listLimit) {
+		return mapper.selectQnaList(searchType, searchKeyword, startRow, listLimit);
 	}
 
 	public FAQVO getfaq() {

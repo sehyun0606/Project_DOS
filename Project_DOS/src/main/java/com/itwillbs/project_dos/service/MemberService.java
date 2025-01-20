@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.project_dos.mapper.MemberMapper;
 import com.itwillbs.project_dos.vo.MailAuthInfo;
 import com.itwillbs.project_dos.vo.MemberVO;
+import com.itwillbs.project_dos.vo.PerchaseHistoryVO;
 
 @Service
 public class MemberService {
@@ -76,6 +77,18 @@ public class MemberService {
 
 	public int updateMemberAuth(String member_email) {
 		return mapper.updateMemberAuth(member_email);
+	}
+
+	public MemberVO paymentGetMember(String id) {
+		return mapper.selectPaymentMember(id);
+	}
+
+	public int setPaymentMember(Map<String, String> map) {
+		return mapper.insertPaymentMember(map);
+	}
+
+	public String getMembership(String id) {
+		return mapper.selectMembership(id);
 	}
 
 

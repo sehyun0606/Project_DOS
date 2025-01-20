@@ -106,6 +106,13 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="membershipModalLabel">결제 동의</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   	<input type="text" id="member_id" hidden>
+                   	<input type="text" id="member_name" hidden>
+                   	<input type="text" id="member_phone" hidden>
+                   	<input type="text" id="member_email" hidden>
+                   	<input type="text" id="member_address1" hidden>
+                   	<input type="text" id="member_address2" hidden>
+                   	<input type="text" id="member_post_code" hidden>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -160,7 +167,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script>
-
+	
+	
 	
 	// 객체 초기화
 	var IMP = window.IMP;
@@ -172,8 +180,33 @@
 	
 	$("#membershipButton").click(function() {
 	    if (id != "") {
-	        // 조건이 참일 경우 모달 열기
-	        $("#membershipModal").modal('show');
+	    	$.ajax({
+		        url: 'paymentGetMember',
+		        type: 'GET',
+		        data: {
+		        	id: id
+		        },
+		        dataType: "JSON"
+			}).done(function(result) {
+// 				console.log(JSON.stringify(result));
+				if(result){
+					console.log(result.member_id);
+					$("#member_id").val(result.member_id);
+					$("#member_name").val(result.member_name);
+					$("#member_phone").val(result.member_phone);
+					$("#member_email").val(result.member_email);
+					$("#member_address1").val(result.member_address1);
+					$("#member_address2").val(result.member_address2);
+					$("#member_post_code").val(result.member_post_code);
+			        // 조건이 참일 경우 모달 열기
+		    		$("#membershipModal").modal('show');
+				} else {
+					alert("조회실패!")
+				}
+				
+			}).fail(function() {
+				alert("가입 할 수 없습니다.");
+			});
 	    } else {
 	        // 조건이 거짓일 경우 처리할 내용
 	        alert('로그인을 해주세요.');
@@ -186,7 +219,30 @@
         const agreePersonalInfo = document.getElementById('agree1').checked;
         const agreeProcessing = document.getElementById('agree2').checked;
         const agreeMarketing = document.getElementById('agree3').checked;
-
+		
+        let now = new Date();
+    	let year = now.getFullYear();
+    	let month = now.getMonth() + 1;
+    	if(month >= 1 && month <= 9) {
+    		month = "0" + month;
+    	}
+    	let date = now.getDate();
+    	let hour = now.getHours();
+    	hour = (hour < 10)? "0" + hour : hour;
+    	let min = (now.getMinutes() < 10)? "0" + now.getMinutes() : now.getMinutes();
+    	let sec = (now.getSeconds() < 10)? "0" + now.getSeconds() : now.getSeconds();
+    	let random = Math.floor(Math.random() * 1000);
+    	let code = "ord" + year + month + date + hour + min + sec + "-" + random;
+//     	console.log(code);
+    	
+    	let id = $("#member_id").val();
+//     	console.log(id);
+    	let name = $("#member_name").val();
+    	let phone = $("#member_phone").val();
+    	let email = $("#member_email").val();
+    	let address = $("#member_address1").val() + " " + $("#member_address2").val();
+//     	console.log(address);
+    	let postCode = $("#member_post_code").val();
         // 하나라도 체크되지 않은 경우 경고창 표시
         if (!agreePersonalInfo || !agreeProcessing || !agreeMarketing) {
             alert("필수 항목에 체크하셔야합니다.");
@@ -198,19 +254,42 @@
                 {
                     pg: "kakaopay.TC0ONETIME",
                     pay_method: "card",
-                    merchant_uid: "880447580-507365", // 상점 고유 주문번호
+                    merchant_uid: code, // 상점 고유 주문번호
                     name: "DOS 멤버쉽",
                     amount: amount,
-                    buyer_email: "good@portone.io",
                     buyer_name: id, 
-                    buyer_tel: "010-1234-5678",
-                    buyer_addr: "서울특별시 강남구 삼성동",
-                    buyer_postcode: "123-456",
+                    buyer_email: email,
+                    buyer_tel: phone,
+                    buyer_addr: address,
+                    buyer_postcode: postCode
                 },
                 function (rsp) {
                     // callback
                     if (rsp.success) {
-                        alert('결제가 성공했습니다.');
+                    	$.ajax({
+                    		url: "pamentSetMember",
+                    		type: "GET",
+                    		data: {
+                    			imp_uid: rsp.imp_uid,
+                    			merchant_uid: rsp.merchant_uid,
+                    			name: rsp.name,
+                    			buyer_name: rsp.buyer_name,
+                    			buyer_tel: rsp.buyer_tel,
+                    			amount: rsp.paid_amount,
+                    			pay_method: rsp.pay_method
+                    		}
+                    	}).done(function(result) {
+                    		if(result == "true"){
+                    			$("#membershipModal").modal('hide');
+		                    	alert('멤버쉽 가입을 축하드립니다!');
+		                    	
+                    		} else {
+                    			alert('데이터 저장 실패!');
+                    		}
+                    		
+                    	}).fail(function() {
+                    		
+                    	});
                     } else {
                         alert('결제 실패: ' + rsp.error_msg);
                     }

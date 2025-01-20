@@ -14,9 +14,15 @@ import com.itwillbs.project_dos.vo.QuestionVO;
 @Mapper
 public interface QnaMapper {
 
-	int selectQnaListCount();
+	int selectQnaListCount(
+			@Param("searchType") String searchType, 
+			@Param("searchKeyword") String searchKeyword);
 
-	List<QuestionVO> selectQnaList(@Param("startRow") int startRow, @Param("listLimit") int listLimit);
+	List<QuestionVO> selectQnaList(
+			@Param("searchType") String searchType, 
+			@Param("searchKeyword") String searchKeyword, 
+			@Param("startRow") int startRow, 
+			@Param("listLimit") int listLimit);
 
 	FAQVO selectFaq();
 

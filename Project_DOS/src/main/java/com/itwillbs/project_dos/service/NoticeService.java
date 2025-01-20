@@ -15,12 +15,12 @@ public class NoticeService {
 	@Autowired
 	private NoticeMapper mapper;
 
-	public int getBoardListCount() {
-		return mapper.selectBoardListCount();
+	public int getBoardListCount(String searchType, String searchKeyword) {
+		return mapper.selectBoardListCount(searchType,searchKeyword);
 	}
 
-	public List<NoticeVO> getNoticeList(int startRow, int listLimit) {
-		return mapper.selectNoteceList(startRow, listLimit);
+	public List<NoticeVO> getNoticeList(String searchType, String searchKeyword, int startRow, int listLimit) {
+		return mapper.selectNoticeList(searchType, searchKeyword, startRow, listLimit);
 	}
 
 	public NoticeVO getBoardList(int board_num) {

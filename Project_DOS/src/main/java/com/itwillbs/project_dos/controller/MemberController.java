@@ -6,6 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.itwillbs.project_dos.service.MailService;
 import com.itwillbs.project_dos.service.MemberService;
 import com.itwillbs.project_dos.vo.MailAuthInfo;
 import com.itwillbs.project_dos.vo.MemberVO;
+import com.itwillbs.project_dos.vo.PerchaseHistoryVO;
 
 @Controller
 public class MemberController {
@@ -221,6 +223,11 @@ public class MemberController {
 		}
 	}
 	
+//	@GetMapping("FindIdSelectForm")
+//	public String FindIdSelectForm() {
+//		return "member/find/id_select_agree";
+//	}
+	
 	@GetMapping("FindAgreeEmail")
 	public String FindAgreeEmailId() {
 		return "member/find/id_agree_email";
@@ -311,6 +318,40 @@ public class MemberController {
 		return "membership/membership_info";
 	}
 	
+	// 결제를 위한 고객 정보 들고으는 비즈니스 로직
+	@ResponseBody
+	@GetMapping("paymentGetMember")
+	public String paymentGetMember(String id) {
+		
+		String responseData = "";
+		
+		MemberVO member = memberservice.paymentGetMember(id);
+		String payment = memberservice.getMembership(id);
+//		System.out.println("조회 결과 : " + member);
+		if(member != null && payment == null) {
+//			model.addAttribute("member", member);
+//			responseData = "true";
+			JSONObject json = new JSONObject(member);
+			responseData = json.toString();
+			System.out.println(responseData);
+		} 
+		
+		return responseData;
+	}
+	
+	// 결제 성공 후 고객 데이터 저장 비즈니스 로직
+	@ResponseBody
+	@GetMapping("pamentSetMember")
+	public String pamentSetMember(@RequestParam Map<String, String> map) {
+		String result = "";
+		int insertCount = memberservice.setPaymentMember(map);
+
+		if(insertCount > 0)	{
+			result = "true";
+		}
+		
+		return result;
+	}
 	
 	
 	

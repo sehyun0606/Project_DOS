@@ -8,14 +8,113 @@
 	<select id="selectBoardListCount" resultType="int">
 		SELECT COUNT(*)
 		FROM notice_board
+		<!-- 
+		1. 검색어(searchKeyword)가 널스트링이 아닐 때 검색어를 추가하기 위한 WHERE 절 추가
+		   => 검색어 데이터는 searchKeyword 변수에 저장되어 있음(@Param("searchKeyword"))
+		   => 자바 문법과 동일하게 equals() 메서드를 통해 문자열 비교 수행
+		-->
+		<if test="!searchKeyword.equals('')">
+			WHERE
+			<!-- 
+			2. 검색타입(searchType)에 따른 WHERE 조건의 대상 컬럼명 변경하여 각각 다른 조건 작성
+			   => searchType 변수의 문자열 비교(subject, content, subject_content, writer)
+			   => 경우의 수가 2개 이상이므로 <choose><when><otherwise> 사용
+			-->
+			<choose>
+				<!-- 1) 제목으로 검색했을 경우 -->
+				<when test="searchType.equals('subject')">
+<!-- 					board_subject LIKE '%#{searchKeyword}%' -->
+					<!-- 
+					주의! '%#{searchKeyword}%' 형식으로 지정 시 오류 발생
+					=> #{} 형식으로 파라미터 처리할 경우 해당 파라미터 타입을 감지하여
+					   문자 데이터일 때 자동으로 문자 표시를 위한 따옴표 추가해준다!
+					   즉, '%검색어%' 가 아닌 '%'검색어'%' 형태로 되어 문법 오류가 발생한다! 
+					-->
+					<!-- 해결책1) #{} 대신 ${} 사용하면 데이터타입 상관없이 데이터만 그대로 사용 -->
+<!-- 					board_subject LIKE '%${searchKeyword}%' -->
+					
+					<!-- 해결책2) CONCAT() 함수 활용하여 "%" 문자와 검색어 결합 -->
+					<!-- 단, 이 경우 searchKeyword 데이터의 타입 감지를 위해 #{} 사용 -->
+					board_title LIKE CONCAT('%', #{searchKeyword}, '%')
+					
+				</when>
+				<!-- 2) 내용으로 검색했을 경우 -->
+				<when test="searchType.equals('content')">
+<!-- 					board_content LIKE '%${searchKeyword}%' -->
+					board_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<!-- 3) 제목&내용으로 검색했을 경우 -->
+				<when test="searchType.equals('subject_content')">
+					<!-- 제목&내용의 경우 제목 또는 내용 중 하나의 조건만 일치하면 됨 = OR 활용 -->
+<!-- 					board_subject LIKE '%${searchKeyword}%' -->
+<!-- 					OR board_content LIKE '%${searchKeyword}%' -->
+					board_title LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR board_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</if>
+
 	</select>
 	
 	<!-- 게시물 목록 조회 - SELECT -->
 	<!-- 정렬 : 참조글번호(board_re_ref) 기준 내림차순, 순서번호(board_re_seq) 기준 오름차순 -->
 	<!-- LIMIT 절을 활용하여 조회할 게시물 갯수 제한(startRow 행부터 listLimit 만큼 조회) -->
-	<select id="selectNoteceList" resultType="notice"> <!-- mybatis-config.xml 에서 alias 설정함 -->
+	<select id="selectNoticeList" resultType="notice"> <!-- mybatis-config.xml 에서 alias 설정함 -->
 		SELECT *
 		FROM notice_board
+		<!-- 
+		1. 검색어(searchKeyword)가 널스트링이 아닐 때 검색어를 추가하기 위한 WHERE 절 추가
+		   => 검색어 데이터는 searchKeyword 변수에 저장되어 있음(@Param("searchKeyword"))
+		   => 자바 문법과 동일하게 equals() 메서드를 통해 문자열 비교 수행
+		-->
+		<if test="!searchKeyword.equals('')">
+			WHERE
+			<!-- 
+			2. 검색타입(searchType)에 따른 WHERE 조건의 대상 컬럼명 변경하여 각각 다른 조건 작성
+			   => searchType 변수의 문자열 비교(subject, content, subject_content, writer)
+			   => 경우의 수가 2개 이상이므로 <choose><when><otherwise> 사용
+			-->
+			<choose>
+				<!-- 1) 제목으로 검색했을 경우 -->
+				<when test="searchType.equals('subject')">
+<!-- 					board_subject LIKE '%#{searchKeyword}%' -->
+					<!-- 
+					주의! '%#{searchKeyword}%' 형식으로 지정 시 오류 발생
+					=> #{} 형식으로 파라미터 처리할 경우 해당 파라미터 타입을 감지하여
+					   문자 데이터일 때 자동으로 문자 표시를 위한 따옴표 추가해준다!
+					   즉, '%검색어%' 가 아닌 '%'검색어'%' 형태로 되어 문법 오류가 발생한다! 
+					-->
+					<!-- 해결책1) #{} 대신 ${} 사용하면 데이터타입 상관없이 데이터만 그대로 사용 -->
+<!-- 					board_subject LIKE '%${searchKeyword}%' -->
+					
+					<!-- 해결책2) CONCAT() 함수 활용하여 "%" 문자와 검색어 결합 -->
+					<!-- 단, 이 경우 searchKeyword 데이터의 타입 감지를 위해 #{} 사용 -->
+					board_title LIKE CONCAT('%', #{searchKeyword}, '%')
+					
+				</when>
+				<!-- 2) 내용으로 검색했을 경우 -->
+				<when test="searchType.equals('content')">
+<!-- 					board_content LIKE '%${searchKeyword}%' -->
+					board_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<!-- 3) 제목&내용으로 검색했을 경우 -->
+				<when test="searchType.equals('subject_content')">
+					<!-- 제목&내용의 경우 제목 또는 내용 중 하나의 조건만 일치하면 됨 = OR 활용 -->
+<!-- 					board_subject LIKE '%${searchKeyword}%' -->
+<!-- 					OR board_content LIKE '%${searchKeyword}%' -->
+					board_title LIKE CONCAT('%', #{searchKeyword}, '%')
+					OR board_content LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<!-- 
+				5) 만약, searchType 값이 없거나 잘못된 값이 전달됐을 경우
+				   searchKeyword 가 존재하면 무조건 WHERE 절이 추가되므로
+				   WHERE 절을 무효화시키기 위해 항상 true 가 되는 조건식을 아무거나 추가
+				-->
+				<otherwise>
+					1 = 1   -- 항상 true 가 되는 조건식
+				</otherwise>
+			</choose>
+		</if>
 		ORDER BY
 			board_num DESC
 		LIMIT

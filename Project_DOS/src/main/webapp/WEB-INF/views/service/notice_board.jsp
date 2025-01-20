@@ -99,6 +99,7 @@
 
         <!-- 메인 콘텐츠 -->
         <div class="main-content">
+        <form action="Notice">
             <article class="content">
                 <div class="container">
                     <div class="table-container">
@@ -106,16 +107,17 @@
                         <div class="d-flex justify-content-between mb-3">
                             <!-- 제목 select -->
                             <div class="input-group me-2" style="width: 15%;">
-                                <select class="form-control selectpicker" id="noticeselect">
-                                    <option value="">제목</option>
-                                    <option value="">내용</option>
-                                    <option value="">ID</option>
-                                </select>
+                            	<c:if test="${param.searchType eq 'subject'}"></c:if>
+									<select class="form-control selectpicker" id="noticeselect" name="searchType">
+										<option value="subject" <c:if test="${param.searchType eq 'subject'}">selected</c:if>>제목</option>
+										<option value="content" <c:if test="${param.searchType eq 'content'}">selected</c:if>>내용</option>
+										<option value="subject_content" <c:if test="${param.searchType eq 'subject_content'}">selected</c:if>>제목&amp;내용</option>
+									</select>
                             </div>
                             <!-- 검색 텍스트 -->
                             <div class="input-group flex-grow-1 me-2">
-                                <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="검색어">
-                                <button class="btn btn-outline-secondary" type="button" style="width: 15%">검색</button>
+								<input type="text" class="form-control"  placeholder="검색어를 입력하세요." name="searchKeyword" value="${param.searchKeyword}" required>
+                                <input class="btn btn-outline-secondary" type="submit" style="width: 15%" value="검색">
                             </div>
                         </div>
                         <table class="table table-bordered text-center">
@@ -147,9 +149,11 @@
                         </table>
                         <nav class="d-flex justify-content-center">
                             <ul class="pagination">
+                            	<c:if test="${not empty param.searchKeyword}">
+                            		<c:set var="searchParam" value="&serachType=${param.searchType}&serachKeyword=${param.searchKeyword}"></c:set>
+                            	</c:if>
                                 <li class="page-item">
-                                    <a class="page-link" href="Question?pageNum=${pageInfo.pageNum - 1}" 
-                                        <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>&#9664;</a>
+                                    <a class="page-link" href="Notice?pageNum=${pageInfo.pageNum - 1}${searchParam}" <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>&#9664;</a>
                                 </li>
                                 <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
                                     <c:choose>
@@ -157,12 +161,12 @@
                                             <a class="page-link"><b>${i}</b></a>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="page-item"><a class="page-link" href="Question?pageNum=${i}">${i}</a></li>
+                                            <li class="page-item"><a class="page-link" href="Notice?pageNum=${i}${searchParam}">${i}</a></li>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
                                 <li class="page-item">
-                                    <a class="page-link" href="Question?pageNum=${pageInfo.pageNum + 1}" 
+                                    <a class="page-link" href="Notice?pageNum=${pageInfo.pageNum + 1}${searchParam}" 
                                         <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" >disabled</c:if>>&#9654;</a>
                                 </li>
                             </ul>
@@ -170,6 +174,7 @@
                     </div>
                 </div>
             </article>
+        </form>
         </div>
     </div>
 	<footer>

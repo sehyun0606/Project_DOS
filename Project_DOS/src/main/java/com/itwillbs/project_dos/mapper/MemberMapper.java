@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_dos.vo.MailAuthInfo;
 import com.itwillbs.project_dos.vo.MemberVO;
+import com.itwillbs.project_dos.vo.PerchaseHistoryVO;
 
 @Mapper
 public interface MemberMapper {
@@ -42,6 +43,12 @@ public interface MemberMapper {
 	String getIdCheck(String id);
 
 	int updateMemberAuth(String member_email);
+
+	MemberVO selectPaymentMember(String id);
+
+	int insertPaymentMember(Map<String, String> map);
+
+	String selectMembership(String id);
 
 
 
