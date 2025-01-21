@@ -143,7 +143,7 @@
   	 const reservationIdx = $("#idx").val();
 	   $("#date").change(function() {
 	       var selectedDate = $(this).val(); // 선택된 날짜 가져오기
-	       window.location.href = "ReservationTableEdit?reservation_date=" + selectedDate +"&reservation_idx=" + reservationIdx;
+	       window.location.href = "MyReservationTableEdit?reservation_date=" + selectedDate +"&reservation_idx=" + reservationIdx;
 	   });
 	   const reservationDate = `${reservation.reservation_date}`
 	   
@@ -161,26 +161,26 @@
 	    		
 	    		 
                 if(table_num == 1 || table_num == 2){
-                	$("input[name='people_count']").prop("disabled", true).prop("checked", false);
+                	$("input[name='people_count']").prop("disabled", true);
                 	$("input[name='people_count'][value='5~8']").prop("disabled", false);
                 }else{
                 	$("input[name='people_count']").prop("disabled", false);
                 	$("input[name='people_count'][value='5~8']").prop("disabled", true);
                 }
-	    		$.ajax({
-					type : "GET",
-					url : "ReservationTimeEdit",
-					data :{
-						date : reservationDate,
-						table : table_num
-					},
-					success : function(response){
-						$("#result").html(response);
-					},
-					error : function() {
-						$("#result").html(reservationDate)
-					}
-				});
+	    		 $.ajax({
+						type : "GET",
+						url : "ReservationTimeEdit",
+						data :{
+							date : reservationDate,
+							table : table_num
+						},
+						success : function(response){
+							$("#result").html(response);
+						},
+						error : function() {
+							$("#result").html(reservationDate)
+						}
+					});
 	    		$(".box").click(function(){
 	    			
 	    			$("input[name='people_count']").prop("checked", false);

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -99,288 +100,124 @@
 </div>
 
 
+<div id="menu-list">
 
-    
-<div class="menu-container">
-    <h2 class="category-title">Set Menu</h2>
-    <div class="menu-row">
-        <div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>"  />
-            <h3>${menu.menuName} </h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-            <div class="best-tag">Signature</div>
-        </div>
-        <div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-        </div>
-    </div>
-    <div class="menu-row">
-        <div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-        </div>
-        <div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-            <div class="best-tag">BEST</div>
-        </div>
-    </div>
-</div>
-
-<div class="menu-container" id="steak">
-    <h2 class="category-title">Steak Selection</h2>
-    <div class="menu-row">
-        <div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price} 원</p>
-        </div>
-        <div class="menu-card" onclick="showPopup('')">
-            
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-            <div class="best-tag">BEST</div>
-        </div>
-    </div>
-    <div class="menu-row">
-        -<div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-        </div>
-        -<div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='${menu.imageUrl}'/>" />
-            <h3>${menu.menuName}</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-        </div>
-        -<div class="menu-card" onclick="showPopup('')">
-            <img src="<c:url value='/resources/images/토미호크.jpg'/>" />
-            <h3>토마호크 스테이크</h3>
-            <span class="details-link">[자세히 보기]</span>
-            <p>${menu.price}원</p>
-        </div>
-    </div>
-</div>
-      
-    <div class="menu-container" id="pasta">
+	<h2 class="category-title" style="margin-top: 10%;">Set Menu</h2>
+	<div class="menu-container">
+	    <c:forEach items="${set}" var="setList">
+		    <div class="menu-row">
+		        <div class="menu-card" onclick="showPopup('${setList.menu_name}','${setList.menu_description}','${setList.menu_price}')">
+		            <img src="/resources/upload/${setList.menu_img}">
+		            <h3 >${setList.menu_name} </h3>
+		            <span class="details-link">[자세히 보기]</span>
+		            <p>${setList.menu_price}원</p>
+		            <c:if test="${setList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+		        	<c:if test="${setList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+		        </div>
+			</div>
+	    </c:forEach>
+	</div>
+	<h2 class="category-title">Steak Selection</h2>
+	<div class="menu-container" id="steak">
+	    <c:forEach items="${steak}" var="steakList">
+	    	<div class="menu-row">
+		        <div class="menu-card" onclick="showPopup('${steakList.menu_name}','${steakList.menu_description}','${steakList.menu_price}')">
+		            <img src="/resources/upload/${steakList.menu_img}">
+		            <h3>${steakList.menu_name} </h3>
+		            <span class="details-link">[자세히 보기]</span>
+		            <p>${steakList.menu_price}원</p>
+		            <c:if test="${steakList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+		        	<c:if test="${steakList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+		        </div>
+			</div>
+	    </c:forEach>
+	</div>
         <h2 class="category-title">Pasta</h2>
-        <div class="menu-row">
-            -<div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/토미호크.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            -<div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/알리오올리오.jpg'/>" />
-                <h3>${menu.menuName}</h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/크림파스타.jpg'/>"/>
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/아라비아따.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-                <div class="best-tag">Hit</div>
-                </div>
-                </div>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/토마토.jpg'/>"/>
-                <h3>${menu.menuName}</h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/투움바.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-                <div class="best-tag">BEST</div>
-
-          
-            </div>
-        </div>
-    </div>
-    <div class="menu-container" id="risotto">
+	    <div class="menu-container" id="pasta">
+	        <c:forEach items="${pasta}" var="pastaList">
+		    	<div class="menu-row">
+			        <div class="menu-card" onclick="showPopup('${pastaList.menu_name}','${pastaList.menu_description}','${pastaList.menu_price}')">
+			            <img src="/resources/upload/${pastaList.menu_img}">
+			            <h3>${pastaList.menu_name} </h3>
+			            <span class="details-link">[자세히 보기]</span>
+			            <p>${pastaList.menu_price}원</p>
+			            <c:if test="${pastaList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+			        	<c:if test="${pastaList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+			        </div>
+				</div>
+		    </c:forEach>
+	    </div>
+	    
         <h2 class="category-title"> Risotto&Pilaf</h2>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/크림리조또.jpg'/>" />
-                <h3>${menu.menuName}</h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/투움바리조또2.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/목살필라프.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-                <div class="best-tag">BEST</div>
-            </div>
-
-
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/새우필라프.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/상하이필라프.jpg'/>" />
-                <h3>${menu.menuName}</h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="menu-container" id="salads">
+	    <div class="menu-container" id="risotto">
+	        <c:forEach items="${rizAphi}" var="rizList">
+		    	<div class="menu-row">
+			        <div class="menu-card" onclick="showPopup('${rizList.menu_name}','${rizList.menu_description}','${rizList.menu_price}')">
+			            <img src="/resources/upload/${rizList.menu_img}">
+			            <h3>${rizList.menu_name} </h3>
+			            <span class="details-link">[자세히 보기]</span>
+			            <p>${rizList.menu_price}원</p>
+			            <c:if test="${rizList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+			        	<c:if test="${rizList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+			        </div>
+				</div>
+		    </c:forEach>
+	    </div>
+	
+	
         <h2 class="category-title">Salads</h2>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/콘샐러드.jpg'/>"/>
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/리코타치즈.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-                <div class="best-tag">BEST</div>
-            </div>
-        </div>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/연어크림치즈.jpg'/>" />
-                <h3>${menu.menuName}</h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/치킨텐더.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="menu-container" id="side-dishes">
+	    <div class="menu-container" id="salads">
+	        <c:forEach items="${salad}" var="saladList">
+		    	<div class="menu-row">
+			        <div class="menu-card" onclick="showPopup('${saladList.menu_name}','${saladList.menu_description}','${saladList.menu_price}')">
+			            <img src="/resources/upload/${saladList.menu_img}">
+			            <h3>${saladList.menu_name} </h3>
+			            <span class="details-link">[자세히 보기]</span>
+			            <p>${saladList.menu_price}원</p>
+			            <c:if test="${saladList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+			        	<c:if test="${saladList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+			        </div>
+				</div>
+		    </c:forEach>
+	    </div>
+	
+	
         <h2 class="category-title">Side dishes</h2>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/윙봉.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/식전빵.jpg'/>"/>
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/크림수프.jpg'/>"/>
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-
-
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/웨지감자.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/치즈볼.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-    </div>
-    <div class="menu-container" id="beverages">
+	    <div class="menu-container" id="side-dishes">
+	        <c:forEach items="${side}" var="sideList">
+		    	<div class="menu-row">
+			        <div class="menu-card" onclick="showPopup('${sideList.menu_name}','${sideList.menu_description}','${sideList.menu_price}')">
+			            <img src="/resources/upload/${sideList.menu_img}">
+			            <h3>${sideList.menu_name} </h3>
+			            <span class="details-link">[자세히 보기]</span>
+			            <p>${sideList.menu_price}원</p>
+			            <c:if test="${sideList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+			        	<c:if test="${sideList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+			        </div>
+				</div>
+		    </c:forEach>
+	    </div>
+	    
+	    
         <h2 class="category-title">Beverages</h2>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/콜라.jpg'/>"/>
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/에이드.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-                <div class="best-tag">BEST</div>
-            </div>
-        </div>
-        <div class="menu-row">
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/와인.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-            
-            <div class="menu-card" onclick="showPopup('')">
-                <img src="<c:url value='/resources/images/하이볼.jpg'/>" />
-                <h3>${menu.menuName} </h3>
-                <span class="details-link">[자세히 보기]</span>
-                <p>${menu.price}원</p>
-            </div>
-        </div>
-    </div>
+	    <div class="menu-container" id="beverages">
+	       <c:forEach items="${drink}" var="drinkList">
+		    	<div class="menu-row">
+			        <div class="menu-card" onclick="showPopup('${drinkList.menu_name}','${drinkList.menu_description}','${drinkList.menu_price}')">
+			            <img src="/resources/upload/${drinkList.menu_img}">
+			            <h3>${drinkList.menu_name} </h3>
+			            <span class="details-link">[자세히 보기]</span>
+			            <p>${drinkList.menu_price}원</p>
+			            <c:if test="${drinkList.populer_menu eq 'Y'}"><div class="best-tag">Populer</div></c:if>
+			        	<c:if test="${drinkList.new_menu eq 'Y'}"><div class="best-tag">NEW!</div></c:if>
+			        </div>
+				</div>
+		    </c:forEach>
+	    </div>
+	</div>
     <div class="reserve-button-container">
         <button class="reserve-button">예약</button>
     </div>
-</div>
 
 <div id="popup" class="popup" style="display: none;">
     <div class="popup-content">

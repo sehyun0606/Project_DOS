@@ -85,21 +85,16 @@
     	<form action="ReservationEdit" method="post">
 			<h1>${reservation.member_id}</h1>
 	        <h2>날짜 수정</h2>
-			<input type="hidden" id="idx" value="${reservation.reservation_idx}" name="reservation_idx">
+			<input type="hidden" id="idx" value="${param.reservation_idx}" name="reservation_idx">
 	        <!-- 날짜 선택 -->
 	        <div class="date-picker">
 	            <label for="date">Date</label>
-	            <input type="date" id="date" name="reservation_date" value="${reservation.reservation_date}" >
+	            <input type="date" id="date" name="reservation_date" value="${param.reservation_date}" >
 	        </div>
 			<!-- 네모 박스 -->
 	        <div class="box-container">
 	            <c:forEach var="i" begin="1" end="9">
-	            	<c:if test="${reservation.table_num == i}">
-			            <div id="${i}" class="box selected">${i}</div>
-			        </c:if>
-			        <c:if test="${reservation.table_num != i}">
 			            <div id="${i}" class="box">${i}</div>
-			        </c:if>
 	            </c:forEach>
 	        </div>
 	          <div  class="input-group">
@@ -107,23 +102,23 @@
 			            <div>
 						    <label>
 						        <input type="checkbox" name="people_count" value="1"
-						               <c:if test="${reservation.people_count eq '1'}">checked</c:if>> 1인
+						               <c:if test="${reservation.people_count == 1}">checked</c:if>> 1인
 						    </label>
 						    <label>
 						        <input type="checkbox" name="people_count" value="2"
-						               <c:if test="${reservation.people_count eq '2'}">checked</c:if>> 2인
+						               <c:if test="${reservation.people_count == 2}">checked</c:if>> 2인
 						    </label>
 						    <label>
 						        <input type="checkbox" name="people_count" value="3"
-						               <c:if test="${reservation.people_count eq '3'}">checked</c:if>> 3인
+						               <c:if test="${reservation.people_count == 3}">checked</c:if>> 3인
 						    </label>
 						    <label>
 						        <input type="checkbox" name="people_count" value="4"
-						               <c:if test="${reservation.people_count eq '4'}">checked</c:if>> 4인
+						               <c:if test="${reservation.people_count== 4}">checked</c:if>> 4인
 						    </label>
 						    <label>
-						        <input type="checkbox" name="people_count" value="5~8"
-						               <c:if test="${reservation.people_count eq '5~8'}">checked</c:if>> 5인~8인
+						        <input type="checkbox" name="people_count" value="5-8"
+						               <c:if test="${reservation.people_count == 5 || reservation.people_count == 6 || reservation.people_count == 7 || reservation.people_count == 8}">checked</c:if>> 5인~8인
 						    </label>
 						</div>
 			        
@@ -140,13 +135,13 @@
         
     </div>
    <script type="text/javascript">
-  	 const reservationIdx = $("#idx").val();
+	   const reservationIdx = $("#idx").val();
 	   $("#date").change(function() {
 	       var selectedDate = $(this).val(); // 선택된 날짜 가져오기
 	       window.location.href = "ReservationTableEdit?reservation_date=" + selectedDate +"&reservation_idx=" + reservationIdx;
 	   });
-	   const reservationDate = `${reservation.reservation_date}`
-	   
+	   const reservationDate = `${param.reservation_date}`
+	    	
 	   		//기존 시간 선택되어있음
 	    	$("#time-select").val($("#time").text());
 	    	
@@ -156,34 +151,10 @@
 	    	 $("#date").attr("min", today);
 	    	
 	    	$(function () {
-	    		
-	    		const table_num = $(".selected").text()
-	    		
-	    		 
-                if(table_num == 1 || table_num == 2){
-                	$("input[name='people_count']").prop("disabled", true).prop("checked", false);
-                	$("input[name='people_count'][value='5~8']").prop("disabled", false);
-                }else{
-                	$("input[name='people_count']").prop("disabled", false);
-                	$("input[name='people_count'][value='5~8']").prop("disabled", true);
-                }
-	    		$.ajax({
-					type : "GET",
-					url : "ReservationTimeEdit",
-					data :{
-						date : reservationDate,
-						table : table_num
-					},
-					success : function(response){
-						$("#result").html(response);
-					},
-					error : function() {
-						$("#result").html(reservationDate)
-					}
-				});
 	    		$(".box").click(function(){
 	    			
 	    			$("input[name='people_count']").prop("checked", false);
+	    			
 	    			
 	    			// 기존에 선택된 클래스 제거
 	                $(".box").removeClass("selected");
@@ -197,10 +168,10 @@
 	                if(selectedID == 1 || selectedID == 2){
 	                	alert("5~8인만 앉을 수 있습니다")
 	                	$("input[name='people_count']").prop("disabled", true).prop("checked", false);
-	                	$("input[name='people_count'][value='5~8']").prop("disabled", false);
+	                	$("input[name='people_count'][value='5-8']").prop("disabled", false);
 	                }else{
 	                	$("input[name='people_count']").prop("disabled", false);
-	                	$("input[name='people_count'][value='5~8']").prop("disabled", true);
+	                	$("input[name='people_count'][value='5-8']").prop("disabled", true);
 	                }
 	                
 	                //AJAX

@@ -44,11 +44,23 @@
  			update_date = NOW(),
  			new_menu = #{new_menu},
  			populer_menu = #{populer_menu},
- 			menu_category = #{menu_category},
+ 			menu_category = #{menu_category}
  			<if test="!menu_img.equals('')">
- 			menu_img = #{menu_img}
+ 			,menu_img = #{menu_img}
  			</if>
  		WHERE menu_name = #{menu_name}
  	</update>
+ 	
+ 	<select id="selectMenuImg" resultType="String"> 
+ 		SELECT menu_img
+ 		FROM menu
+ 		WHERE menu_name = #{menu_name}
+ 	</select>
+ 	
+ 	<delete id="deleteMenu">
+ 		DELETE
+ 		FROM menu
+ 		WHERE menu_name = #{menu_name}
+ 	</delete>
  	
 </mapper>

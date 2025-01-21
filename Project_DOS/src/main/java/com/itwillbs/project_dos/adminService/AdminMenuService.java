@@ -33,4 +33,12 @@ public class AdminMenuService {
 		return menuMapper.updateMenu(menu);
 	}
 
+	public String getmenuImg(String menu_name) {
+		return menuMapper.selectMenuImg(menu_name);
+	}
+
+	public int removeMenu(String menu_name) {
+		return menuMapper.deleteMenu(menu_name);
+	}
+
 }

@@ -124,9 +124,32 @@ public class AdminMenuController {
 	}
 	
 	@GetMapping("MenuDelete")
-	public String menuDelete() {
+	public String menuDelete(String menu_name, HttpSession session, Model model) {
 		
-		return "redirect:/AdminMenu";
+		String fileName = menuService.getmenuImg(menu_name);
+		
+		int deleteCount = menuService.removeMenu(menu_name);
+		
+		if(deleteCount > 0) {
+			String realPath = getRealPath(session, virtualPath);
+			
+			if(!fileName.equals("")) {
+				Path path = Paths.get(realPath,fileName);
+				
+				try {
+					Files.deleteIfExists(path);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			return "redirect:/AdminMenu";
+		}else {
+			model.addAttribute("msg","메뉴 삭제 실패!");
+			return "result/result";
+		}
+		
 	}
 	
 	@GetMapping("MenuEdit")

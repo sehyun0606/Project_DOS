@@ -19,4 +19,8 @@ public interface AdminMenuMapper {
 
 	int updateMenu(MenuVO menu);
 
+	String selectMenuImg(String menu_name);
+
+	int deleteMenu(String menu_name);
+
 }

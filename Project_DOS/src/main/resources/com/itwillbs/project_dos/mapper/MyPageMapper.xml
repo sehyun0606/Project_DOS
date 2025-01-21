@@ -8,4 +8,15 @@
  		FROM member
  		WHERE member_id = #{id}
  	</select>
+ 	<select id="selectMyReservationList"  resultType="reservation">
+ 		SELECT *
+ 		FROM reservation
+ 		WHERE member_id = #{id}
+ 		AND reservation_date >= CURDATE()
+ 	</select>
+ 	<select id="selectMyreservation" resultType="reservation">
+ 		SELECT *
+ 		FROM reservation
+ 		WHERE reservation_idx = #{reservation_idx}
+ 	</select>
  </mapper>
