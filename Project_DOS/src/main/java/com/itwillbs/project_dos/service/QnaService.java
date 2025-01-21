@@ -41,6 +41,10 @@ public class QnaService {
 		return mapper.selectBoard(qna_num);
 	}
 
+	public int deleteQna(int qna_num) {
+		return mapper.deleteQna(qna_num);
+	}
+
 	
 }
 

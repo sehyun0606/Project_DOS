@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.core.appender.rewrite.MapRewritePolicy.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,7 +94,7 @@ public class QnaController {
 			// 조회된 게시물 목록 정보(List 객체)를 Model 객체에 저장
 			model.addAttribute("qnaList", qnaList);
 			
-			return "service/qna_board3";
+			return "service/qna_board";
 		}
 
 		@GetMapping("FAQ")
@@ -177,10 +178,24 @@ public class QnaController {
 			}
 		}
 		
+		@GetMapping("QnaDelete")
+		public String QnaDelete(int qna_num, Model model) {
+			int deleteCount = qnaservice.deleteQna(qna_num);
+			if(deleteCount > 0) {
+				model.addAttribute("msg", "삭제 성공!");
+				model.addAttribute("targetURL", "Question");
+				return "result/result";
+			} else {
+				model.addAttribute("msg", "등록 실패!");
+				return "result/result";
+			}
+			
+		}
 		
 		
 		
 		
+		 
 		
 		
 		

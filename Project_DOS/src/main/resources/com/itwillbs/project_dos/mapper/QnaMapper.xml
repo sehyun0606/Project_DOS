@@ -142,7 +142,10 @@
 		WHERE qna_num = #{qna_num}
 	</update>
 	
-	
+	<delete id="deleteQna">
+		DELETE FROM question_board
+		WHERE qna_num = #{qna_num}
+	</delete>
 	
 	
 	

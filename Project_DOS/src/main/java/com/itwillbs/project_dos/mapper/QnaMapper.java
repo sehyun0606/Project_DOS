@@ -33,6 +33,8 @@ public interface QnaMapper {
 
 	QuestionVO selectBoard(int qna_num);
 
+	int deleteQna(int qna_num);
+
 	
 }
 
