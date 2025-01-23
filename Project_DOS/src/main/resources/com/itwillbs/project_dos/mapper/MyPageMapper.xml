@@ -19,4 +19,46 @@
  		FROM reservation
  		WHERE reservation_idx = #{reservation_idx}
  	</select>
+ 	<select id="selectMyNoticeListCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM question_board
+ 		WHERE member_id = #{id}
+ 	</select>
+ 	<select id="selectQuestionList" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE member_id = #{id}
+ 		ORDER BY
+ 			qna_num DESC
+ 		LIMIT
+ 			#{startRow}
+ 			,#{listLimit}
+ 	</select>
+ 	<select id="selectMyQuestionDetail" resultType="question">
+ 		SELECT *
+ 		FROM question_board
+ 		WHERE qna_num = #{qna_num}
+ 	</select>
+ 		
+ 	<update id="updateMyQuestion">
+ 		UPDATE question_board
+ 		SET
+ 			qna_type = #{qna_type},
+ 			qna_title = #{qna_title},
+ 			qna_content = #{qna_content}
+ 		WHERE qna_num = #{qna_num}
+ 	</update>
+ 	
  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
