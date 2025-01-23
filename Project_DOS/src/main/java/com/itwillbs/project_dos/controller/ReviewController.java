@@ -134,6 +134,22 @@ public class ReviewController {
 		
 		List<String> history = reviewService.getReservationHistory(id);
 		
-		return"";
+		if(history.isEmpty()) {
+			model.addAttribute("msg", "방문이 완료된 분들만 리뷰 작성이 가능합니다");
+			return "result/result";
+		}
+		
+		int insertCount = reviewService.insertReview(review);
+		
+		if(insertCount > 0) {
+			model.addAttribute("msg", "등록 성공");
+			model.addAttribute("targetURL","Review");
+			return "result/result";
+		}else {
+			model.addAttribute("msg", "등록 실패..");
+			model.addAttribute("targetURL","Review");
+			return "result/result";
+		}
+		
 	}
 }

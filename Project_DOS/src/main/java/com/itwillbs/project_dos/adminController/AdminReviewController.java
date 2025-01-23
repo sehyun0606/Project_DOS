@@ -137,6 +137,24 @@ public class AdminReviewController {
 		
 		return "admin/admin_review/filter_result";
 	}
+	
+	@GetMapping("ReviewDelete")
+	public String reviewDelete(String review_idx, Model model) {
+		
+		int deleteCount = reviewService.deleteReview(review_idx);
+		
+		if(deleteCount > 0) {
+			model.addAttribute("msg", "삭제 성공!");
+			model.addAttribute("targetURL","AdminReview");
+			return "result/result";
+		}else {
+			model.addAttribute("msg", "삭제 실패..!");
+			model.addAttribute("targetURL","AdminReview");
+			return "result/result";
+			
+		}
+		
+	}
 }
 
 

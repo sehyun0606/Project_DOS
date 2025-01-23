@@ -32,10 +32,6 @@ public class ReviewVO {
 	    private String review_content;
 	    private Date review_date;
 	    private Date update_date;
-	    private String review_file;
-	    private String review_file1;
-	    private String review_file2;
-	    private String review_file3;
 	    private String member_id;
 	    private int review_like;
 	    private int review_rating;

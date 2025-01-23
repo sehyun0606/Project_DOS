@@ -33,4 +33,8 @@ public class ReviewService {
 		return reviewMapper.selectReservationHistory(id);
 	}
 
+	public int insertReview(ReviewVO review) {
+		return reviewMapper.insertReview(review);
+	}
+
 }

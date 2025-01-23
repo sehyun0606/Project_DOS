@@ -52,5 +52,9 @@ public class AdminReviewService {
 		return reviewMapper.selectReviewListByLike(startRow,listLimit);
 	}
 
+	public int deleteReview(String review_idx) {
+		return reviewMapper.deleteReview(review_idx);
+	}
+
 
 }

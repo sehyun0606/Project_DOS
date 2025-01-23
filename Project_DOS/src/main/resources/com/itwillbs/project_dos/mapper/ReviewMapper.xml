@@ -40,5 +40,28 @@
  		WHERE now() > reservation_date
  		AND member_id = #{id}
  	</select>
+ 	
+ 	<insert id="insertReview">
+ 		<selectKey keyProperty="review_idx" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(review_idx), 0)
+			FROM review;
+		</selectKey>
+		
+ 		INSERT
+ 		INTO review
+ 		VALUES(
+ 			#{review_idx} +1,
+ 			#{review_title},
+ 			#{review_content},
+ 			NOW(),
+ 			null,
+ 			#{member_id},
+ 			0,
+ 			#{review_rating},
+ 			null,
+ 			null,
+ 			'N'
+ 		)
+ 	</insert>
  </mapper>
 
