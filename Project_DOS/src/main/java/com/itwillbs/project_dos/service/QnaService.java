@@ -37,12 +37,23 @@ public class QnaService {
 		return mapper.updateQnaBoard(qna);
 	}
 
-	public QuestionVO getBoard(int qna_num) {
-		return mapper.selectBoard(qna_num);
+	public QuestionVO getBoard(int qna_num, boolean readCount) {
+		
+		QuestionVO qnaBoard = mapper.selectBoard(qna_num);
+		
+		//조회 결과가 존재하고, 조회수 증가를 수행해야할 경우
+		if(qnaBoard != null && readCount) {
+			mapper.updateReadCount(qnaBoard);
+		}
+		return qnaBoard;
 	}
 
 	public int deleteQna(int qna_num) {
 		return mapper.deleteQna(qna_num);
+	}
+
+	public QuestionVO getBoard(int qna_num) {
+		return mapper.selectBoard(qna_num);
 	}
 
 	

@@ -103,7 +103,7 @@ public class QnaController {
 			System.out.println(faq);
 			model.addAttribute("faqList",faq);
 			
-			return "service/faq_view2";
+			return "service/faq_view";
 		}
 		
 		@GetMapping("qnaWrite")
@@ -117,7 +117,7 @@ public class QnaController {
 				
 				return "result/result";
 			}
-			return "service/qna_write2";
+			return "service/qna_write";
 		}
 		
 		@PostMapping("registQna")
@@ -147,7 +147,7 @@ public class QnaController {
 		@GetMapping("QnaDetail")
 		public String QnaDetail(Model model, HttpSession session, int qna_num) {
 			
-			QuestionVO qna = qnaservice.getBoard(qna_num);
+			QuestionVO qna = qnaservice.getBoard(qna_num, true);
 			System.out.println(qna);
 			
 			model.addAttribute("qna",qna);

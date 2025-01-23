@@ -126,6 +126,17 @@
 		)
 	</insert>
 	
+	<update id="updateReadCount">
+		<selectKey keyProperty="qna_readcount" resultType="int" order="AFTER">
+			SELECT qna_readcount
+			FROM question_board
+			WHERE qna_num = #{qna_num}
+		</selectKey>
+		UPDATE question_board
+		SET qna_readcount = qna_readcount + 1
+		WHERE qna_num = #{qna_num}
+	</update>
+	
 	<select id="selectBoard" resultType="question">
 		SELECT *
 		FROM question_board

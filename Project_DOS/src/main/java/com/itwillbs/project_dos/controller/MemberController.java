@@ -189,6 +189,7 @@ public class MemberController {
 		return responseData;
 	}
 	
+	// 회원가입 성공 페이지
 	@GetMapping("successPage")
 	public String success_page(String member_email) {
 		int updateCount = memberservice.updateMemberAuth(member_email);
@@ -196,6 +197,60 @@ public class MemberController {
 		
 		return "member/join/success";
 	}
+	
+	// 회원 정보 수정폼 이동
+	@GetMapping("MemberModify")
+	public String MemberModify(HttpSession session, Model model) {
+		String id = (String)session.getAttribute("sId");
+		
+		if(id == null) {
+			model.addAttribute("msg", "접근 권한이 없습니다!");
+			model.addAttribute("targetURL", "MemberLogin");
+			return "result/result";
+		}
+		MemberVO member = memberservice.getMember(id);
+		model.addAttribute("member", member);
+		
+		return "member/member_modify_form";
+	}
+	
+	// 회원 정보 수정 비즈니스 로직
+	@PostMapping("SuccessModify")
+	public String SuccessModify(Model model, BCryptPasswordEncoder bpe, @RequestParam Map<String, String> map) {
+		
+		if(!map.get("passwd").equals("")) {
+			// 새 패스워드 암호화해서 다시 덮어쓰기
+			map.put("passwd", bpe.encode(map.get("passwd")));
+			System.out.println("암호화 된 새 비밀번호 : " + map.get("passwd"));
+		}
+		
+		int updateCount = memberservice.memberModify(map);
+		
+		if(updateCount < 0) {
+			model.addAttribute("msg", "회원 정보 수정 실패!");
+		}
+		return "redirect:/Mypage";
+	}
+	
+	@GetMapping("MemberWithdraw")
+	public String MemberWithdraw(HttpSession session, Model model) {
+		String id = (String)session.getAttribute("sId");
+		
+		int updateCount = memberservice.memberWithdraw(id);
+		
+		if(updateCount > 0) {
+			session.invalidate();
+			model.addAttribute("msg", "회원 탈퇴 성공! 메인페이지로 이동합니다");
+			model.addAttribute("targetURL", "./");
+			return "result/result";
+			
+		} else {
+			model.addAttribute("msg", "회원 정보 수정 실패!");
+			return "result/result";
+		}
+		
+	}
+	
 	
 	// 아이디 찾기 폼 이동 
 	@GetMapping("FindId")
@@ -347,6 +402,7 @@ public class MemberController {
 		int insertCount = memberservice.setPaymentMember(map);
 
 		if(insertCount > 0)	{
+			memberservice.updateMembership(map);
 			result = "true";
 		}
 		

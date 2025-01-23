@@ -91,6 +91,18 @@ public class MemberService {
 		return mapper.selectMembership(id);
 	}
 
+	public int memberModify(Map<String, String> map) {
+		return mapper.updateMember(map);
+	}
+
+	public int memberWithdraw(String id) {
+		return mapper.deleteMember(id);
+	}
+
+	public void updateMembership(Map<String, String> map) {
+		mapper.updateMembership(map);
+	}
+
 
 
 

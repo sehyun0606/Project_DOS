@@ -18,6 +18,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
         }
         .layout-container {
             display: flex;
@@ -82,23 +83,14 @@
     	}
     	.board-content-wrapper {
         padding: 20px; /* 내부 여백 */
-        text-align: center; /* 텍스트 가운데 정렬 */
+        text-align: start; /* 텍스트 가운데 정렬 */
         background-color: #f8f9fa; /* 배경색 */
         border: 1px solid #ccc; /* 테두리 */
         border-radius: 5px; /* 모서리 둥글게 */
     	min-width: 600px; /* 최소 너비 */
-    	min-height: 400px;
+    	min-height: 150px;
    	 	}
 
-	    /* 게시판 본문 텍스트 스타일 */
-	    .board-content p {
-	        height: auto; /* 텍스트 영역 높이 자동 */
-	        margin-top: 15px; /* 상단 간격 */
-	        font-size: 1.1rem; /* 글자 크기 */
-	        line-height: 1.6; /* 줄 간격 */
-	        color: #333; /* 글자 색상 */
-	    }
-	    
 	    .inline-button-container {
 		    text-align: center; /* 중앙 정렬 */
 		    padding: 20px; /* 패딩 */
@@ -137,32 +129,46 @@
             <article class="content">
                 <div class="container">
                     <div class="table-container">
-	                    <div class="input-group flex-grow-1 me-2" >
-	                        <input type="text" class="form-control" value="제목: ${qna.qna_title }" readonly>
-	                    </div>
-	                    <br>
-                        	<div class="d-flex justify-content-between mb-3">
-	                            <!-- 제목 select -->
-	                            <!-- 검색 텍스트 -->
-	                            <div class="input-group flex-grow-1 me-2" style="width: 20%;">
-	                                <input type="text" class="form-control" name="qna_num" value="${param.qna_num }" hidden>
-	                                <input type="text" class="form-control" value="작성자: ${qna.member_id}" readonly>
-	                            </div>
-	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-	                                <input type="text" class="form-control" value="문의 타입: ${qna.qna_type}" readonly>
-	                            </div>
-	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-	                                <input type="text" class="form-control" value="조회수: ${qna.qna_readcount}" readonly>
-	                            </div>
-	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-	                                <input type="text" class="form-control" value="게시일: <fmt:formatDate value='${qna.qna_date}' pattern='yy-MM-dd'/>" readonly>
-	                            </div>
-                        	</div>
+                       	<div class="d-flex justify-content-between mb-3">
+                            <!-- 제목 select -->
+                            <!-- 검색 텍스트 -->
+                            <div class="input-group flex-grow-1 me-2" style="width: 60%;">
+                                <input type="text" class="form-control" style="font-size: 16px;" value="제목: ${qna.qna_title }" readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2" style="width: 10%;">
+                                <input type="text" class="form-control" name="qna_num" value="${param.qna_num }" hidden>
+                                <input type="text" class="form-control" style="font-size: 12px;" value="작성자: ${qna.member_id}" readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+                                <input type="text" class="form-control" style="font-size: 12px;" value="${qna.qna_type}" readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+                                <input type="text" class="form-control" style="font-size: 12px;" value="조회수: ${qna.qna_readcount}" readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+                                <input type="text" class="form-control" style="font-size: 12px;" value="게시일: <fmt:formatDate value='${qna.qna_date}' pattern='yy-MM-dd'/>" readonly>
+                            </div>
+                       	</div>
+                        <h4>문의</h4>
                         <div class="board-content-wrapper">
 				            <div class="board-content">
 				            	${qna.qna_content}
 				            </div>
 				        </div>
+				        <br>
+						<c:if test="${not empty qna.request_content}">
+					        <div class="d-flex justify-content-between mb-3">
+	                        	<div class="input-group flex-grow-1 me-2"style="width: 90%;"><h4>답변</h4></div>
+	                        	<div class="input-group flex-grow-1 me-2"style="width: 10%;">
+	                                <input type="text" class="form-control" style="font-size: 12px;" value="답변일: <fmt:formatDate value='${qna.request_date}' pattern='yy-MM-dd'/>" readonly>
+	                            </div>
+							</div>				        
+	                        <div class="board-content-wrapper">
+					            <div class="board-content">
+					            	${qna.request_content}
+					            </div>
+					        </div>
+				        </c:if>
 	                    <div class="inline-button-container">
 	                    	<c:if test="${not empty sessionScope.sId}">
 	                    		<c:if test="${sessionScope.sId eq qna.member_id or sessionScope.sId eq 'admin' }">

@@ -50,6 +50,12 @@ public interface MemberMapper {
 
 	String selectMembership(String id);
 
+	int updateMember(Map<String, String> map);
+
+	int deleteMember(String id);
+
+	void updateMembership(Map<String, String> map);
+
 
 
 

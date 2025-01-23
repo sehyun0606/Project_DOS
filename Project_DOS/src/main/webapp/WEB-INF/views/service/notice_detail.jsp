@@ -18,6 +18,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
         }
         .layout-container {
             display: flex;
@@ -137,26 +138,22 @@
             <article class="content">
                 <div class="container">
                     <div class="table-container">
-	                    <div class="input-group flex-grow-1 me-2" >
-	                        <input type="text" class="form-control" value="제목: ${notice.board_title }" readonly>
-	                    </div>
-	                    <br>
-                        	<div class="d-flex justify-content-between mb-3">
-	                            <!-- 제목 select -->
-	                            <!-- 검색 텍스트 -->
-	                            <div class="input-group flex-grow-1 me-2" style="width: 20%;">
-	                                <input type="text" class="form-control" name="board_num" value="번호: ${param.board_num}" readonly>
-	                            </div>
-	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-	                                <input type="text" class="form-control" value="문의 타입: 공지사항" readonly>
-	                            </div>
-	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-	                                <input type="text" class="form-control" value="조회수: ${notice.board_readcount}" readonly>
-	                            </div>
-	                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-	                                <input type="text" class="form-control" value="게시일: <fmt:formatDate value='${notice.board_date}' pattern='yy-MM-dd'/>" readonly>
-	                            </div>
-                        	</div>
+                       	<div class="d-flex justify-content-between mb-3">
+                            <!-- 제목 select -->
+                            <!-- 검색 텍스트 -->
+                            <div class="input-group flex-grow-1 me-2" style="width: 70%;">
+                                <input type="text" class="form-control" name="board_num" value="제목: ${notice.board_title }" readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+                                <input type="text" class="form-control" style="font-size: 12px;" value="번호: ${param.board_num}"  readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+                                <input type="text" class="form-control" style="font-size: 12px;" value="조회수: ${notice.board_readcount}" readonly>
+                            </div>
+                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+                                <input type="text" class="form-control" style="font-size: 12px;" value="게시일: <fmt:formatDate value='${notice.board_date}' pattern='yy-MM-dd'/>" readonly>
+                            </div>
+                       	</div>
                         <div class="board-content-wrapper">
 				            <div class="board-content">
 				            	${notice.board_content}

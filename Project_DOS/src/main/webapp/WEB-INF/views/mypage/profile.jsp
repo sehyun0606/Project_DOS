@@ -233,14 +233,28 @@
                 <div class="profile-details">
                     <h2>${member.member_name}</h2>
                     <c:set var="formattedPhoneNumber" value="${member.member_phone.substring(0, 3)}-${member.member_phone.substring(3, 7)}-${member.member_phone.substring(7)}" />
+                    <input type="text" name="member_id" value=${member.member_id } hidden>
                     <ul>
                         <li>아이디: ${member.member_id}</li>
                         <li>생년월일: ${member.member_birth}</li>
                         <li>이메일: ${member.member_email}</li>
                         <li>전화번호: ${formattedPhoneNumber}</li>
                     </ul>
+                    	<c:choose>
+							<c:when test="${member.membership eq 'white'}">
+	        	            	<img alt="membership" src="${pageContext.request.contextPath}/resources/images/whiteSun.png">
+							</c:when>                    	
+							<c:when test="${member.membership eq 'red'}">
+	    	                	<img alt="membership" src="${pageContext.request.contextPath}/resources/images/redSun.png">
+							</c:when>                    	
+							<c:when test="${member.membership eq 'black'}">
+		                    	<img alt="membership" src="${pageContext.request.contextPath}/resources/images/blackSun.png">
+							</c:when>                    	
+							<c:otherwise>
+		                        <button onclick="location.href='MemberShip'">멤버쉽 가입하기</button>
+							</c:otherwise>
+                    	</c:choose>
                     <div class="membership">
-                        <button>멤버쉽 가입하기</button>
                     </div>
                     <div class="form-container">
                          <form class="gift-form">
@@ -294,9 +308,9 @@
            </table>
             </div>
             <div class="actions">
-                <button>정보 수정</button>
-                <button>LogOut</button>
-                <button>회원 탈퇴</button>
+                <button onclick="location.href='MemberModify?member_id=${member.member_id}'">정보 수정</button>
+                <button onclick="location.href='MemberLogout'">LogOut</button>
+                <button onclick="location.href='MemberWithdraw'">회원 탈퇴</button>
             </div>
         </div>
     </div>

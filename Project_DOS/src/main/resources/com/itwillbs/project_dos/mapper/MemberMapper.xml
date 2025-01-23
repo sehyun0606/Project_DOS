@@ -135,9 +135,34 @@
 		FROM perchaseHistory
 		WHERE member_id = #{id}
 	</select>
+	
+	<update id="updateMember">
+		UPDATE member
+		SET
+			<if test="!passwd.equals('')">
+				member_passwd = #{passwd},  -- 조건에 따라 실행 여부가 달라지는 부분(패스워드가 존재할 경우에만 추가됨)
+			</if>
+			member_name = #{member_name},
+			member_phone = #{member_phone},
+			member_email = #{member_email},
+			member_birth = #{member_birth},
+			member_post_code = #{member_post_code},
+			member_address1 = #{member_address1},
+			member_address2 = #{member_address2}
+		WHERE member_id = #{member_id}
+	</update>
 
-
-
+	<update id="deleteMember">
+		UPDATE member
+		SET member_status = 3
+		WHERE member_id = #{id}
+	</update>
+	
+	<update id="updateMembership">
+		UPDATE member
+		SET membership = 'white'
+		WHERE member_phone = #{buyer_tel}
+	</update>
 
 
 

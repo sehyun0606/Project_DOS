@@ -18,6 +18,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
         }
         .layout-container {
             display: flex;
@@ -59,6 +60,7 @@
             background-color: #495057;
         }
         .main-content {
+        	margin-top: 30px;
             flex-grow: 1;
             padding: 20px;
             background-color: #f9f9f9;
@@ -86,7 +88,7 @@
         background-color: #f8f9fa; /* 배경색 */
         border: 1px solid #ccc; /* 테두리 */
         border-radius: 5px; /* 모서리 둥글게 */
-        min-height: 400px; /* 최소 높이 */
+        min-height: 200px; /* 최소 높이 */
     	min-width: 600px; /* 최소 너비 */
    	 	}
 
@@ -118,11 +120,11 @@
 		    background-color: #0056b3; /* 호버 시 색상 변경 */
 		}
 		.text1 {
- 			min-height: 500px;
- 			width: 1210px;
+ 			min-height: 300px;
+ 			width: 1220px;
  			resize: none;
  		}
-
+		
     </style>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 </head>
@@ -143,38 +145,41 @@
                 <div class="container">
 	                <form action="successModify" method="post">
 	                    <div class="table-container">
-		                    <div class="input-group flex-grow-1 me-2" >
-		                        <input type="text" class="form-control" name="qna_title" value="${qna.qna_title }">
-		                    </div>
-		                    <br>
-	                        	<div class="d-flex justify-content-between mb-3">
-		                            <!-- 제목 select -->
-		                            <!-- 검색 텍스트 -->
-		                            <div class="input-group flex-grow-1 me-2" style="width: 20%;">
-		                                <input type="text" class="form-control" name="qna_num" value="${qna.qna_num}" hidden>
-		                                <input type="text" class="form-control" value="작성자: ${qna.member_id}" readonly>
-		                            </div>
-		                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-		                                <select class="form-control selectpicker" id="noticeselect" style="text-align: center;" name="qna_type" >
-		                                <c:choose>
-		                                	<c:when test="${qna.qna_type eq '일반문의' }">
-							                    <option value="일반문의" selected>일반 문의</option>
-							                    <option value="예약문의">예약 문의</option>
-		                                	</c:when>
-		                                	<c:otherwise>
-							                    <option value="일반문의" >일반 문의</option>
-							                    <option value="예약문의" selected>예약 문의</option>
-		                                	</c:otherwise>
-		                                </c:choose>
-						                </select>
-		                            </div>
-		                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-		                                <input type="text" class="form-control" value="조회수: ${qna.qna_readcount}" readonly>
-		                            </div>
-		                            <div class="input-group flex-grow-1 me-2"style="width: 20%;">
-		                                <input type="text" class="form-control" value="게시일: <fmt:formatDate value='${qna.qna_date}' pattern='yy-MM-dd'/>" readonly>
-		                            </div>
-	                        	</div>
+                        	<div class="d-flex justify-content-between mb-3">
+	                            <!-- 제목 select -->
+	                            <!-- 검색 텍스트 -->
+	                            <div class="input-group flex-grow-1 me-2" style="width: 60%;">
+                                <input type="text" class="form-control" style="font-size: 16px;" value="제목: ${qna.qna_title }" >
+                            	</div>
+	                            <div class="input-group flex-grow-1 me-2" style="width: 10%;">
+	                                <input type="text" class="form-control" name="qna_num" value="${param.qna_num }" hidden>
+	                                <input type="text" class="form-control" style="font-size: 12px;" value="작성자: ${qna.member_id}" readonly>
+                            	</div>
+	                            <div class="input-group flex-grow-1 me-2"style="width: 10%;">
+	                                <select class="form-control selectpicker" id="noticeselect" style="text-align: center; font-size:12px;" name="qna_type" >
+	                                <c:choose>
+	                                	<c:when test="${qna.qna_type eq '일반문의' }">
+						                    <option value="일반문의" selected>일반 문의</option>
+						                    <option value="예약문의">예약 문의</option>
+	                                	</c:when>
+	                                	<c:when test="${qna.qna_type eq '예약문의' }">
+						                    <option value="일반문의">일반 문의</option>
+						                    <option value="예약문의" selected>예약 문의</option>
+	                                	</c:when>
+	                                	<c:otherwise>
+						                    <option value="일반문의" selected>일반 문의</option>
+						                    <option value="예약문의" >예약 문의</option>
+	                                	</c:otherwise>
+	                                </c:choose>
+					                </select>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2" style="width: 10%;">
+	                                <input type="text" class="form-control" style="font-size: 12px;" value="조회수: ${qna.qna_readcount}" readonly>
+	                            </div>
+	                            <div class="input-group flex-grow-1 me-2" style="width: 10%;">
+	                                <input type="text" class="form-control" style="font-size: 12px;" value="게시일: <fmt:formatDate value='${qna.qna_date}' pattern='yy-MM-dd'/>" readonly>
+	                            </div>
+                        	</div>
 	                        <div class="board-content-wrapper">
 					            <div class="board-content">
 					            	<textarea class="text1" id="text1" name="qna_content" placeholder="내용을 입력해주세요.">${qna.qna_content}</textarea>

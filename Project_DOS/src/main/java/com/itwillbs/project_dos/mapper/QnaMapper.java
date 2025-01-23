@@ -35,6 +35,8 @@ public interface QnaMapper {
 
 	int deleteQna(int qna_num);
 
+	void updateReadCount(QuestionVO qnaBoard);
+
 	
 }
 
