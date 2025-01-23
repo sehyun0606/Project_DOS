@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.mapper.ReviewMapper">
+	<insert id="insertReviewLike">
+	 		INSERT
+	 		INTO review_like
+	 		VALUES(
+	 			#{review_idx},
+	 			#{id}
+	 		)
+ 	</insert>
+ 	<update id="updateReviewLike">
+ 		UPDATE review
+ 		<if test="sign.equals('plus')">
+	 		SET review_like = review_like + 1
+ 		</if>
+ 		<if test="sign.equals('minus')">
+ 			SET review_like = review_like - 1
+ 		</if>
+ 		WHERE review_idx = #{review_idx}
+ 	</update>
+ 	
+ 	<select id="selectIdxList" resultType="String">
+ 		SELECT review_idx
+ 		FROM review_like
+ 		WHERE member_id = #{id}
+ 	</select>
+ 	
+ 	<delete id="deleteReviewLike">
+ 		DELETE
+ 		FROM review_like
+ 		WHERE review_idx = #{review_idx}
+ 		AND member_id = #{id}
+ 	</delete>
+ 	<select id="selectReservationHistory" resultType="String">
+ 		SELECT reservation_idx
+ 		FROM reservation
+ 		WHERE now() > reservation_date
+ 		AND member_id = #{id}
+ 	</select>
+ </mapper>
+

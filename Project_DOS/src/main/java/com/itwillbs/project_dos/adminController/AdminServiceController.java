@@ -3,6 +3,8 @@ package com.itwillbs.project_dos.adminController;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -244,11 +246,17 @@ public class AdminServiceController {
 	}
 	//문의사항 삭제 기능
 	@GetMapping("AdminQuestionDelete")
-	public String adminQuestionDelete(int qna_num, Model model) {
+	public String adminQuestionDelete(int qna_num, Model model,HttpSession session) {
 		
 		int deleteCount = adminService.deleteQuestion(qna_num);
+		String id = (String) session.getAttribute("sId");
+		
+		
 		
 		if(deleteCount > 0) {
+			if(!id.equals("admin")) {
+				return "redirect:/MyQuestion";
+			}
 			return "redirect:/AdminQuestion";
 		}else {
 			model.addAttribute("msg", "삭제 실패..");
