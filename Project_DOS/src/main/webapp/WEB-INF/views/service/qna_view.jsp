@@ -164,9 +164,13 @@
 				            </div>
 				        </div>
 	                    <div class="inline-button-container">
-						    <button class="btn btn-primary" onclick="location.href='QnaModify?qna_num=${qna.qna_num}&page_num=${param.pageNum }'">수정</button>
-						    <button class="btn btn-primary" onclick="location.href='QnaDelete'">삭제</button>
-						    <button class="btn btn-primary" onclick="location.href='Question'">목록</button>
+	                    	<c:if test="${not empty sessionScope.sId}">
+	                    		<c:if test="${sessionScope.sId eq qna.member_id or sessionScope.sId eq 'admin' }">
+								    <button class="btn btn-primary" onclick="location.href='QnaModify?qna_num=${qna.qna_num}&page_num=${param.pageNum }'">수정</button>
+								    <button class="btn btn-primary" onclick="location.href='QnaDelete?qna_num=${qna.qna_num}'">삭제</button>
+	                    		</c:if>
+							</c:if>	
+							<button class="btn btn-primary" onclick="location.href='Question'">목록</button>
 						</div>
 
                     </div>

@@ -13,7 +13,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">가게 정보</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">찾아오시는 길</a></li>
+                        <li><a class="dropdown-item" href="Directions">찾아오시는 길</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Menu">메뉴</a></li>
