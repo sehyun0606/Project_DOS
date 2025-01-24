@@ -118,7 +118,7 @@
 	
 	<insert id="insertPaymentMember">
 		INSERT
-		INTO perchaseHistory
+		INTO purchase_history
 		VALUES(
 			#{merchant_uid}
 			, #{buyer_name}
@@ -132,7 +132,7 @@
 	
 	<select id="selectMembership" resultType="string">
 		SELECT product_name
-		FROM perchaseHistory
+		FROM purchase_history
 		WHERE member_id = #{id}
 	</select>
 	

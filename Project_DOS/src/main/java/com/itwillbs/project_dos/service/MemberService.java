@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.project_dos.mapper.MemberMapper;
 import com.itwillbs.project_dos.vo.MailAuthInfo;
 import com.itwillbs.project_dos.vo.MemberVO;
-import com.itwillbs.project_dos.vo.PerchaseHistoryVO;
+import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 
 @Service
 public class MemberService {

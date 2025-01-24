@@ -242,13 +242,13 @@
                     </ul>
                     	<c:choose>
 							<c:when test="${member.membership eq 'white'}">
-	        	            	<img alt="membership" src="${pageContext.request.contextPath}/resources/images/whiteSun.png">
+	        	            	멤버쉽:&nbsp;&nbsp;&nbsp;<img alt="membership" src="${pageContext.request.contextPath}/resources/images/whiteSun.png">
 							</c:when>                    	
 							<c:when test="${member.membership eq 'red'}">
-	    	                	<img alt="membership" src="${pageContext.request.contextPath}/resources/images/redSun.png">
+	    	                	멤버쉽:&nbsp;&nbsp;&nbsp;<img alt="membership" src="${pageContext.request.contextPath}/resources/images/redSun.png">
 							</c:when>                    	
 							<c:when test="${member.membership eq 'black'}">
-		                    	<img alt="membership" src="${pageContext.request.contextPath}/resources/images/blackSun.png">
+		                    	멤버쉽:&nbsp;&nbsp;&nbsp;<img alt="membership" src="${pageContext.request.contextPath}/resources/images/blackSun.png">
 							</c:when>                    	
 							<c:otherwise>
 		                        <button onclick="location.href='MemberShip'">멤버쉽 가입하기</button>

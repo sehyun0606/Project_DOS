@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.itwillbs.project_dos.vo.MemberVO;
 import com.itwillbs.project_dos.vo.NoticeVO;
+import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 import com.itwillbs.project_dos.vo.ReservationVO;
 
@@ -30,5 +31,13 @@ public interface MyPageMapper {
 	QuestionVO selectMyQuestionDetail(int qna_num);
 
 	int updateMyQuestion(QuestionVO question);
+
+	int selectHistoryListCount();
+
+	List<PurchaseHistoryVO> selectPurchaseList(
+			@Param("startRow") int startRow, 
+			@Param("listLimit") int listLimit, 
+			@Param("id") String id);
+
 						
 }

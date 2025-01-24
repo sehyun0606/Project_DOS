@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.project_dos.mapper.MyPageMapper;
 import com.itwillbs.project_dos.vo.MemberVO;
 import com.itwillbs.project_dos.vo.NoticeVO;
+import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 import com.itwillbs.project_dos.vo.ReservationVO;
 
@@ -44,4 +45,13 @@ public class MyPageService {
 	public int editMyQuestion(QuestionVO question) {
 		return myPageMapper.updateMyQuestion(question);
 	}
+
+	public int getHistoryList() {
+		return myPageMapper.selectHistoryListCount();
+	}
+
+	public List<PurchaseHistoryVO> getPurchaseList(int startRow, int listLimit, String id) {
+		return myPageMapper.selectPurchaseList(startRow, listLimit, id);
+	}
+
 }

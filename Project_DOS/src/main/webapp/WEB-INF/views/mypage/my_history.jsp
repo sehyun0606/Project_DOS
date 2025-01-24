@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,6 +9,8 @@
     <title>History</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/resources/css/side.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,8 +24,11 @@
         }
 
         .content {
+        	margin-top: 20px;
+        	display: flex; 
             flex: 1;
             padding: 20px;
+	        flex-direction: column; /* 수직으로 배치 */
         }
 
         h2 {
@@ -34,7 +40,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         table th, table td {
@@ -79,50 +85,50 @@
         </div>
         <!-- 메인 콘텐츠 -->
         <div class="content">
-            <h2>History</h2>
+            <h2>Purchase History</h2>
             <table>
                 <tr>
-                    <th>예약</th>
-                    <th>인원 수</th>
-                    <th>결제 비용</th>
+                    <th>상품</th>
+                    <th>가격</th>
                     <th>결제 방식</th>
+                    <th>결제일</th>
                 </tr>
-                <tr>
-                    <td>2XXX.XX.XX</td>
-                    <td>인원 수</td>
-                    <td>결제 비용</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>기프티콘</td>
-                    <td></td>
-                    <td>결제 비용</td>
-                    <td>결제 방식</td>
-                </tr>
-                <tr>
-                    <td>2XXX.XX.XX</td>
-                    <td>인원 수</td>
-                    <td>결제 비용</td>
-                    <td></td>
-                </tr>
+                <c:choose>
+                  <c:when test="${empty purchaseHistory}">
+                      <tr><td colspan="5">구매내역이 존재하지 않습니다</td></tr>
+                  </c:when>
+                  <c:otherwise>
+                      <c:forEach var="history" items="${purchaseHistory}" varStatus="status">
+                          <tr>
+                              <td>${history.product_name}</td>
+                              <td>${history.pay_amount}</td>
+                              <td>${history.pay_method}</td>
+                              <td>
+                                  <fmt:formatDate value="${history.pay_date}" pattern="yy-MM-dd HH:mm"/>
+                              </td>
+                          </tr>
+                      </c:forEach>
+                  </c:otherwise>
+				</c:choose>
             </table>
-
             <!-- 페이지네이션 -->
             <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">7</a>
-                <a href="#">8</a>
-                <a href="#">9</a>
-                <a href="#">10</a>
-                <a href="#">&raquo;</a>
+            	<a href="History?pageNum=${pageInfo.pageNum - 1}" <c:if test="${pageInfo.pageNum eq 1}" ></c:if>>&laquo;</a>
+        			<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+			            <c:choose>
+			                <c:when test="${i eq pageInfo.pageNum}">
+			                    <a><b>${i}</b></a>
+			                </c:when>
+			                <c:otherwise>
+			                    <a href="History?pageNum=${i}">${i}</a>
+			                </c:otherwise>
+			            </c:choose>
+			        </c:forEach>
+	            <a href="History?pageNum=${pageInfo.pageNum + 1}" 
+	                <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" ></c:if>>&raquo;</a>
             </div>
         </div>
+        
     </div>
 </body>
 </html>

@@ -49,6 +49,32 @@
  		WHERE qna_num = #{qna_num}
  	</update>
  	
+ 	<select id="selectHistoryListCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM purchase_history
+ 	</select>
+ 	
+ 	<select id="selectPurchaseList">
+ 		SELECT *
+ 		FROM purchase_history
+ 		WHERE member_id = #{id}
+ 		ORDER BY
+			pay_date DESC
+		LIMIT
+			#{startRow}
+			, #{listLimit}
+ 		
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  </mapper>
  
  

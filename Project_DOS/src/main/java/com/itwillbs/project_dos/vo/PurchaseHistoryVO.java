@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PerchaseHistoryVO {
+public class PurchaseHistoryVO {
 	private String merchant_uid;
 	private String member_id;
 	private String member_phone;

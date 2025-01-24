@@ -20,7 +20,7 @@ import com.itwillbs.project_dos.service.MailService;
 import com.itwillbs.project_dos.service.MemberService;
 import com.itwillbs.project_dos.vo.MailAuthInfo;
 import com.itwillbs.project_dos.vo.MemberVO;
-import com.itwillbs.project_dos.vo.PerchaseHistoryVO;
+import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 
 @Controller
 public class MemberController {
