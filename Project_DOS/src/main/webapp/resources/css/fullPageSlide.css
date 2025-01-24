@@ -1,0 +1,62 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    overflow: hidden; /* 가로세로 스크롤 숨김 */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    transition: transform 1s ease-in-out; /* 부드러운 섹션 전환 효과 */
+}
+
+/* 섹션 스타일 */
+.fullpage-section {
+    position: relative;
+    height: 100vh; /* 화면 전체를 차지 */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    scroll-snap-align: start; /* 섹션 위치 고정 */
+}
+
+/* 텍스트 콘텐츠 스타일 */
+.fullpage-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.5); /* 반투명한 박스 */
+    padding: 2rem 3rem;
+    border-radius: 10px;
+}
+
+.fullpage-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.fullpage-content p {
+    font-size: 1.2rem;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .fullpage-content h1 {
+        font-size: 2rem;
+    }
+
+    .fullpage-content p {
+        font-size: 1rem;
+    }
+}

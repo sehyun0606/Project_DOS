@@ -154,7 +154,9 @@
                             		<c:set var="searchParam" value="&serachType=${param.searchType}&serachKeyword=${param.searchKeyword}"></c:set>
                             	</c:if>
                                 <li class="page-item">
-                                    <a class="page-link" href="Notice?pageNum=${pageInfo.pageNum - 1}${searchParam}" <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>&#9664;</a>
+<%--                                     <a class="page-link" href="Notice?pageNum=${pageInfo.pageNum - 1}${searchParam}" <c:if test="${pageInfo.pageNum eq 1}" >disabled</c:if>>&#9664;</a> --%>
+                                    <input type="button" class="page-link" value="&#9664;" onclick="location.href='Notice?pageNum=${pageInfo.pageNum - 1}${searchParam}'" 
+								    <c:if test="${pageInfo.pageNum eq 1}">disabled</c:if> />
                                 </li>
                                 <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
                                     <c:choose>
@@ -167,8 +169,8 @@
                                     </c:choose>
                                 </c:forEach>
                                 <li class="page-item">
-                                    <a class="page-link" href="Notice?pageNum=${pageInfo.pageNum + 1}${searchParam}" 
-                                        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" >disabled</c:if>>&#9654;</a>
+                                   <input type="button" class="page-link" value="&#9654;" onclick="location.href='Notice?pageNum=${pageInfo.pageNum + 1}${searchParam}'" 
+                                   <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}" >disabled</c:if>/>
                                 </li>
                             </ul>
                         </nav>
