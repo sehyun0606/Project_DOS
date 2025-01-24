@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,6 +9,7 @@
     <title>리뷰 페이지</title>
     <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,20 +73,25 @@
             color: #777;
         }
 
-        .like-btn {
-            margin-left: 15px;
+         .like-button {
+            color: #000;
+            margin-left: 10px;
+            font-size: 1.5em;
             display: flex;
             align-items: center;
-            gap: 5px;
+        }
+        .like-button.liked i {
+            color: #fff;
+            background-color: #000;
+            border-radius: 50%;
+            padding: 5px;
+            border: 2px solid #000;
+        }
+        .like-count {
+            margin-left: 5px;
             font-size: 1em;
-            color: #007bff;
-            cursor: pointer;
+            color: #000;
         }
-
-        .like-btn:hover {
-            text-decoration: underline;
-        }
-
         .review-content {
             margin: 20px 0;
         }
@@ -125,28 +133,22 @@
         <div class="review-header">
             <div class="user-avatar"></div>
             <div class="user-info">
-                <div class="username">길레기</div>
-                <div class="user-status">black 🍓</div>
+                <div class="username">${review.member_id}</div>
             </div>
             <div class="rating">
-                <div class="stars">5.0 ★★★★★</div>
-                <div class="date">2024-12-23</div> <!-- 작성 날짜 -->
+                <div class="stars" id="review-rating${review.review_idx}"></div>
+                <div class="date"><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd"/></div> <!-- 작성 날짜 -->
             </div>
-            <div class="like-btn" onclick="toggleLike()" id="like-btn">
-                👍 <span id="like-count">0</span> <!-- 좋아요 버튼 -->
+            <div class="like-btn" id="like-btn" style="padding: 10px 30px 10px 30px;">
+               <i id="${review.review_idx}" data-auto="true" class="bi bi-hand-thumbs-up" ></i>
+                <span class="like-count">${review.review_like}</span>
             </div>
         </div>
 
         <div class="review-content">
-            <div class="review-images">
-                <img src="img1.jpg" alt="Image 1">
-                <img src="img2.jpg" alt="Image 2">
-                <img src="img3.jpg" alt="Image 3">
-                <img src="img4.jpg" alt="Image 4">
-            </div>
-            <p>두 번째 방문했어요! 또 올게요. 너무 너무 맛있어요. 완전 맛있어요. 최고!</p>
+            <p>${review.review_content}</p>
         </div>
-
+		
         <div class="dotted-divider"></div>
 
         <!-- 관리자 답변 -->
@@ -154,12 +156,12 @@
             <div class="admin-header">
                 <div class="admin-avatar"></div>
                 <div class="admin-info">
-                    <div class="username">admin</div>
+                    <div class="username">admin &nbsp;&nbsp;&nbsp;<fmt:formatDate value="${review.answer_date}" pattern="yyyy-MM-dd"/></div>
                     <div class="user-status">master 🍎</div>
                 </div>
             </div>
             <div class="review-content">
-                <p>찾아주셔서 감사합니다 ^^ 열심히 영차...</p>
+                <p>${review.answer_content}</p>
             </div>
         </div>
     </div>
@@ -168,24 +170,15 @@
     <jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 
     <script>
-        let isLiked = false;
-        let likeCount = 0;
-
-        function toggleLike() {
-            const likeBtn = document.getElementById("like-btn");
-            const likeCountElem = document.getElementById("like-count");
-
-            if (isLiked) {
-                likeCount--;
-                likeBtn.style.color = "#007bff"; // 기본 색상
-            } else {
-                likeCount++;
-                likeBtn.style.color = "#ff4500"; // 따봉 눌렀을 때 색상
+        function getStarRating(rating) {
+            let stars = "";
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= rating ? "★" : "☆";
+                
             }
-
-            isLiked = !isLiked;
-            likeCountElem.textContent = likeCount;
+            return stars;
         }
+    		document.getElementById("review-rating${review.review_idx}").textContent = getStarRating(${review.review_rating});
     </script>
 </body>
 </html>

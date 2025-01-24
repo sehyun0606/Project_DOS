@@ -12,7 +12,7 @@
     font-family: Arial, sans-serif;
 }
 
-.container {
+.container2 {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -183,7 +183,7 @@ h2 {
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-<div class="container">
+<div class="container2">
     <h2>리뷰 작성</h2>
 
     <div class="review-form">
@@ -191,50 +191,32 @@ h2 {
         <!-- 리뷰 작성 영역 -->
         <div class="review-box">
             <!-- 별점 -->
- <div class="star-container">
-        <span class="star-text">별점을 클릭해주세요</span> <!-- 왼쪽에 텍스트 -->
-    <div class="star-rating">
-        <span class="star" data-index="1">&#9733;</span>
-        <span class="star" data-index="2">&#9733;</span>
-        <span class="star" data-index="3">&#9733;</span>
-        <span class="star" data-index="4">&#9733;</span>
-        <span class="star" data-index="5">&#9733;</span>
-    </div>
-</div>
-            <!-- 제목 입력 칸 -->
-            <input type="text" class="input-title" placeholder="제목을 입력해주세요">
-
-            <!-- 리뷰 입력 칸 -->
-            <textarea class="input-review" id="review-text" placeholder="리뷰를 작성해주세요"></textarea>
-
-            <!-- 글자 수 카운트 -->
-           <div class="char-count" style="text-align: right;">0/1000</div>
-
-            <!-- 첨부파일 -->
-            <div class="attachment">
-                <div class="attachment-item">
-                    <input type="file" class="attachment-input">
-                    <span class="remove-btn" onclick="removeAttachment(this)">×</span>
-                </div>
-                <div class="attachment-item">
-                    <input type="file" class="attachment-input">
-                    <span class="remove-btn" onclick="removeAttachment(this)">×</span>
-                </div>
-                <div class="attachment-item">
-                    <input type="file" class="attachment-input">
-                    <span class="remove-btn" onclick="removeAttachment(this)">×</span>
-                </div>
-                <div class="attachment-item">
-                    <input type="file" class="attachment-input">
-                    <span class="remove-btn" onclick="removeAttachment(this)">×</span>
-                </div>
-            </div>
-
-            <!-- 버튼 -->
-            <div class="buttons">
-                <button onclick="cancelReview()">취소</button>
-                <button onclick="submitReview()">작성 완료</button>
-            </div>
+            <form action="ReviewSubmit" method="post">
+				 <div class="star-container">
+				        <span class="star-text">별점을 클릭해주세요</span> <!-- 왼쪽에 텍스트 -->
+				    <div class="star-rating">
+				        <span class="star" data-index="1">&#9733;</span>
+				        <span class="star" data-index="2">&#9733;</span>
+				        <span class="star" data-index="3">&#9733;</span>
+				        <span class="star" data-index="4">&#9733;</span>
+				        <span class="star" data-index="5">&#9733;</span>
+				    </div>
+				</div>
+	            <!-- 제목 입력 칸 -->
+	            <input name="review_title" type="text" class="input-title" placeholder="제목을 입력해주세요" required="required">
+	
+	            <!-- 리뷰 입력 칸 -->
+	            <textarea name="review_content" class="input-review" id="review-text" placeholder="리뷰를 작성해주세요" required="required"></textarea>
+	
+	
+	            <input type="hidden" id="stars" name="reviewRating">
+	
+	            <!-- 버튼 -->
+	            <div class="buttons">
+	                <button onclick="history.back()">취소</button>
+	                <button type="submit">작성 완료</button>
+	            </div>
+            </form>
         </div>
     </div>
 
@@ -258,40 +240,12 @@ h2 {
             } else {
                 star.classList.remove('filled');
             }
+	        
         });
+            $('#stars').val($(".filled").length); 
     }
+    
 
-    // 첨부파일 삭제 기능
-    function removeAttachment(button) {
-        const item = button.closest('.attachment-item');
-        item.remove();
-    }
-
-    // 리뷰 글자 수 카운트
-    const reviewText = document.getElementById('review-text');
-    const charCount = document.getElementById('char-count');
-
-    reviewText.addEventListener('input', () => {
-        const currentLength = reviewText.value.length;
-        charCount.textContent = `${currentLength}/1000`;
-
-        // 1000자 넘으면 빨간색으로 변경
-        if (currentLength >= 1000) {
-            charCount.classList.add('warning');
-        } else {
-            charCount.classList.remove('warning');
-        }
-    });
-
-    function cancelReview() {
-        // 취소 처리 (폼 초기화 등)
-        alert('취소되었습니다.');
-    }
-
-    function submitReview() {
-        // 작성 완료 처리
-        alert('작성 완료되었습니다.');
-    }
 </script>
 	<jsp:include page="/WEB-INF/views/inc/footer.jsp"></jsp:include>
 </body>

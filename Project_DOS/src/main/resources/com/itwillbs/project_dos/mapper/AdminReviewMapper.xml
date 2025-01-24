@@ -69,4 +69,10 @@
  			,#{listLimit}
  	</select>
 	
+	<delete id="deleteReview">
+		DELETE
+		FROM review
+		WHERE review_idx = #{review_idx}
+	</delete>
+	
  </mapper>

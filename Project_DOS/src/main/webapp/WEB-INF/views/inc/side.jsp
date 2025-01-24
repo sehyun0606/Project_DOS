@@ -7,7 +7,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" href="MemberLogin">
+                            <a class="nav-link" href="Mypage">
                                 <div class="sb-nav-link-icon"></div>
                                 나의 프로필
                             </a>

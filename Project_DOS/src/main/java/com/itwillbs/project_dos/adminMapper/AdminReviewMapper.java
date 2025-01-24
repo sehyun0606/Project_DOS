@@ -43,5 +43,7 @@ public interface AdminReviewMapper {
 			@Param("startRow")int startRow,
 			@Param("listLimit")int listLimit);
 
+	int deleteReview(String review_idx);
+
 
 }

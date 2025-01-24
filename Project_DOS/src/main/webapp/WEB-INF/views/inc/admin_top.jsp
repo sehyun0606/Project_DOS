@@ -31,7 +31,7 @@
 							
 							<%-- 만약, 세션 아이디가 "admin" 일 경우 [관리자페이지] 링크 추가 --%>
 							<c:if test="${sessionScope.sId eq 'admin'}">
-								| <a class="login-item" href="">관리자페이지</a>
+								| <a class="login-item" href="AdminHome">관리자페이지</a>
 							</c:if>
 						</c:otherwise>
 					</c:choose>

@@ -141,7 +141,7 @@
 	            <div class="response-section">
 	                <textarea placeholder="답변 내용을 입력하세요" name="answer_content"> ${review.answer_content }</textarea>
 	                <button class="btn-reply" type="submit">답변</button>
-	                <button class="btn-delete">삭제</button>
+	                <button type="button" class="btn-delete" onclick="location.href='ReviewDelete?review_idx=${review.review_idx}'">삭제</button>
 	                <button type="button" class="back" onclick="location.href='AdminReview'">뒤로</button>
 	            </div>
            	</form>

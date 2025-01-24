@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,67 +38,75 @@
             margin-bottom: 20px;
         }
 
-        table {
+       table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
-        table th, table td {
+        th, td {
             border: 1px solid #ddd;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
-        table th {
+        th {
             background-color: #f4f4f4;
             font-weight: bold;
         }
-		.actions{
-			width : 10%;
-		}
-        table td.action-buttons {
-            text-align: center;
-            width: 200px; /* Actions 셀의 최대 너비를 제한 */
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center; /* 버튼을 가운데 정렬 */
-            gap: 10px; /* 버튼 간의 간격을 10px로 설정 */
+         .action-buttons {
+            gap: 5px;
+            width : 20%;
         }
 
         .action-buttons button {
             padding: 5px 10px;
-            border: 1px solid #ccc;
-            background-color: white;
-            border-radius: 5px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        .action-buttons button:hover {
-            background-color: #007bff;
+        .action-buttons .edit {
+            background-color: #888;
             color: white;
         }
 
-        .pagination {
+        .action-buttons .delete {
+            background-color: #555;
+            color: white;
+        }
+
+        .action-buttons .edit:hover {
+            background-color: #666;
+        }
+
+        .action-buttons .delete:hover {
+            background-color: #333;
+        }
+         .pagination {
+            margin-top: 20px;
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            gap: 10px;
         }
 
         .pagination a {
-            margin: 0 5px;
-            padding: 8px 12px;
             text-decoration: none;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            color: #333;
+            color: #000;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
 
         .pagination a:hover {
-            background-color: #007bff;
-            color: white;
+            background-color: #f4f4f4;
+        }
+        #side-menu{
+        	width: 200px;
+        }
+        .main{
+        	display: flex;
         }
     </style>
 </head>
@@ -112,59 +122,89 @@
         <!-- 메인 콘텐츠 -->
         <div class="content">
             <h2>My Question</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>제목</th>
-                        <th>날짜</th>
-                        <th class="actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>제목</td>
-                        <td>2XXX.XX.XX</td>
-                        <td class="action-buttons">
-                            <button>수정하기</button>
-                            <button>삭제하기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제목</td>
-                        <td>2XXX.XX.XX</td>
-                        <td class="action-buttons">
-                            <button>수정하기</button>
-                            <button>삭제하기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제목</td>
-                        <td>2XXX.XX.XX</td>
-                        <td class="action-buttons">
-                            <button>수정하기</button>
-                            <button>삭제하기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>제목[답변완료!]</td>
-                        <td>2XXX.XX.XX</td>
-                        <td class="action-buttons">
-                            <button>수정하기</button>
-                            <button>삭제하기</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+             <h5 style="margin-top : 50px;">전체 문의사항</h5>
+	        <table>
+	            <thead>
+	                <tr>
+	                    <th>제목</th>
+	                    <th width="100px">작성자</th>
+	                    <th width="150px">작성일</th>
+	                    <th width="100px">조회수</th>
+	                    <th width="200px">관리</th>
+	                </tr>
+	            </thead>
+	            
+	            <c:choose>
+	            	<c:when test="${empty questionList}">
+	            		<tr><td colspan="5">개시물이 존재하지 않습니다.</td></tr>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<c:forEach var="question" items="${questionList}" varStatus="status">
+	            			<tr>
+			                    <td class="board_title">
+			                    	[${question.qna_type}]${question.qna_title}
+			                    </td>
+			                    <td class="qna_num" style="display: none;">
+			                    	${question.qna_num}
+			                    </td>
+			                    <td>${question.member_id} </td>
+			                    <td><fmt:formatDate value="${question.qna_date}" pattern="yyyy-MM-dd"/>
+								</td>
+			                    <td>${question.qna_readcount} </td>
+			                    <td class="action-buttons">
+			                    	<p class="qna_num" style="display : none;">${question.qna_num}</p>
+			                    	<c:if test="${question.request_status == 'N'}">
+				                        <button class="edit">수정하기</button>
+				                        <button class="delete">삭제하기</button>
+			                    	</c:if>
+			                    </td>
+			                </tr>
+	            		
+	            		</c:forEach>
+	            	
+	            	</c:otherwise>
+	            </c:choose>
+	            
+	                
+	               
+	                
+	        </table>
             <div class="pagination">
-                <a href="#">&#8592;</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">&#8594;</a>
-            </div>
+	        	<input type="button" value="이전"
+	        		onclick="location.href='MyQuestion?pageNum=${pageInfo.pageNum - 1}'"
+	        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
+		        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+		        	<c:choose>
+		        		<c:when test="${i eq pageInfo.pageNum}">
+		        			<strong>${i}</strong>
+		        		</c:when>
+		        		<c:otherwise>
+		        			<a href="MyQuestion?pageNum=${i}">${i}</a>
+		        		</c:otherwise>
+		        	</c:choose>
+		        </c:forEach>
+		        <input type="button" value="다음"
+		        onclick="location.href='MyQuestion?pageNum=${pageInfo.pageNum+1}'"
+		        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>>
+	        </div>
         </div>
     </div>
+<script type="text/javascript">
+	$(".delete").on("click",function(event){
+		let message = confirm("삭제하시겠습니까?");
+		if(message){
+			let qna_num = $(event.target).siblings(".qna_num").text();
+			location.href = "AdminQuestionDelete?qna_num=" + qna_num;
+		}
+	})
+	$(".edit").on("click",function(event){
+			let qna_num = $(event.target).siblings(".qna_num").text();
+			location.href = "MyQuestionEdit?qna_num=" + qna_num + "&pageNum=${pageInfo.pageNum}";
+		})
+	$(".board_title").on("click",function(event){
+		let qna_num = $(event.target).siblings(".qna_num").text();
+		location.href = "QnaDetail?qna_num=" + qna_num
+	})
+</script>
 </body>
 </html>
