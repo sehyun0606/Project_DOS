@@ -68,7 +68,7 @@ public class NoticeController {
 		// 1 페이지 목록으로 이동하도록 처리
 		if(pageNum < 1 || pageNum > maxPage) {
 			model.addAttribute("msg", "해당 페이지는 존재하지 않습니다!");
-			model.addAttribute("targetURL", "Question?pageNum=1");
+			model.addAttribute("targetURL", "Notice?pageNum=1");
 			return "result/result";
 		}
 		// -----------------------------------------------
