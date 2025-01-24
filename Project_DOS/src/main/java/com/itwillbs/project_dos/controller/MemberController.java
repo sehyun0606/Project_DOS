@@ -46,15 +46,22 @@ public class MemberController {
 		
 		MemberVO dbMember = memberservice.getMember(member.getMember_id());
 		
-		if(dbMember == null || !bpe.matches(member.getMember_passwd(), dbMember.getMember_passwd())) { 
+		if(dbMember == null) { 
+			model.addAttribute("msg", "회원 정보가 없습니다!");
+			return "result/result";
+			
+		} else if(!bpe.matches(member.getMember_passwd(), dbMember.getMember_passwd())) {
 			model.addAttribute("msg", "로그인 실패!");
 			return "result/result";
+			
 		} else if(dbMember.getMember_status() == 3) { 
 			model.addAttribute("msg", "탈퇴한 회원입니다!");
 			return "result/result";
+			
 		} else if(dbMember.getMember_email_auth().equals("N")) { 
 			model.addAttribute("msg", "이메일 인증 후 로그인 가능합니다!");
 			return "result/result";
+			
 		} else { 
 			session.setAttribute("sId", member.getMember_id());
 			session.setMaxInactiveInterval(1800);
