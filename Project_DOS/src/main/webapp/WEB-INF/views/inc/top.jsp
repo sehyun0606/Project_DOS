@@ -9,9 +9,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">정보</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="Brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">정보</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">가게 정보</a></li>
+                        <li><a class="dropdown-item" href="Brand">가게 정보</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="Directions">찾아오시는 길</a></li>
                     </ul>

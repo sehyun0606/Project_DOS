@@ -37,6 +37,12 @@ public class HomeController {
 		return "main";
 	}
 	
+	
+	@GetMapping("Brand")
+	public String Brand() {
+		return "info/brand";
+	}
+	
 	@GetMapping("Directions")
 	public String Directions() {
 		return "info/map_info";
