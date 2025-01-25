@@ -154,6 +154,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="checkAgreement()">결제하기</button>
+                    <button type="button" class="btn btn-primary" onclick="payment()">결제하기</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
@@ -167,9 +168,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script>
-	
-	
-	
 	// 객체 초기화
 	var IMP = window.IMP;
 	IMP.init("imp65450054");
@@ -212,16 +210,17 @@
 	        alert('로그인을 해주세요.');
 	    }
 	});
-	
-	
-    function checkAgreement() {
-        // 체크박스 상태 확인
+    
+    function payment(){
+    	// 체크박스 상태 확인
         const agreePersonalInfo = document.getElementById('agree1').checked;
         const agreeProcessing = document.getElementById('agree2').checked;
         const agreeMarketing = document.getElementById('agree3').checked;
 		
         let now = new Date();
+        console.log(now);
     	let year = now.getFullYear();
+    	console.log(year);
     	let month = now.getMonth() + 1;
     	if(month >= 1 && month <= 9) {
     		month = "0" + month;
@@ -233,7 +232,7 @@
     	let sec = (now.getSeconds() < 10)? "0" + now.getSeconds() : now.getSeconds();
     	let random = Math.floor(Math.random() * 1000);
     	let code = "ord" + year + month + date + hour + min + sec + "-" + random;
-//     	console.log(code);
+    	console.log(code);
     	
     	let id = $("#member_id").val();
 //     	console.log(id);
@@ -249,52 +248,57 @@
         } else {
             // 모든 체크박스에 동의한 경우, 다음 단계로 진행
             alert("약관에 동의하셨습니다.");
-         	// 결제창 호출      
-            IMP.request_pay(
-                {
-                    pg: "kakaopay.TC0ONETIME",
-                    pay_method: "card",
-                    merchant_uid: code, // 상점 고유 주문번호
-                    name: "DOS 멤버쉽",
-                    amount: amount,
-                    buyer_name: id, 
-                    buyer_email: email,
-                    buyer_tel: phone,
-                    buyer_addr: address,
-                    buyer_postcode: postCode
-                },
-                function (rsp) {
-                    // callback
-                    if (rsp.success) {
-                    	$.ajax({
-                    		url: "pamentSetMember",
-                    		type: "GET",
-                    		data: {
-                    			imp_uid: rsp.imp_uid,
-                    			merchant_uid: rsp.merchant_uid,
-                    			name: rsp.name,
-                    			buyer_name: rsp.buyer_name,
-                    			buyer_tel: rsp.buyer_tel,
-                    			amount: rsp.paid_amount,
-                    			pay_method: rsp.pay_method
-                    		}
-                    	}).done(function(result) {
-                    		if(result == "true"){
-                    			$("#membershipModal").modal('hide');
-		                    	alert('멤버쉽 가입을 축하드립니다!');
-		                    	
-                    		} else {
-                    			alert('데이터 저장 실패!');
-                    		}
-                    		
-                    	}).fail(function() {
-                    		
-                    	});
-                    } else {
-                        alert('결제 실패: ' + rsp.error_msg);
-                    }
-                } // 콜백 함수 끝
-            );
+         	// 결제창 호출 
+		    IMP.request_pay(
+	    		  {
+	    		    channelKey: "channel-key-04137c4a-aa71-4ede-8f14-23bb0f17775d",
+	    		    pay_method: "card",
+	    		    merchant_uid: code, //상점에서 생성한 고유 주문번호
+	    		    name: "DOS 멤버쉽",
+	    		    amount: 1,
+	    		    buyer_email: email,
+	    		    buyer_name: id,
+	    		    buyer_tel: phone, //필수 파라미터 입니다.
+	    		    buyer_addr: address,
+	    		    buyer_postcode: postCode,
+	    		    escrow: true, //에스크로 결제인 경우 설정
+	    		    bypass: {
+	    		      acceptmethod: "easypay", // 간편결제 버튼을 통합결제창에서 제외하려면 "noeasypay"
+// 	    		      acceptmethod: "cardpoint", // 카드포인트 사용시 설정(PC)
+	    		    },
+	    		  },
+	    		  function (rsp) {
+// 	    			console.log(rsp); 수신 정보 확인용
+	    			// callback
+					if (rsp.success) {
+						$.ajax({
+							url: "pamentSetMember",
+							type: "GET",
+							data: {
+								imp_uid: rsp.imp_uid,
+								merchant_uid: rsp.merchant_uid,
+								name: rsp.name,
+								buyer_name: rsp.buyer_name,
+								buyer_tel: rsp.buyer_tel,
+								amount: rsp.paid_amount,
+								pay_method: rsp.pay_method
+							}
+						}).done(function(result) {
+							if(result == "true"){
+								$("#membershipModal").modal('hide');
+						 	alert('멤버쉽 가입을 축하드립니다!');
+						 	
+							} else {
+								alert('데이터 저장 실패!');
+							}
+						}).fail(function() {
+								alert('데이터 저장 실패!');
+						});
+					} else {
+					    alert('결제 실패: ' + rsp.error_msg);
+					}
+				}
+			);
         }
     }
 </script>
