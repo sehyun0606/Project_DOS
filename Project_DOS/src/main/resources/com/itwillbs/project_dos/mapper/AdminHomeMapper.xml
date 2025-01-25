@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.adminMapper.AdminHomeMapper">
+ 
+ 	<select id="selectMembershipList" resultType="map">
+ 		SELECT membership, COUNT(*) as count
+		FROM member
+		WHERE membership IN ('white','red','black')
+		GROUP BY membership;
+ 	</select>
+ 	
+ 	<select id="selectResrevationMap" resultType="map">
+	 	SELECT
+	    (SELECT COUNT(*) FROM reservation WHERE reservation_date = CURDATE()) AS today_reservations,
+	    (SELECT COUNT(*) FROM reservation WHERE YEARWEEK(reservation_date, 1) = YEARWEEK(CURDATE(), 1)) AS this_week_reservations
+ 	</select>
+ 	
+ 	<select id="selectReviewAVG" resultType="String">
+ 		SELECT ROUND(AVG(review_rating),1) AS rating_avg
+ 		FROM review
+ 	</select>
+ 	
+ 	<select id="getNewReview">
+ 		SELECT COUNT(*) 
+ 		FROM review
+ 		WHERE answer_status = 'N'
+ 	</select>
+ 	<select id="getNewQna">
+ 		SELECT COUNT(*)
+ 		FROM question_board
+ 		WHERE request_status = 'N'
+ 	</select>
+ </mapper>

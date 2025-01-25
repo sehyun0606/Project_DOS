@@ -55,6 +55,7 @@
             height: auto !important;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
@@ -77,26 +78,30 @@
                 <canvas id="popularProductsGraph"></canvas>
             </div>
         </div>
-
+		
+		<c:forEach var="a" items="${membership}">
+			<input type="hidden" id="${a.membership}" value="${a.count}">
+		</c:forEach>
+		
         <div class="stats">
             <div class="stat-item">
-                <h3>0</h3>
+                <h3>${reservation.today_reservations}</h3>
                 <p><a href="AdminReservation">당일 신규 예약</a></p>
             </div>
             <div class="stat-item">
-                <h3>0</h3>
+                <h3>${reservation.this_week_reservations}</h3>
                 <p>이번주 총 예약</p>
             </div>
             <div class="stat-item">
-                <h3>0.00</h3>
+                <h3>${review}</h3>
                 <p>총 평점</p>
             </div>
             <div class="stat-item">
-                <h3>0</h3>
+                <h3>${newReview}</h3>
                 <p>신규 리뷰</p>
             </div>
             <div class="stat-item">
-                <h3>0</h3>
+                <h3>${newQna}</h3>
                 <p>신규 문의</p>
             </div>
         </div>
@@ -111,7 +116,7 @@
                 labels: ['화이트', '레드', '블랙'],
                 datasets: [{
                     label: '가입자 수',
-                    data: [10, 20, 30], // 초기 데이터
+                    data: [$('#white').val(), $('#red').val(), $('#black').val()], // 초기 데이터
                     backgroundColor: ['#ffffff', '#ff0000', '#000000'],
                 }]
             },

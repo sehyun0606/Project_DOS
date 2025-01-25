@@ -55,6 +55,8 @@
         </div>
     </div>
 </nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script>
 	function logout() {
 		// confirm() 함수 활용하여 "로그아웃하시겠습니까?" 질문을 통해
