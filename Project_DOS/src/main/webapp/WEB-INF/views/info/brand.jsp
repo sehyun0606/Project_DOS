@@ -59,7 +59,7 @@
         </div>
         <div class="content">
             <h1>DOS STORY</h1>
-            <p style="color: white;">DOS는 <b>'diner of steak'</b> 의 약자로 <b>'오늘 저녁은 스테이크!!'</b> 라는 그냥 심플한 <br>의미를 담고 있습니다. </p>
+            <p style="color: white;">DOS는 <b>'diner of steak'</b> 의 약자로 <b>'오늘 저녁은 스테이크!!'</b> 라는 심플하면서도 확실한 <br>의미를 담고 있습니다. </p>
         </div>
     </div>
 

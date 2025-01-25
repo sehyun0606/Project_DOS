@@ -134,7 +134,7 @@ public class MemberController {
 		}
 		
 		if(insertCount > 0 ) {
-			return "redirect:/selectAgree";
+			return "redirect:/AgreeEmail";
 		} else {
 			model.addAttribute("msg", "회원가입 실패!");
 			return "result/result";
@@ -142,11 +142,6 @@ public class MemberController {
 		
 	}
 
-	@GetMapping("selectAgree")
-	public String selectAgree() {
-		return "member/join/select_agree";
-	}
-	
 	@GetMapping("AgreeEmail")
 	public String MemberAgreeEmail() {
 		return "member/join/agree_email";
