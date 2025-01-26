@@ -110,6 +110,7 @@
                     <th>ID</th>
                     <th>생년월일</th>
                     <th>멤버십</th>
+                    <th>탈퇴여부</th>
                     <th>기능</th>
                 </tr>
             </thead>
@@ -121,11 +122,22 @@
 	                    <td>${member.member_birth}
 						</td>
 	                    <td>${member.membership} </td>
-	                    <td class="action-buttons">
+	                    <c:if test="${member.member_status eq 1 }">
+	                    	<td>일반 회원</td>
+	                    	<td class="action-buttons">
 	                    	<p class="member_id" style="display : none;">${member.member_id}</p>
 	                        <button class="edit" >수정하기</button>
-	                        <button class="delete">삭제하기</button>
+	                        <button class="withdraw">탈퇴하기</button>
 	                    </td>
+	                    </c:if>
+	                    <c:if test="${member.member_status eq 3 }">
+	                    	<td>탈퇴한 회원</td>
+	                    	<td class="action-buttons">
+		                    	<p class="member_id" style="display : none;">${member.member_id}</p>
+		                    	<button class="delete">삭제하기</button>
+	                    	</td>
+	                    </c:if>
+	                    
 	                </tr>
            		</c:forEach>
             </tbody>
@@ -155,11 +167,11 @@
 			let member_id = $(event.target).siblings(".member_id").text();
 			location.href = "MemberModify?memberId=" + member_id;
 		})
-		$(".delete").on("click",function(event){
+		$(".withdraw").on("click",function(event){
 			let message = confirm("삭제하시겠습니까?");
 			if(message){
-				let board_num = $(event.target).siblings(".board_num").text();
-				location.href = "AdminNoticeDelete?board_num=" + board_num;
+				let member_id = $(event.target).siblings(".member_id").text();
+				location.href = "MemberWithdraw?memberId=" + member_id;
 			}
 		})
     </script>

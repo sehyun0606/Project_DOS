@@ -242,11 +242,16 @@ public class MemberController {
 	}
 	
 	@GetMapping("MemberWithdraw")
-	public String MemberWithdraw(HttpSession session, Model model) {
+	public String MemberWithdraw(HttpSession session, Model model, String memberId) {
 		String id = (String)session.getAttribute("sId");
 		
-		int updateCount = memberservice.memberWithdraw(id);
+		if(id.equals("admin")) {
+			id = memberId;
+			memberservice.memberWithdraw(id);
+			return "redirect:/AdminUser";
+		}
 		
+		int updateCount = memberservice.memberWithdraw(id);
 		if(updateCount > 0) {
 			session.invalidate();
 			model.addAttribute("msg", "회원 탈퇴 성공! 메인페이지로 이동합니다");

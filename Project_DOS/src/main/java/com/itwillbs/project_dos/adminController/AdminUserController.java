@@ -55,8 +55,7 @@ public class AdminUserController {
 	}
 	
 	
-	@GetMapping("UserUpdate")
-	public String userUpdate() {
-		return "admin/admin_user/user_update";
-	}
+	
+	
+	
 }
