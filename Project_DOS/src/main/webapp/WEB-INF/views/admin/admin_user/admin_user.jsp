@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,6 +82,7 @@
         }
     </style>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <body>
     <!-- Top 메뉴 포함 -->
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
@@ -107,22 +110,58 @@
                     <th>ID</th>
                     <th>생년월일</th>
                     <th>멤버십</th>
+                    <th>기능</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>세현</td>
-                    <td>sehyun</td>
-                    <td>2001.06.06</td>
-                    <td><span class="membership-icon">⭐</span></td>
-                </tr>
+                <c:forEach var="member" items="${userList}" varStatus="status">
+           			<tr>
+	                    <td class="board_title">${member.member_name}</td>
+	                    <td>${member.member_id} </td>
+	                    <td>${member.member_birth}
+						</td>
+	                    <td>${member.membership} </td>
+	                    <td class="action-buttons">
+	                    	<p class="member_id" style="display : none;">${member.member_id}</p>
+	                        <button class="edit" >수정하기</button>
+	                        <button class="delete">삭제하기</button>
+	                    </td>
+	                </tr>
+           		</c:forEach>
             </tbody>
         </table>
 
-        <!-- 버튼 -->
-        <div class="button-group">
-            <button type="button" onclick="location.href='UserUpdate'">고객 정보 수정</button>
-        </div>
+        <div class="pagination" style="margin-left: 50%;">
+	        	<input type="button" value="이전"
+	        		onclick="location.href='AdminUser?pageNum=${pageInfo.pageNum - 1}'"
+	        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
+		        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+		        	<c:choose>
+		        		<c:when test="${i eq pageInfo.pageNum}">
+		        			<strong>${i}</strong>
+		        		</c:when>
+		        		<c:otherwise>
+		        			<a href="AdminUser?pageNum=${i}">${i}</a>
+		        		</c:otherwise>
+		        	</c:choose>
+		        </c:forEach>
+		        <input type="button" value="다음"
+		        onclick="location.href='AdminUser?pageNum=${pageInfo.pageNum+1}'"
+		        <c:if test="${pageInfo.pageNum eq pageInfo.maxPage}">disabled</c:if>>
+	        </div>
     </div>
+    <script type="text/javascript">
+		$(".edit").on("click",function(event){
+			let member_id = $(event.target).siblings(".member_id").text();
+			location.href = "MemberModify?memberId=" + member_id;
+		})
+		$(".delete").on("click",function(event){
+			let message = confirm("삭제하시겠습니까?");
+			if(message){
+				let board_num = $(event.target).siblings(".board_num").text();
+				location.href = "AdminNoticeDelete?board_num=" + board_num;
+			}
+		})
+    </script>
 </body>
 </html>

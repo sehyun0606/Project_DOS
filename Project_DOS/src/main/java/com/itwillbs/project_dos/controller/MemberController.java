@@ -202,13 +202,15 @@ public class MemberController {
 	
 	// 회원 정보 수정폼 이동
 	@GetMapping("MemberModify")
-	public String MemberModify(HttpSession session, Model model) {
+	public String MemberModify(HttpSession session, Model model, String memberId) {
 		String id = (String)session.getAttribute("sId");
 		
 		if(id == null) {
 			model.addAttribute("msg", "접근 권한이 없습니다!");
 			model.addAttribute("targetURL", "MemberLogin");
 			return "result/result";
+		}else if(id.equals("admin")) {
+			id = memberId;
 		}
 		MemberVO member = memberservice.getMember(id);
 		model.addAttribute("member", member);
@@ -218,7 +220,7 @@ public class MemberController {
 	
 	// 회원 정보 수정 비즈니스 로직
 	@PostMapping("SuccessModify")
-	public String SuccessModify(Model model, BCryptPasswordEncoder bpe, @RequestParam Map<String, String> map) {
+	public String SuccessModify(Model model,HttpSession session ,BCryptPasswordEncoder bpe, @RequestParam Map<String, String> map) {
 		
 		if(!map.get("passwd").equals("")) {
 			// 새 패스워드 암호화해서 다시 덮어쓰기
@@ -231,6 +233,11 @@ public class MemberController {
 		if(updateCount < 0) {
 			model.addAttribute("msg", "회원 정보 수정 실패!");
 		}
+		
+		if(session.getAttribute("sId").equals("admin")) {
+			return "redirect:/AdminUser";
+		}
+		
 		return "redirect:/Mypage";
 	}
 	
