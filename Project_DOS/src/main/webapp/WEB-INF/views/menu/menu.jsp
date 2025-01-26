@@ -6,10 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메뉴</title>
-   
-   <link href="${pageContext.request.contextPath}/resources/css/menu.css" rel="stylesheet" type="text/css"/>
-   <link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
-   <link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css"/>
+   	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/resources/css/menu.css" rel="stylesheet" type="text/css"/>
+	<link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css"/>
+	<link href="${pageContext.request.contextPath}/resources/css/styles_footer.css" rel="stylesheet" type="text/css"/>
     <style>
         /* 'best-tag' 클래스를 위한 스타일 설정 */
         .best-tag {
@@ -57,7 +59,9 @@
 
 </head>
 <body>
-  <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+	<nav>
+ 	 <jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
+  	</nav>
     <section class="new-menu-intro">
         <h2 style="font-weight: 600;">신메뉴 소개</h2>
         <div class="photo-slider">

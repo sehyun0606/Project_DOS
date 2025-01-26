@@ -30,8 +30,18 @@
                         <li><a class="dropdown-item" href="MealKit">밀키트</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="Question">문의사항</a></li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="Notice">공지사항</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="GiftCard" role="button" data-bs-toggle="dropdown" aria-expanded="false">고객의 소리</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="FAQ">FAQ</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="Question">문의사항</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="Notice">공지사항</a></li>
+                    </ul>
+                </li>
+<!--                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Question">문의사항</a></li> -->
+<!--                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Notice">공지사항</a></li> -->
             </ul>
             <div id="top_menu">
 				<c:choose>
