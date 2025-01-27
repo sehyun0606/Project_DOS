@@ -103,6 +103,8 @@ public class MemberService {
 		mapper.updateMembership(map);
 	}
 
+	
+
 
 
 
