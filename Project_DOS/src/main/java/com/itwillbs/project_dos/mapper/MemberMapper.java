@@ -56,6 +56,18 @@ public interface MemberMapper {
 
 	void updateMembership(Map<String, String> map);
 
+	int memberLogDelete(String id);
+
+	void deleteReservation(String id);
+
+	void deletePurchase(String id);
+
+	void deleteReveiw(String id);
+
+	void deleteQuestion(String id);
+
+	void deleteNotice(String id);
+
 
 
 

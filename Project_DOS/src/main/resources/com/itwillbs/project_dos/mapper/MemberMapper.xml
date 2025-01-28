@@ -152,11 +152,51 @@
 		WHERE member_id = #{member_id}
 	</update>
 
-	<update id="deleteMember">
-		UPDATE member
-		SET member_status = 3
+<!-- 	<delete id="memberLogDelete"> -->
+<!-- 		DELETE p, q, r -->
+<!-- 		FROM purchase_history p JOIN question_board q -->
+<!-- 		ON p.member_id = q.member_id -->
+<!-- 		JOIN reservation r ON q.member_id = r.member_id -->
+<!-- 		WHERE p.member_id = #{id}  -->
+<!-- 	</delete> -->
+	
+	<delete id="deleteNotice">
+		<if test="id.equals('admin')">
+			DELETE
+			FROM notice_board
+			WHERE member_id = #{id}
+		</if>
+	</delete>
+	
+	<delete id="deleteMember">
+		DELETE 
+		FROM member
 		WHERE member_id = #{id}
-	</update>
+	</delete>
+
+	<delete id="deleteQuestion">
+		DELETE 
+		FROM question_board
+		WHERE member_id = #{id}
+	</delete>
+
+	<delete id="deleteReservation">
+		DELETE 
+		FROM reservation
+		WHERE member_id = #{id}
+	</delete>
+
+	<delete id="deletePurchase">
+		DELETE 
+		FROM purchase_history
+		WHERE member_id = #{id}
+	</delete>
+
+	<delete id="deleteReveiw">
+		DELETE 
+		FROM review
+		WHERE member_id = #{id}
+	</delete>
 	
 	<update id="updateMembership">
 		UPDATE member

@@ -106,11 +106,13 @@ public class MemberController {
 		return "main";
 	}
 	
+	// 회원가입 약관동의 페이지로 이동
 	@GetMapping("MemberJoin")
 	public String MemberJoinAgree() {
 		return "member/join/agree_form2";
 	}
-
+	
+	// 회원가입 폼으로 이동
 	@GetMapping("JoinForm")
 	public String MemberSelectAgree() {
 		return "member/join/form";
@@ -142,6 +144,7 @@ public class MemberController {
 		
 	}
 
+	// 이메일 동의 폼으로 이동
 	@GetMapping("AgreeEmail")
 	public String MemberAgreeEmail() {
 		return "member/join/agree_email";
@@ -241,6 +244,7 @@ public class MemberController {
 		return "redirect:/Mypage";
 	}
 	
+	// 회원 탈퇴 비즈니스 로직
 	@GetMapping("MemberWithdraw")
 	public String MemberWithdraw(HttpSession session, Model model, String memberId) {
 		String id = (String)session.getAttribute("sId");
@@ -251,8 +255,8 @@ public class MemberController {
 			return "redirect:/AdminUser";
 		}
 		
-		int updateCount = memberservice.memberWithdraw(id);
-		if(updateCount > 0) {
+		int deleteCount = memberservice.memberWithdraw(id);
+		if(deleteCount > 0) {
 			session.invalidate();
 			model.addAttribute("msg", "회원 탈퇴 성공! 메인페이지로 이동합니다");
 			model.addAttribute("targetURL", "./");
@@ -264,7 +268,6 @@ public class MemberController {
 		}
 		
 	}
-	
 	
 	// 아이디 찾기 폼 이동 
 	@GetMapping("FindId")
@@ -297,6 +300,7 @@ public class MemberController {
 //		return "member/find/id_select_agree";
 //	}
 	
+	// 아이디 찾기 이메일 동의 페이지로 이동
 	@GetMapping("FindAgreeEmail")
 	public String FindAgreeEmailId() {
 		return "member/find/id_agree_email";
@@ -332,11 +336,13 @@ public class MemberController {
 		
 	}
 	
+	// 비밀번호 찾기 이메일 동의 페이지로 이동
 	@GetMapping("FindPasswdAgreeEmail")
 	public String FindPasswdAgreeEmail() {
 		return "member/find/passwd_agree_email";
 	}
 
+	// 비밀번호 찾기 성공 페이지로 이동
 	@GetMapping("FindPasswdSuccess")
 	public String FindPasswdSuccess(@RequestParam Map<String, String> map, Model model) {
 		String mailAuthCodeInfo = memberservice.getmailAuthInfo(map);
@@ -352,11 +358,13 @@ public class MemberController {
 		}
 	}
 	
+	// 비밀번호 찾기 성공 시 비밀번호 변경 페이지로 이동
 	@GetMapping("changePasswd")
 	public String changePasswd() {
 		return "member/find/passwd_modify";
 	}
 	
+	// 비밀번호 변경 비즈니스 로직
 	@PostMapping("PasswdModify")
 	public String PasswdModify(@RequestParam Map<String, String> map, Model model, BCryptPasswordEncoder bpe, MemberVO member) {
 		
@@ -379,9 +387,7 @@ public class MemberController {
 		
 	}
 	
-
-
-	
+	// 멤버쉽 페이지로 이동
 	@GetMapping("MemberShip")
 	public String MemberShipInfo() {
 		return "membership/membership_info";

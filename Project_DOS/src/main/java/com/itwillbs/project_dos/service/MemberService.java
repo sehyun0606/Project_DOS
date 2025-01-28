@@ -96,12 +96,19 @@ public class MemberService {
 	}
 
 	public int memberWithdraw(String id) {
+		mapper.deleteNotice(id);
+		mapper.deleteQuestion(id);
+		mapper.deleteReservation(id);
+		mapper.deletePurchase(id);
+		mapper.deleteReveiw(id);
 		return mapper.deleteMember(id);
 	}
 
 	public void updateMembership(Map<String, String> map) {
 		mapper.updateMembership(map);
 	}
+
+
 
 	
 
