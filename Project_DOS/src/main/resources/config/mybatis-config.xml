@@ -12,6 +12,7 @@
   		<typeAlias type="com.itwillbs.project_dos.vo.MenuVO" alias="Menu"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.MailAuthInfo" alias="mailAuthInfo"/>
   		<typeAlias type="com.itwillbs.project_dos.vo.ReservationVO" alias="reservation"/>
+  		<typeAlias type="com.itwillbs.project_dos.vo.ProductVO" alias="product"/>
   		
   	</typeAliases>
   

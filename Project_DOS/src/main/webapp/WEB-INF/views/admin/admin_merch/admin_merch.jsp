@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -75,7 +76,6 @@
 
         .product-container.active {
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -115,7 +115,7 @@
 
         .button-group {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
         }
 
         .button {
@@ -161,7 +161,11 @@
 		    background-color: #e9f5ff; /* 마우스 오버 시 배경색 */
 		    border-color: #007bff;
 		}
-        
+        img{
+        	width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
     </style>
     <script>
         // 탭 전환 함수
@@ -189,63 +193,60 @@
 
         <div class="content">
             <div class="title">상품 목록</div>
-			<div><input type="button" value="추가하기" onclick="location.href='MerchEdit'"></div>
+			<div><input type="button" value="추가하기" onclick="location.href='MerchAdd'"></div>
             <!-- 카테고리 탭 -->
             <div class="category-tabs">
-                <div class="category-tab active" data-target="category1" onclick="showCategory('category1')">굿즈 1</div>
-                <div class="category-tab" data-target="category2" onclick="showCategory('category2')">굿즈 2</div>
-                <div class="category-tab" data-target="category3" onclick="showCategory('category3')">굿즈 3</div>
-                <div class="category-tab" data-target="category4" onclick="showCategory('category4')">굿즈 4</div>
+                <div class="category-tab active" data-target="category1" onclick="showCategory('category1')">인형</div>
+                <div class="category-tab" data-target="category2" onclick="showCategory('category2')">텀블러</div>
+                <div class="category-tab" data-target="category3" onclick="showCategory('category3')">식기</div>
             </div>
 
             <!-- 카테고리별 상품 -->
             <div class="product-container active" id="category1">
+            <c:forEach var="doll" items="${dollList}">
                 <div class="product-card">
-                    <div class="product-image">이미지</div>
-                    <div class="product-name">굿즈 1 상품</div>
-                    <div class="product-price">₩10,000</div>
+                    
+                    <img alt="" src="/resources/upload/${doll.product_img}">
+                    
+                    <div class="product-name">${doll.product_name }</div>
+                    <div class="product-price">₩${doll.product_price }</div>
                     <div class="button-group">
-                        <button class="button edit">수정하기</button>
-                        <button class="button delete">삭제하기</button>
+                        <button class="button delete" onclick="location.href='MerchDelete?product_name=${doll.product_name}'">삭제하기</button>
                     </div>
                 </div>
+            </c:forEach>
             </div>
 
             <div class="product-container" id="category2">
+            <c:forEach var="tumbler" items="${tumblerList}">
                 <div class="product-card">
-                    <div class="product-image">이미지</div>
-                    <div class="product-name">굿즈 2 상품</div>
-                    <div class="product-price">₩20,000</div>
+                    
+                    <img alt="" src="/resources/upload/${tumbler.product_img}">
+                    
+                    <div class="product-name">${tumbler.product_name }</div>
+                    <div class="product-price">₩${tumbler.product_price }</div>
                     <div class="button-group">
-                        <button class="button edit">수정하기</button>
-                        <button class="button delete">삭제하기</button>
+                        <button class="button delete" onclick="location.href='MerchDelete?product_name=${tumbler.product_name}'">삭제하기</button>
                     </div>
                 </div>
+            </c:forEach>
             </div>
 
             <div class="product-container" id="category3">
+                <c:forEach var="dish" items="${dishList}">
                 <div class="product-card">
-                    <div class="product-image">이미지</div>
-                    <div class="product-name">굿즈 3 상품</div>
-                    <div class="product-price">₩30,000</div>
+                    
+                    <img alt="" src="/resources/upload/${dish.product_img}">
+                    
+                    <div class="product-name">${dish.product_name }</div>
+                    <div class="product-price">₩${dish.product_price }</div>
                     <div class="button-group">
-                        <button class="button edit">수정하기</button>
-                        <button class="button delete">삭제하기</button>
+                        <button class="button delete" onclick="location.href='MerchDelete?product_name=${dish.product_name}'">삭제하기</button>
                     </div>
                 </div>
+            </c:forEach>
             </div>
 
-            <div class="product-container" id="category4">
-                <div class="product-card">
-                    <div class="product-image">이미지</div>
-                    <div class="product-name">굿즈 4 상품</div>
-                    <div class="product-price">₩40,000</div>
-                    <div class="button-group">
-                        <button class="button edit">수정하기</button>
-                        <button class="button delete">삭제하기</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </body>

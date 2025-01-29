@@ -92,24 +92,24 @@
         <hr>
 
         <div class="form-section">
-            <!-- 이미지 프리뷰 영역 -->
-            <img src="/images/default-image.png" alt="이미지 미리보기">
 
             <!-- 입력 폼 영역 -->
             <div class="form-inputs">
-                <form action="/mealKit/register" method="post">
+                <form action="MerchAdd" method="post"  enctype="multipart/form-data">
                     <label for="mealKitName">굿즈 이름</label>
-                    <input type="text" id="mealKitName" name="mealKitName" placeholder="밀키트 이름 입력" required>
+                    <input type="text" id="mealKitName" name="product_name" placeholder="상품 이름 입력" required>
 
                     <label for="price">가격</label>
-                    <input type="number" id="price" name="price" placeholder="가격 입력" required>
-
+                    <input type="number" id="price" name="product_price" placeholder="가격 입력" required>
+                    
+                    <label for="productImg">이미지</label>
+					<input type="file" id="productImg" name="productImg">
+					
                     <label for="category">카테고리</label>
                     <select id="category" name="category">
-                        <option value="">카테고리 선택</option>
-                        <option value="korean">인형</option>
-                        <option value="japanese">텀블러</option>
-                        <option value="western">식기</option>
+                        <option value="doll">인형</option>
+                        <option value="tumbler">텀블러</option>
+                        <option value="dish">식기</option>
                     </select>
 
                     <!-- 버튼 그룹 -->

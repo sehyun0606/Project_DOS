@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.adminMapper.AdminProductMapper">
+ 	<insert id="insertProduct">
+ 		INSERT
+ 		INTO product
+ 		VALUES (
+ 			#{product_name},
+ 			#{product_price},
+ 			#{category},
+ 			NOW(),
+ 			#{product_img}
+ 		)
+ 	</insert>
+ 	<select id="selectDollList" resultType="product">
+ 		SELECT *
+ 		FROM product
+ 		WHERE category = 'doll'
+ 		ORDER BY
+ 			add_date DESC
+ 	</select>
+ 	<select id="getTumblerList" resultType="product">
+ 		SELECT *
+ 		FROM product
+ 		WHERE category = 'tumbler'
+ 		ORDER BY
+ 			add_date DESC
+ 	</select>
+ 	<select id="getDishList" resultType="product">
+ 		SELECT *
+ 		FROM product
+ 		WHERE category = 'dish'
+ 		ORDER BY
+ 			add_date DESC
+ 	</select>
+ 	<select id="selectProductImg" resultType="String">
+ 		SELECT product_img
+ 		FROM product
+ 		WHERE product_name = #{product_name}
+ 	</select>
+ 	<delete id="deleteProduct">
+ 		DELETE
+ 		FROM product
+ 		WHERE product_name = #{product_name}
+ 	</delete>	
+ </mapper>

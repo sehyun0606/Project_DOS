@@ -13,11 +13,19 @@ public class AdminUserService {
 	@Autowired
 	private AdminUserMapper userMapper;
 
-	public int getMemberListCount() {
-		return userMapper.getMemberListCount();
+	public int getMemberListCount(String searchType, String searchKeyword) {
+		return userMapper.getMemberListCount(searchType,searchKeyword);
 	}
 
-	public List<MemberVO> getUserList(int startRow, int listLimit) {
-		return userMapper.getUserList(startRow,listLimit);
+	public List<MemberVO> getUserList(int startRow, int listLimit, String searchType, String searchKeyword) {
+		return userMapper.getUserList(startRow,listLimit,searchType,searchKeyword);
+	}
+
+	public void updateWithdraw(String memberId) {
+		userMapper.updateWithdraw(memberId);
+	}
+
+	public void deleteMember(String memberId) {
+		userMapper.deleteUser(memberId);
 	}
 }

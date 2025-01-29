@@ -7,16 +7,58 @@
  	<select id="getMemberListCount" resultType="int">
  		SELECT COUNT(*)
  		FROM member
+ 		<if test="!searchKeyword.equals('')">
+ 			WHERE
+ 			<choose>
+ 				<when test="searchType.equals('id')">
+ 					member_id LIKE CONCAT('%',#{searchKeyword},'%')
+ 				</when>
+ 				<when test="searchType.equals('name')">
+ 					member_name LIKE CONCAT('%',#{searchKeyword},'%')
+ 				</when>
+ 				<when test="searchType.equals('birthdate')">
+ 					member_birth LIKE CONCAT ('%',#{searchKeyword},'%')
+ 				</when>
+ 			</choose>
+ 		</if>
  	</select>
  	
  	<select id="getUserList" resultType="member">
  		SELECT *
  		FROM member
+ 		<if test="!searchKeyword.equals('')">
+ 			WHERE 
+ 			<choose>
+ 				<when test="searchType.equals('id')">
+ 					member_id LIKE CONCAT('%',#{searchKeyword},'%')
+ 				</when>
+ 				<when test="searchType.equals('name')">
+ 					member_name LIKE CONCAT('%',#{searchKeyword},'%')
+ 				</when>
+ 				<when test="searchType.equals('birthdate')">
+ 					member_birth LIKE CONCAT ('%',#{searchKeyword},'%')
+ 				</when>
+ 				<otherwise> 1 = 1</otherwise>
+ 			</choose>
+ 		</if>
+ 		
  		ORDER BY
  			member_idx DESC
  		LIMIT
  			#{startRow}
  			,#{listLimit}
  	</select>
+ 	
+ 	<update id="updateWithdraw">
+ 		UPDATE member
+ 		SET member_status = 1
+ 		WHERE member_id = #{memberId}
+ 	</update>
+ 	
+ 	<delete id="deleteUser">
+ 		DELETE
+ 		FROM member
+ 		WHERE member_id = #{memberId}
+ 	</delete>
  	
  </mapper>

@@ -80,6 +80,10 @@
         .button-group button:hover {
             background-color: #ddd;
         }
+        .pageNum{
+        	margin-left: 10px;
+        	margin-right: 10px;
+        }
     </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -94,12 +98,15 @@
         <!-- 검색 필터 -->
         <div class="search-filter">
             <label for="filter">검색 필터</label>
-            <select id="filter" name="filter">
-                <option value="id">ID</option>
-                <option value="name">이름</option>
-                <option value="birthdate">생년월일</option>
-            </select>
-            <input type="text" id="searchInput" name="searchInput" placeholder="검색어 입력">
+            <form>
+	            <select id="filter" name="searchType">
+	                <option value="id">ID</option>
+	                <option value="name">이름</option>
+	                <option value="birthdate">생년월일</option>
+	            </select>
+	            <input type="text" id="searchInput" name="searchKeyword" placeholder="검색어 입력">
+            	<input type="submit" value="검색">
+            </form>
         </div>
 
         <!-- 테이블 -->
@@ -134,6 +141,7 @@
 	                    	<td>탈퇴한 회원</td>
 	                    	<td class="action-buttons">
 		                    	<p class="member_id" style="display : none;">${member.member_id}</p>
+		                    	<button class="cancel">탈퇴취소</button>
 		                    	<button class="delete">삭제하기</button>
 	                    	</td>
 	                    </c:if>
@@ -143,17 +151,17 @@
             </tbody>
         </table>
 
-        <div class="pagination" style="margin-left: 50%;">
+        <div class="pagination" style="margin-left: 34vw;">
 	        	<input type="button" value="이전"
 	        		onclick="location.href='AdminUser?pageNum=${pageInfo.pageNum - 1}'"
 	        		<c:if test="${pageInfo.pageNum eq 1}">disabled</c:if>>
 		        <c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
 		        	<c:choose>
 		        		<c:when test="${i eq pageInfo.pageNum}">
-		        			<strong>${i}</strong>
+		        			<strong class="pageNum">${i}</strong>
 		        		</c:when>
 		        		<c:otherwise>
-		        			<a href="AdminUser?pageNum=${i}">${i}</a>
+		        			<a href="AdminUser?pageNum=${i}" class="pageNum">${i}</a>
 		        		</c:otherwise>
 		        	</c:choose>
 		        </c:forEach>
@@ -168,11 +176,24 @@
 			location.href = "MemberModify?memberId=" + member_id;
 		})
 		$(".withdraw").on("click",function(event){
-			let message = confirm("삭제하시겠습니까?");
+			let message = confirm("탈퇴하시겠습니까?");
 			if(message){
 				let member_id = $(event.target).siblings(".member_id").text();
 				location.href = "MemberWithdraw?memberId=" + member_id;
 			}
+		})
+		
+		$(".cancel").on("click",function(event){
+			let member_id = $(event.target).siblings(".member_id").text();
+			location.href = "WithdrawCancel?memberId=" + member_id;
+		})
+		$(".delete").on("click",function(event){
+			let message = confirm("삭제하시겠습니까?");
+			if(message){
+				let member_id = $(event.target).siblings(".member_id").text();
+				location.href = "MemberDelete?memberId=" + member_id;
+			}
+			
 		})
     </script>
 </body>
