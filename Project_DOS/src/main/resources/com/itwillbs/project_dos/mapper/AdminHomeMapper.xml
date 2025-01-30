@@ -41,7 +41,7 @@
  	</select>
  	
  	<select id="getTodaySale" resultType="int">
- 	SELECT SUM(pay_amount) AS total_price 
+ 	SELECT IFNULL(SUM(pay_amount), 0) AS total_price 
 	FROM purchase_history
 	WHERE DATE(pay_date) = CURDATE()
  	</select>
