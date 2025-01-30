@@ -35,4 +35,12 @@ public class AdminHomeService {
 		return homeMapper.getNewQna();
 	}
 
+	public int getTodaySale() {
+		return homeMapper.getTodaySale();
+	}
+
+	public List<Map<String, String>> getMerchList() {
+		return homeMapper.selectMerchList();
+	}
+
 }

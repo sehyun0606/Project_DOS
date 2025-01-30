@@ -19,10 +19,6 @@
                                 <div class="sb-nav-link-icon"></i></div>
                                 나의 문의사항
                             </a>
-                            <a class="nav-link" href="MyCoupon">
-                                <div class="sb-nav-link-icon"></div>
-                                쿠폰함
-                            </a>
                             <a class="nav-link" href="History">
                                 <div class="sb-nav-link-icon"></div>
                                 구매 내역

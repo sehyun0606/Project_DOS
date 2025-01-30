@@ -66,9 +66,28 @@
  		
  	</select>
  	
+ 	<select id="selectMyReviewListCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM review
+ 		WHERE member_id = #{id}
+ 	</select>
  	
+ 	<select id="selectMyReviewList" resultType="review">
+ 		SELECT *
+ 		FROM review
+ 		WHERE member_id = #{id}
+ 		ORDER BY review_idx DESC
+ 		LIMIT
+			#{startRow}
+			, #{listLimit}
+ 		
+ 	</select>
  	
- 	
+ 	<select id="selectIdxList" resultType="String">
+ 		SELECT review_idx
+ 		FROM review_like
+ 		WHERE member_id = #{id}
+ 	</select>
  	
  	
  	

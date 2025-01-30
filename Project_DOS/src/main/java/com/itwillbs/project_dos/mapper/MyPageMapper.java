@@ -10,6 +10,7 @@ import com.itwillbs.project_dos.vo.NoticeVO;
 import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 import com.itwillbs.project_dos.vo.ReservationVO;
+import com.itwillbs.project_dos.vo.ReviewVO;
 
 @Mapper
 public interface MyPageMapper {
@@ -38,6 +39,18 @@ public interface MyPageMapper {
 			@Param("startRow") int startRow, 
 			@Param("listLimit") int listLimit, 
 			@Param("id") String id);
+
+
+
+	List<ReviewVO> selectMyReviewList(
+							@Param("startRow")int startRow,
+							@Param("listLimit")int listLimit,
+							@Param("id")String id);
+
+	int selectMyReviewListCount(String id);
+
+	List<String> selectIdxList(String id);
+
 
 						
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.itwillbs.project_dos.adminMapper.AdminSalesMapper">
+ 	<select id="selectHistoryListCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM purchase_history
+ 	</select>
+ 	
+ 	<select id="selectHistoryList" resultType="com.itwillbs.project_dos.vo.PurchaseHistoryVO">
+ 		SELECT *
+ 		FROM purchase_history
+ 		ORDER BY
+			pay_date DESC
+		LIMIT
+			#{startRow}
+			, #{listLimit}
+ 	</select>
+ 
+ </mapper>
+ 

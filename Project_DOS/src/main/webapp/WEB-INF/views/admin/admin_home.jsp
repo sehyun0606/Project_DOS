@@ -62,7 +62,7 @@
     
     <div class="dashboard">
         <div class="sales-section">
-            <h1>₩0</h1>
+            <h1>₩${todaySale}</h1>
             <h2>오늘 하루 매출</h2>
         </div>
 
@@ -75,6 +75,9 @@
             <!-- 두 번째 그래프 -->
             <div class="graph">
             	<h3>상품 인기 매출</h3>
+            	<c:forEach items="${merchList}" var="merch" varStatus="status">
+            		<input type="hidden" class="${status.count}" id="${merch.product_name}" value="${merch.count}">
+            	</c:forEach>
                 <canvas id="popularProductsGraph"></canvas>
             </div>
         </div>
@@ -136,10 +139,10 @@
         const productsChart = new Chart(productsCtx, {
             type: 'bar',
             data: {
-                labels: ['스테이크', '파스타', '리조또'],
+                labels: [$(".1").attr("id"), $(".2").attr("id"), $(".3").attr("id")],
                 datasets: [{
                     label: '판매량',
-                    data: [15, 25, 10], // 초기 데이터
+                    data: [$(".1").val(),$(".2").val(), $(".3").val()], // 초기 데이터
                     backgroundColor: ['#FF6347', '#FFD700', '#7CFC00'],
                 }]
             },

@@ -13,9 +13,9 @@
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminUser">고객관리</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminNotice">고객센터관리</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminSalesHistory">판매내역</a></li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminEvent">이벤트관리</a></li>
+<!--                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminEvent">이벤트관리</a></li> -->
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminReview">리뷰관리</a></li>
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminCoupon">쿠폰관리</a></li>
+<!--                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminCoupon">쿠폰관리</a></li> -->
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="AdminMerch">상품관리</a></li>
             </ul>
             <div id="top_menu">

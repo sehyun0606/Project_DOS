@@ -72,6 +72,7 @@
         /* 상품 컨테이너 */
         .product-container {
             display: none;
+            margin-left: 5%;
         }
 
         .product-container.active {
@@ -187,9 +188,6 @@
     </div>
 
     <div class="main-layout">
-        <div id="side-menu">
-            <jsp:include page="/WEB-INF/views/inc/admin_side.jsp"></jsp:include>
-        </div>
 
         <div class="content">
             <div class="title">상품 목록</div>

@@ -1,5 +1,6 @@
 package com.itwillbs.project_dos.mapper;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,8 +19,10 @@ public interface ReviewMapper {
 
 	int deleteReviewLike(@Param("id") String id,@Param("review_idx") String review_idx);
 
-	List<String> selectReservationHistory(String id);
+	List<java.util.Date> selectReservationHistory(String id);
 
 	int insertReview(ReviewVO review);
+
+	int updateReservationReviewStatus(@Param("oldestDate") java.util.Date oldestDate, @Param("id") String id);
 
 }

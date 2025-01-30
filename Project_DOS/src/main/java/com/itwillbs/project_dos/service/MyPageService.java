@@ -11,6 +11,7 @@ import com.itwillbs.project_dos.vo.NoticeVO;
 import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 import com.itwillbs.project_dos.vo.ReservationVO;
+import com.itwillbs.project_dos.vo.ReviewVO;
 
 @Service
 public class MyPageService {
@@ -52,6 +53,19 @@ public class MyPageService {
 
 	public List<PurchaseHistoryVO> getPurchaseList(int startRow, int listLimit, String id) {
 		return myPageMapper.selectPurchaseList(startRow, listLimit, id);
+	}
+
+
+	public int getMyReviewListCount(String id) {
+		return myPageMapper.selectMyReviewListCount(id);
+	}
+
+	public List<ReviewVO> getReviewList(int startRow, int listLimit, String id) {
+		return myPageMapper.selectMyReviewList(startRow,listLimit,id);
+	}
+
+	public List<String> getIdxList(String id) {
+		return myPageMapper.selectIdxList(id);
 	}
 
 }

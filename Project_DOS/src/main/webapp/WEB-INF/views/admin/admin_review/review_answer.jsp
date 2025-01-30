@@ -115,7 +115,6 @@
             <!-- 리뷰 상단 -->
             <div class="review-header">
                 <div class="user-info">
-                    <img src="profile_placeholder.png" alt="프로필 이미지">
                     <div>
                         <div class="user-name">${review.member_id}</div>
                         <div class="user-level">${member.membership}</div>

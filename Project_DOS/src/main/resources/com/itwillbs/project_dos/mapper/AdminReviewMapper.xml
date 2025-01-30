@@ -7,8 +7,27 @@
  	<select id="selectReviewList" resultType="Review">
  		SELECT *
  		FROM review
- 		ORDER BY
+ 		<if test="!category.equals('')">
+ 			ORDER BY
+ 		 		<choose>
+ 		 			<when test="category.equals('date')">
+ 		 				review_date DESC
+ 		 			</when>
+ 		 			<when test="category.equals('star')">
+ 		 				review_rating DESC
+ 		 			</when>
+ 		 			<when test="category.equals('like')">
+ 		 				review_like DESC
+ 		 			</when>
+ 		 			<otherwise>
+ 		 				1 = 1
+ 		 			</otherwise>
+ 		 		</choose>
+ 		 </if>
+ 		<if test="category.equals('')">
+ 			ORDER BY
  			review_idx DESC
+ 		</if>
  		LIMIT
  			#{startRow}
  			,#{listLimit}
@@ -74,5 +93,11 @@
 		FROM review
 		WHERE review_idx = #{review_idx}
 	</delete>
+	<update id="updateReviewAnswer">
+		UPDATE review
+		SET answer_content = #{answer_content} , answer_status = 'Y'
+		WHERE review_idx = #{review_idx}
+		
+	</update>
 	
  </mapper>

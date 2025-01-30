@@ -18,4 +18,8 @@ public interface AdminHomeMapper {
 
 	String getNewQna();
 
+	int getTodaySale();
+
+	List<Map<String, String>> selectMerchList();
+
 }

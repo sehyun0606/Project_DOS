@@ -18,6 +18,12 @@ public class AdminHomeController {
 	@GetMapping("AdminHome")
 	public String adminHome(Model model) {
 		
+		int todaySale = homeService.getTodaySale();
+		model.addAttribute("todaySale", todaySale);
+		
+		List<Map<String, String>> merchList = homeService.getMerchList();
+		model.addAttribute("merchList", merchList);
+		
 		//멤버쉽분포도를 위한 멤버쉽 리스트 불러오기
 		List<Map<String, Object>>  membershipList = homeService.getMembershipList();
 		model.addAttribute("membership", membershipList);

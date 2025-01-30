@@ -2,6 +2,8 @@ package com.itwillbs.project_dos.adminController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +27,7 @@ public class AdminReviewController {
 		
 		int listLimit = 4;
 		int startRow = (pageNum - 1) * listLimit;
-		int listCount = reviewService.getAdminReviewListCount();
+		int listCount = reviewService.getAdminReviewListCount("");
 		int pageListLimit = 5;
 		
 		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
@@ -49,7 +51,7 @@ public class AdminReviewController {
 		
 		model.addAttribute("pageInfo",pageInfo);
 		
-		List<ReviewVO> reviewList = reviewService.getReviewList(startRow,listLimit);
+		List<ReviewVO> reviewList = reviewService.getReviewList(startRow,listLimit,"");
 		
 		model.addAttribute("reviewList", reviewList);
 		
@@ -73,6 +75,7 @@ public class AdminReviewController {
 	@PostMapping("ReviewAnswer")
 	public String reviewAnswer(String answer_content,int review_idx) {
 		
+		reviewService.updateReviewAnswer(answer_content,review_idx);
 		
 		return "redirect:/AdminReview";
 	}
@@ -88,7 +91,7 @@ public class AdminReviewController {
 		if(category.equals("noRequest")) {
 			listCount = reviewService.getAdminnoRequestReviewCount();
 		}else {
-			listCount = reviewService.getAdminReviewListCount();
+			listCount = reviewService.getAdminReviewListCount("");
 		}
 		
 		int listLimit = 4;
@@ -119,7 +122,7 @@ public class AdminReviewController {
 		List<ReviewVO> reviewList = null;
 		//카테고리 경우에 따라 수행되는 로직
 		if(category.equals("all")) {
-			reviewList = reviewService.getReviewList(startRow, listLimit);
+			reviewList = reviewService.getReviewList(startRow, listLimit,"");
 		}else if(category.equals("noRequest")) {
 			reviewList = reviewService.getNoRequestReviewList(startRow,listLimit);
 		}else if(category.equals("date")) {
@@ -139,9 +142,17 @@ public class AdminReviewController {
 	}
 	
 	@GetMapping("ReviewDelete")
-	public String reviewDelete(String review_idx, Model model) {
+	public String reviewDelete(String review_idx, Model model, HttpSession session) {
 		
+		String id = (String)session.getAttribute("sId");
 		int deleteCount = reviewService.deleteReview(review_idx);
+		
+		if(!id.equals("admin")) {
+			model.addAttribute("msg","삭제 성공!");
+			model.addAttribute("targetURL","Review");
+			return "result/result";
+		}
+		
 		
 		if(deleteCount > 0) {
 			model.addAttribute("msg", "삭제 성공!");

@@ -34,12 +34,21 @@
  		WHERE review_idx = #{review_idx}
  		AND member_id = #{id}
  	</delete>
- 	<select id="selectReservationHistory" resultType="String">
- 		SELECT reservation_idx
- 		FROM reservation
- 		WHERE now() > reservation_date
- 		AND member_id = #{id}
+ 	<select id="selectReservationHistory" resultType="java.util.Date">
+ 		SELECT reservation_date 
+		FROM reservation 
+		WHERE reservation_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+		AND NOW() => reservation_date
+		AND member_id = #{id}
+		AND review_status IS null
  	</select>
+ 	
+ 	<update id="updateReservationReviewStatus">
+ 		UPDATE reservation
+ 		SET review_status = 'Y'
+ 		WHERE member_id = #{id}
+ 		AND reservation_date = #{oldestDate}
+ 	</update>
  	
  	<insert id="insertReview">
  		<selectKey keyProperty="review_idx" resultType="int" order="BEFORE">

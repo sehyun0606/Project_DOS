@@ -1,5 +1,6 @@
 package com.itwillbs.project_dos.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,16 @@ public class ReviewService {
 		return reviewMapper.deleteReviewLike(id,review_idx);
 	}
 
-	public List<String> getReservationHistory(String id) {
+	public List<java.util.Date> getReservationHistory(String id) {
 		return reviewMapper.selectReservationHistory(id);
 	}
 
 	public int insertReview(ReviewVO review) {
 		return reviewMapper.insertReview(review);
+	}
+
+	public Object updateReservationReviewStatus(java.util.Date oldestDate, String id) {
+		return reviewMapper.updateReservationReviewStatus(oldestDate, id);
 	}
 
 }

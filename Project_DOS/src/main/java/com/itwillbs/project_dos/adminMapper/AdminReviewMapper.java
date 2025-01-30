@@ -12,10 +12,11 @@ public interface AdminReviewMapper {
 	//리뷰목록
 	List<ReviewVO> selectReviewList(
 			@Param("startRow")int startRow,
-			@Param("listLimit")int listLimit);
+			@Param("listLimit")int listLimit, 
+			@Param("category") String category);
 	
 	//리뷰 목록 카운터
-	int selectAdminReviewCount();
+	int selectAdminReviewCount(String category);
 	
 	//답변 안한 리뷰 목록 카운터
 	int selecetNoRequestReviewCount();
@@ -44,6 +45,8 @@ public interface AdminReviewMapper {
 			@Param("listLimit")int listLimit);
 
 	int deleteReview(String review_idx);
+
+	void updateReviewAnswer(@Param("answer_content") String answer_content, @Param("review_idx") int review_idx);
 
 
 }

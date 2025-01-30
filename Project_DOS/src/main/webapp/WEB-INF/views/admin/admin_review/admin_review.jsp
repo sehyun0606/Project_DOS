@@ -162,6 +162,7 @@
 		}
 		 .main{
         	display: flex;
+        	justify-content: center;
     	}
     	#categorySelect{
     		height: fit-content;
@@ -175,10 +176,6 @@
     <jsp:include page="/WEB-INF/views/inc/admin_top.jsp"></jsp:include>
 
    <div class="main">
-	    <div id="side-menu">
-			<jsp:include page="/WEB-INF/views/inc/admin_review_side.jsp"></jsp:include>
-		</div>
-	
 	    <div id="main">
 	  
 	        <div id="review-list">

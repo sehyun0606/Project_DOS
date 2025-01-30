@@ -10,6 +10,13 @@
 		WHERE membership IN ('white','red','black')
 		GROUP BY membership;
  	</select>
+ 	<select id="selectMerchList" resultType="map">
+ 	SELECT product_name, COUNT(*) AS count
+	FROM purchase_history
+	GROUP BY product_name
+	ORDER BY count DESC
+	LIMIT 3;
+ 	</select>
  	
  	<select id="selectResrevationMap" resultType="map">
 	 	SELECT
@@ -31,5 +38,11 @@
  		SELECT COUNT(*)
  		FROM question_board
  		WHERE request_status = 'N'
+ 	</select>
+ 	
+ 	<select id="getTodaySale" resultType="int">
+ 	SELECT SUM(pay_amount) AS total_price 
+	FROM purchase_history
+	WHERE DATE(pay_date) = CURDATE()
  	</select>
  </mapper>

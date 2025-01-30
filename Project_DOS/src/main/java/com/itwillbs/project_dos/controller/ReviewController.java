@@ -1,5 +1,8 @@
 package com.itwillbs.project_dos.controller;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -26,13 +29,13 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@GetMapping("Review")
-	public String review(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session) {
+	public String review(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "") String category, Model model, HttpSession session) {
 		
 		String id = (String)session.getAttribute("sId");
 		
 		int listLimit = 4;
 		int startRow = (pageNum - 1) * listLimit;
-		int listCount = adminReviewService.getAdminReviewListCount();
+		int listCount = adminReviewService.getAdminReviewListCount(category);
 		int pageListLimit = 5;
 		
 		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
@@ -48,7 +51,7 @@ public class ReviewController {
 		
 		if(pageNum < 1 || pageNum > maxPage) {
 			model.addAttribute("msg", "존재하지 않는 페이지");
-			model.addAttribute("targetURL","AdminReview?pageNum=1");
+			model.addAttribute("targetURL","Review?pageNum=1");
 			return "result/result";
 		}
 		
@@ -56,7 +59,7 @@ public class ReviewController {
 		
 		model.addAttribute("pageInfo",pageInfo);
 		
-		List<ReviewVO> reviewList = adminReviewService.getReviewList(startRow,listLimit);
+		List<ReviewVO> reviewList = adminReviewService.getReviewList(startRow,listLimit,category);
 		
 		model.addAttribute("reviewList", reviewList);
 		
@@ -132,12 +135,18 @@ public class ReviewController {
 		review.setMember_id(id);
 		review.setReview_rating(stars);
 		
-		List<String> history = reviewService.getReservationHistory(id);
+		List<java.util.Date> history = reviewService.getReservationHistory(id);
+		
 		
 		if(history.isEmpty()) {
 			model.addAttribute("msg", "방문이 완료된 분들만 리뷰 작성이 가능합니다");
 			return "result/result";
 		}
+		
+		
+		 java.util.Date oldestDate = Collections.min(history);
+		 
+		reviewService.updateReservationReviewStatus(oldestDate,id);
 		
 		int insertCount = reviewService.insertReview(review);
 		

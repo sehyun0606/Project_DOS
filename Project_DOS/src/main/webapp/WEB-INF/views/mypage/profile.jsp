@@ -229,7 +229,6 @@
         <!-- 메인 컨텐츠 -->
         <div class="content">
             <div class="profile-container">
-                <div class="profile-image">Image</div>
                 <div class="profile-details">
                     <h2>${member.member_name}</h2>
                     <c:set var="formattedPhoneNumber" value="${member.member_phone.substring(0, 3)}-${member.member_phone.substring(3, 7)}-${member.member_phone.substring(7)}" />
@@ -257,10 +256,6 @@
                     <div class="membership">
                     </div>
                     <div class="form-container">
-                         <form class="gift-form">
-					        <input type="text" placeholder="기프티콘 번호를 입력하시오" class="gifticon-input">
-					        <input type="submit" value="등록">
-					    </form>
                     </div>
                 </div>
             </div>
@@ -341,6 +336,25 @@
 				const popupURL = 'MyReservationEdit?reservation_idx='+ $(event.target).siblings(".reservation_num").text();
 
 	        	window.open(popupURL, '_blank', 'width=550,height=800');
+			}
+		});
+		$('.delete').click(function() {
+			let idx = '#' + $(event.target).siblings(".reservation_num").text();
+		    
+			let reservDate = $(idx).text();
+			
+			if(minDate <= reservDate && reservDate < maxDate){
+				alert("예약 취소는 3일 이내의 기간에만 가능합니다")
+				console.log(minDate)
+				console.log(reservDate)
+				console.log(maxDate)
+			}else{
+				let del = confirm("취소하시겠습니까?");
+				if(del){
+					const popupURL = 'MyReservationDelete?reservation_idx='+ $(event.target).siblings(".reservation_num").text();
+					location.href= popupURL
+				}
+	        	
 			}
 		});
 		

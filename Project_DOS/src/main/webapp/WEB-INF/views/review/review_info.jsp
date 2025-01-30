@@ -94,6 +94,8 @@
         }
         .review-content {
             margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
         }
 
         .review-content p {
@@ -131,11 +133,11 @@
     <div class="container">
         <!-- 사용자 리뷰 -->
         <div class="review-header">
-            <div class="user-avatar"></div>
             <div class="user-info">
                 <div class="username">${review.member_id}</div>
             </div>
             <div class="rating">
+            	
                 <div class="stars" id="review-rating${review.review_idx}"></div>
                 <div class="date"><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd"/></div> <!-- 작성 날짜 -->
             </div>
@@ -147,6 +149,12 @@
 
         <div class="review-content">
             <p>${review.review_content}</p>
+            <c:if test="${sessionScope.sId eq review.member_id}">
+           		<div>
+            		<input type="button" value="뒤로가기" onclick="history.back()">
+            		<input type="button" value="삭제하기" style="background-color: red; color: white;" onclick="location.href='ReviewDelete?review_idx=${review.review_idx}'" >
+           		</div>
+           	</c:if>
         </div>
 		
         <div class="dotted-divider"></div>
@@ -154,7 +162,6 @@
         <!-- 관리자 답변 -->
         <div class="admin-reply">
             <div class="admin-header">
-                <div class="admin-avatar"></div>
                 <div class="admin-info">
                     <div class="username">admin &nbsp;&nbsp;&nbsp;<fmt:formatDate value="${review.answer_date}" pattern="yyyy-MM-dd"/></div>
                     <div class="user-status">master 🍎</div>

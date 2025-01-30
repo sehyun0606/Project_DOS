@@ -15,13 +15,13 @@ public class AdminReviewService {
 	private AdminReviewMapper reviewMapper;
 	
 	//리뷰 목록
-	public List<ReviewVO> getReviewList(int startRow, int listLimit) {
-		return reviewMapper.selectReviewList(startRow,listLimit);
+	public List<ReviewVO> getReviewList(int startRow, int listLimit, String category) {
+		return reviewMapper.selectReviewList(startRow,listLimit,category);
 	}
 
 	//리뷰 리스트 카운터
-	public int getAdminReviewListCount() {
-		return reviewMapper.selectAdminReviewCount();
+	public int getAdminReviewListCount(String category) {
+		return reviewMapper.selectAdminReviewCount(category);
 	}
 	//답변 안한 리뷰 리스트 카운터
 	public int getAdminnoRequestReviewCount() {
@@ -55,6 +55,12 @@ public class AdminReviewService {
 	public int deleteReview(String review_idx) {
 		return reviewMapper.deleteReview(review_idx);
 	}
+
+	public void updateReviewAnswer(String answer_content, int review_idx) {
+		reviewMapper.updateReviewAnswer(answer_content,review_idx);
+		
+	}
+
 
 
 }

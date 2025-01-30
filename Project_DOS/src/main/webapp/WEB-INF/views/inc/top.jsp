@@ -8,29 +8,14 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-               <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="Brand" role="button" data-bs-toggle="dropdown" aria-expanded="false">정보</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="Brand">가게 정보</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="Directions">찾아오시는 길</a></li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="Brand">가게 정보</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Menu">메뉴</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="#!" id="reservation">예약하기</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="MemberShip">멤버쉽</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Review">리뷰</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Merch">상품</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="GiftCard" role="button" data-bs-toggle="dropdown" aria-expanded="false">고객의 소리</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="FAQ">FAQ</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="Question">문의사항</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="Notice">공지사항</a></li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="Notice">고객의 소리</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="Directions">찾아오시는 길</a></li>
 <!--                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Question">문의사항</a></li> -->
 <!--                 <li class="nav-item"><a class="nav-link" aria-current="page" href="Notice">공지사항</a></li> -->
             </ul>

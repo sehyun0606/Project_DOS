@@ -184,7 +184,7 @@
             border-radius: 5px;
             cursor: pointer;
             height: fit-content;
-            margin-left: 60%;
+            margin-left: 80%;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -203,7 +203,6 @@
 	           <input type="button" value="리뷰 작성" class="membership" onclick="location.href = 'ReviewWrite'">
 			<c:forEach var="review" items="${reviewList}">
 			    <div class="review-card" >
-			        <img class="review-image" alt="Profile Image" >
 			        
 			        <div class="review-content">
 			            <div class="review-header">
@@ -250,8 +249,7 @@
 	        </div>
 	</div>
 	<select id="categorySelect">
-        <option value="all">전체</option>
-        <option value="noRequest">답변안한 리뷰</option>
+        <option value="">전체</option>
         <option value="date">날짜순</option>
         <option value="star">별점순</option>
         <option value="like">좋아요순</option>
@@ -262,7 +260,7 @@
 <script>
 	$('#categorySelect').on('change', function () {
     const selectedCategory = $(this).val(); // 선택된 값 가져오기
-    window.location.href = 'AdminReviewFilter?category=' + selectedCategory;
+    window.location.href = 'Review?category=' + selectedCategory;
 	})
 	
 	 $(document).ready(function () {

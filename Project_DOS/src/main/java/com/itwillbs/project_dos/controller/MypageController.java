@@ -22,12 +22,16 @@ import com.itwillbs.project_dos.vo.PageInfo;
 import com.itwillbs.project_dos.vo.PurchaseHistoryVO;
 import com.itwillbs.project_dos.vo.QuestionVO;
 import com.itwillbs.project_dos.vo.ReservationVO;
+import com.itwillbs.project_dos.vo.ReviewVO;
 
 @Controller
 public class MypageController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private AdminReservationService adminReservationService;
 	
 	
 	@GetMapping("Mypage")
@@ -189,8 +193,59 @@ public class MypageController {
 	
 	
 	
+	@GetMapping("MyReview")
+	public String myReview(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session ) {
+		
+String id = (String)session.getAttribute("sId");
+		
+		int listLimit = 4;
+		int startRow = (pageNum - 1) * listLimit;
+		int listCount = myPageService.getMyReviewListCount(id);
+		int pageListLimit = 5;
+		
+		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+		if(maxPage == 0) {
+			maxPage = 1;
+		}
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		if(pageNum < 1 || pageNum > maxPage) {
+			model.addAttribute("msg", "존재하지 않는 페이지");
+			model.addAttribute("targetURL","Review?pageNum=1");
+			return "result/result";
+		}
+		
+		AdminPageInfo pageInfo = new AdminPageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
+		
+		model.addAttribute("pageInfo",pageInfo);
+		
+		List<ReviewVO> reviewList = myPageService.getReviewList(startRow,listLimit,id);
+		
+		model.addAttribute("reviewList", reviewList);
+		
+		List<String> reviewIdxList = myPageService.getIdxList(id);
+		
+		model.addAttribute("idxList", reviewIdxList);
+		
+		return "mypage/my_review";
+	}
 	
-	
+	@GetMapping("MyReservationDelete")
+	public String myReservationDelete(String reservation_idx, Model model) {
+		
+		adminReservationService.deleteReservation(reservation_idx);
+		
+		model.addAttribute("msg", "예약 취소되었습니다");
+		model.addAttribute("targetURL", "Mypage");
+		
+		return "result/result";
+		
+	}
 	
 	
 	
