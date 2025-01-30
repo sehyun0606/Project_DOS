@@ -25,6 +25,8 @@ public interface NoticeMapper {
 
 	NoticeVO selectBoardList(int board_num);
 
+	void updateReadCount(NoticeVO noticeBoard);
+
 
 	
 }

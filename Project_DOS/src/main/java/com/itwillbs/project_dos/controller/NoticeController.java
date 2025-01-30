@@ -95,7 +95,7 @@ public class NoticeController {
 	@GetMapping("BoardDetail")
 	public String BoardDetail(int board_num, Model model) {
 		
-		NoticeVO notice = noticeservice.getBoardList(board_num);
+		NoticeVO notice = noticeservice.getBoardList(board_num, true);
 		model.addAttribute("notice", notice);
 		return "service/notice_detail";
 	}
