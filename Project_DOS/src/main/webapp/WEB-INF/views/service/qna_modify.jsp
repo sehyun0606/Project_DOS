@@ -149,7 +149,7 @@
 	                            <!-- 제목 select -->
 	                            <!-- 검색 텍스트 -->
 	                            <div class="input-group flex-grow-1 me-2" style="width: 60%;">
-                                <input type="text" class="form-control" name="qna_title" style="font-size: 16px;" value="제목: ${qna.qna_title }" >
+                                <input type="text" class="form-control" name="qna_title" style="font-size: 16px;" value="${qna.qna_title }" >
                             	</div>
 	                            <div class="input-group flex-grow-1 me-2" style="width: 10%;">
 	                                <input type="text" class="form-control" name="qna_num" value="${param.qna_num }" hidden>
