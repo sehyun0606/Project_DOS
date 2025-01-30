@@ -413,6 +413,25 @@ public class MemberController {
 		
 		return responseData;
 	}
+
+	@ResponseBody
+	@GetMapping("paymentGetMember2")
+	public String paymentGetMember2(String id) {
+		
+		String responseData = "";
+		
+		MemberVO member = memberservice.paymentGetMember(id);
+//		System.out.println("조회 결과 : " + member);
+		if(member != null) {
+//			model.addAttribute("member", member);
+//			responseData = "true";
+			JSONObject json = new JSONObject(member);
+			responseData = json.toString();
+			System.out.println(responseData);
+		} 
+		
+		return responseData;
+	}
 	
 	// 결제 성공 후 고객 데이터 저장 비즈니스 로직
 	@ResponseBody
@@ -423,6 +442,20 @@ public class MemberController {
 
 		if(insertCount > 0)	{
 			memberservice.updateMembership(map);
+			result = "true";
+		}
+		
+		return result;
+	}
+
+	// 결제 성공 후 고객 데이터 저장 비즈니스 로직
+	@ResponseBody
+	@GetMapping("pamentSetMember2")
+	public String pamentSetMember2(@RequestParam Map<String, String> map) {
+		String result = "";
+		int insertCount = memberservice.setPaymentMember(map);
+		
+		if(insertCount > 0)	{
 			result = "true";
 		}
 		
