@@ -103,7 +103,7 @@ public class QnaController {
 			System.out.println(faq);
 			model.addAttribute("faqList",faq);
 			
-			return "service/faq_view";
+			return "service/faq_view2";
 		}
 		
 		@GetMapping("qnaWrite")
