@@ -126,8 +126,8 @@
                             <tr>
                                 <th style="width: 5%;">번호</th>
                                 <th style="width: 65%;">제목</th>
-                                <th style="width: 10%;">작성자</th>
                                 <th style="width: 10%;">등록일</th>
+                                <th style="width: 10%;">조회수</th>
                             </tr>
                             </thead>
                             <c:choose>

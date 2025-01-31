@@ -103,7 +103,7 @@ public class QnaController {
 			System.out.println(faq);
 			model.addAttribute("faqList",faq);
 			
-			return "service/faq_view";
+			return "service/faq_view2";
 		}
 		
 		@GetMapping("qnaWrite")
@@ -145,7 +145,7 @@ public class QnaController {
 		}
 		
 		@GetMapping("QnaDetail")
-		public String QnaDetail(Model model, HttpSession session, int qna_num) {
+		public String QnaDetail(Model model, int qna_num) {
 			
 			QuestionVO qna = qnaservice.getBoard(qna_num, true);
 			System.out.println(qna);

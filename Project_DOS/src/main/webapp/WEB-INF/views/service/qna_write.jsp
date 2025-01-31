@@ -107,7 +107,6 @@
 	                                    <option value="예약문의">예약 문의</option>
 	                                </select>
 	                            </div>
-	                            <!-- 검색 텍스트 -->
 	                            <div class="input-group flex-grow-1 me-2">
 	                                <input type="text" name="qna_title" class="form-control" placeholder="제목을 입력하세요." aria-label="검색어">
 	                            </div>

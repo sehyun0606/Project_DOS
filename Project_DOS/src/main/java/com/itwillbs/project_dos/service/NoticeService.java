@@ -23,8 +23,14 @@ public class NoticeService {
 		return mapper.selectNoticeList(searchType, searchKeyword, startRow, listLimit);
 	}
 
-	public NoticeVO getBoardList(int board_num) {
-		return mapper.selectBoardList(board_num);
+	public NoticeVO getBoardList(int board_num, boolean readCount) {
+		NoticeVO noticeBoard = mapper.selectBoardList(board_num);
+		
+		//조회 결과가 존재하고, 조회수 증가를 수행해야할 경우
+		if(noticeBoard != null && readCount) {
+			mapper.updateReadCount(noticeBoard);
+		}
+		return noticeBoard; 
 	}
 
 
