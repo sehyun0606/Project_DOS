@@ -68,4 +68,12 @@ public class MyPageService {
 		return myPageMapper.selectIdxList(id);
 	}
 
+	public int getMyReservationListCount(String id) {
+		return myPageMapper.selectMyReservationListCount(id);
+	}
+
+	public List<ReservationVO> getReservationList(int startRow, int listLimit, String id) {
+		return myPageMapper.selectReservationList(startRow,listLimit,id);
+	}
+
 }

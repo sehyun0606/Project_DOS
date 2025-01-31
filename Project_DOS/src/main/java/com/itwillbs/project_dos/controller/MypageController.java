@@ -196,7 +196,7 @@ public class MypageController {
 	@GetMapping("MyReview")
 	public String myReview(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session ) {
 		
-String id = (String)session.getAttribute("sId");
+		String id = (String)session.getAttribute("sId");
 		
 		int listLimit = 4;
 		int startRow = (pageNum - 1) * listLimit;
@@ -247,7 +247,43 @@ String id = (String)session.getAttribute("sId");
 		
 	}
 	
-	
+	@GetMapping("MyReservation")
+	public String myReservation(@RequestParam(defaultValue = "1") int pageNum, Model model, HttpSession session ) {
+		
+String id = (String)session.getAttribute("sId");
+		
+		int listLimit = 4;
+		int startRow = (pageNum - 1) * listLimit;
+		int listCount = myPageService.getMyReservationListCount(id);
+		int pageListLimit = 5;
+		
+		int maxPage = listCount / listLimit + (listCount % listLimit > 0 ? 1 : 0);
+		if(maxPage == 0) {
+			maxPage = 1;
+		}
+		int startPage = (pageNum - 1) / pageListLimit * pageListLimit + 1;
+		int endPage = startPage + pageListLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		if(pageNum < 1 || pageNum > maxPage) {
+			model.addAttribute("msg", "존재하지 않는 페이지");
+			model.addAttribute("targetURL","Review?pageNum=1");
+			return "result/result";
+		}
+		
+		AdminPageInfo pageInfo = new AdminPageInfo(listCount,pageListLimit,maxPage,startPage,endPage,pageNum);
+		
+		model.addAttribute("pageInfo",pageInfo);
+		
+		List<ReservationVO> reservationList = myPageService.getReservationList(startRow,listLimit,id);
+		
+		model.addAttribute("reservationList", reservationList);
+		
+		return "mypage/my_ReservationHistory";
+	}
 	
 	
 	

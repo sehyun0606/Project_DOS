@@ -23,6 +23,10 @@
                                 <div class="sb-nav-link-icon"></div>
                                 구매 내역
                             </a>
+                            <a class="nav-link" href="MyReservation">
+                                <div class="sb-nav-link-icon"></div>
+                                예약 내역
+                            </a>
                         </div>
                    </div>
                 </nav>

@@ -19,4 +19,5 @@ public class ReservationVO {
 	private String people_count;
 	private int table_num;
 	private int reservation_status;
+	private String review_status;
 }

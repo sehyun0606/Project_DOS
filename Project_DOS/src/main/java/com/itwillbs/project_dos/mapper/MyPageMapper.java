@@ -51,6 +51,13 @@ public interface MyPageMapper {
 
 	List<String> selectIdxList(String id);
 
+	int selectMyReservationListCount(String id);
+
+	List<ReservationVO> selectReservationList(@Param("startRow")int startRow,
+											@Param("listLimit")int listLimit,
+											@Param("id")String id);
+
+
 
 						
 }

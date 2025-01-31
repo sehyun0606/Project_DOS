@@ -37,8 +37,7 @@
  	<select id="selectReservationHistory" resultType="java.util.Date">
  		SELECT reservation_date 
 		FROM reservation 
-		WHERE reservation_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-		AND NOW() >= reservation_date
+		WHERE NOW() >= reservation_date
 		AND member_id = #{id}
 		AND review_status IS null
  	</select>

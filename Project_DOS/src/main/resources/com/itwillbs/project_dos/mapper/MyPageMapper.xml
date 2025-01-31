@@ -89,7 +89,23 @@
  		WHERE member_id = #{id}
  	</select>
  	
+ 	<select id="selectMyReservationListCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM reservation
+ 		WHERE member_id = #{id}
+ 	</select>
  	
+ 	<select id="selectReservationList" resultType="reservation">
+ 		SELECT *
+ 		FROM reservation
+ 		WHERE member_id = #{id}
+ 		AND CURDATE() > reservation_date
+ 		ORDER BY
+			reservation_date DESC
+		LIMIT
+			#{startRow}
+			, #{listLimit}
+ 	</select>
  	
  	
  	
