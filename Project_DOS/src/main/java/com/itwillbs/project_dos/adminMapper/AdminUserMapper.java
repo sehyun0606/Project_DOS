@@ -19,4 +19,12 @@ public interface AdminUserMapper {
 
 	void deleteUser(String memberId);
 
+	void deleteReservation(String memberId);
+
+	void deleteQuestion(String memberId);
+
+	void deletePurchasse(String memberId);
+
+	void deleteReview(String memberId);
+
 }

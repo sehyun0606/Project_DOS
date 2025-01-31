@@ -60,5 +60,25 @@
  		FROM member
  		WHERE member_id = #{memberId}
  	</delete>
+ 	<delete id="deleteReservation">
+ 		DELETE
+ 		FROM reservation
+ 		WHERE member_id = #{memberId}
+ 	</delete>
+ 	<delete id="deleteQuestion">
+ 		DELETE
+ 		FROM question_board
+ 		WHERE member_id = #{memberId}
+ 	</delete>
+ 	<delete id="deletePurchasse">
+ 		DELETE
+ 		FROM purchase_history
+ 		WHERE member_id = #{memberId}
+ 	</delete>
+ 	<delete id="deleteReview">
+ 		DELETE
+ 		FROM review
+ 		WHERE member_id = #{memberId}
+ 	</delete>
  	
  </mapper>

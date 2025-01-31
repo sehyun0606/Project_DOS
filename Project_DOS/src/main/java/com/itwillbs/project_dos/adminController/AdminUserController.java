@@ -57,17 +57,11 @@ public class AdminUserController {
 		return "admin/admin_user/admin_user";
 	}
 	
-	@GetMapping("WithdrawCancel")
-	public String withdrawCancel(String memberId) {
-		
-		userService.updateWithdraw(memberId);
-		
-		return "redirect:/AdminUser";
-	}
 	
-	@GetMapping("MemberDelete")
-	public String deleteMember(String memberId) {
-		userService.deleteMember(memberId);
+	@GetMapping("AdminMemberWithdraw")
+	public String adminMemberWithdraw(String memberId) {
+		
+		userService.adminDeleteMember(memberId);
 		
 		return "redirect:/AdminUser";
 	}

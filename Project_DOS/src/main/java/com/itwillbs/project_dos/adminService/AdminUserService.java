@@ -21,11 +21,12 @@ public class AdminUserService {
 		return userMapper.getUserList(startRow,listLimit,searchType,searchKeyword);
 	}
 
-	public void updateWithdraw(String memberId) {
-		userMapper.updateWithdraw(memberId);
-	}
 
-	public void deleteMember(String memberId) {
+	public void adminDeleteMember(String memberId) {
+		userMapper.deleteReservation(memberId);
+		userMapper.deleteQuestion(memberId);
+		userMapper.deletePurchasse(memberId);
+		userMapper.deleteReview(memberId);
 		userMapper.deleteUser(memberId);
 	}
 }

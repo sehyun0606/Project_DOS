@@ -179,7 +179,7 @@
 			let message = confirm("탈퇴하시겠습니까?");
 			if(message){
 				let member_id = $(event.target).siblings(".member_id").text();
-				location.href = "MemberWithdraw?memberId=" + member_id;
+				location.href = "AdminMemberWithdraw?memberId=" + member_id;
 			}
 		})
 		
